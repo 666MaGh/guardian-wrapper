@@ -3,7 +3,7 @@
   "sources": {
     "guardian": {
       "origin": "User-provided Claude/Codex chat output, attribution supplied by user",
-      "version": "0.3.0 adapted for wrapper 0.1.0",
+      "version": "0.3.0 adapted for wrapper 0.2.0",
       "license": "MIT"
     },
     "mattpocock": {
@@ -77,7 +77,8 @@
     "ICM authoritative AGENTS.md and CLAUDE.md import convention",
     "Explicit-only Codex metadata added when absent; upstream skill policy retained",
     "ADHD startup reference generated from the supplied skill; old global opt-in hook removed",
-    "New project-scoped fswatch script and CLI replace the supplied watcher implementation"
+    "New project-scoped fswatch script and CLI replace the supplied watcher implementation",
+    "Guardian guided chat/project context migration and handoff template added by wrapper author"
   ],
   "files": {
     "catalog.json": "e8057cf96ef4dada103973161dbf030282b1deea4dd08ad5c8013e632ec3154f",
@@ -128,6 +129,7 @@
     "skills/guardian/agents/openai.yaml": "2a1ae54d6c837dab1e915346fadfafd2b0afa0eab7b7ec2b9cb7f6cca02f5f19",
     "skills/guardian/assets/icon.svg": "8936b24f674a1250d999e2c2b5901374fb4240426f32bd1ae340c352a90d617d",
     "skills/guardian/assets/start-sv.md": "326078df0f34ce32e430962750216be93a9b4d048d80b06d591a912379620753",
+    "skills/guardian/assets/templates/context-handoff.md": "c8f97dcb37ea5b109c4f0200e562be2d6eb99940ae2c18557bea68e3d06d1290",
     "skills/guardian/assets/templates/project-config.md": "179a9c52ba1308b8609769ad278052883a293781fb17b313eb1052f1a0c0c8c3",
     "skills/guardian/assets/templates/work.md": "db916f6621effd1ed513d1d1381855fb9c80bbcb580536907f91cf0b74d41c5c",
     "skills/guardian/LICENSE": "15b75c755a04420b586cd3e25670b990718f0fc1e7755478e800ca8019b03240",
@@ -135,8 +137,9 @@
     "skills/guardian/references/change.md": "d691d4df7a64242af3da7e33008e0ce92710e98386866831f2b765dc7c0ec1bc",
     "skills/guardian/references/integration.md": "74bfdc845b55f6d53b12864c465d17042e5afd0e75a954979943f4a769aa4f84",
     "skills/guardian/references/memory.md": "82a85f982106811a2eb67088a682853f00ef282586f932f713d03f474e8989e6",
+    "skills/guardian/references/migration.md": "259810f7b2ba45115e32a707cd7713c724539dca7a084c98e7842bb0ab78cfec",
     "skills/guardian/references/verification.md": "02967906eef43caaab987c943c418b1136ad631ef86a5c304594e7c4759648a7",
-    "skills/guardian/SKILL.md": "0d1baee6630baa64acd83069a0aee9b920a61f97060d7e6fdd2afcb518d99fbb",
+    "skills/guardian/SKILL.md": "6f076979e459f6741c63a99a5379764db5a8426a83da71f8c2eb3a7d79fd55d7",
     "skills/handoff/agents/openai.yaml": "5c479fd562c691851690e8b18c8501045bef0943c10743d636b2fae26add1d28",
     "skills/handoff/LICENSE": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
     "skills/handoff/SKILL.md": "7c62de979fdc7ac32fb5ddb2146156c917f80ee070d30fadc9d40343c4b6ed25",

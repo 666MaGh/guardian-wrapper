@@ -41,3 +41,9 @@ Owner confirmed as 666MaGh; proposed name guardian-wrapper. gh is authenticated 
 GitHub secret scanning and push protection are enabled. Private vulnerability reporting, Dependabot alerts and automated security-fix pull requests are enabled. The initial secret scanning alert query returned no alerts. Release 0.1.0 is designated a prerelease because fresh model-session acceptance remains pending. Required branch checks use the actual four passing job names and GitHub Actions application identity.
 
 A new npm ci completed successfully after two temporary GitHub HTTP 500 responses for the tree-sitter-cli binary. No dependency or install-script bypass was introduced. All 20 tests, typecheck, asset checks and runtime advisory audit passed after that clean reinstall.
+
+## Guided migration candidate — 0.2.0
+
+Added bounded source/target inventory, saved-chat references, nested/inherited instruction discovery, a user-editable review brief and Guardian's question/proposal/apply workflow. The migration command itself performs no semantic imports or setup installation.
+
+26 local tests pass, including preservation of original documents/source projects, dry-run, existing-brief protection, symlink/vendor exclusion, scoped rules/commands, invalid/binary/oversized inputs and coexistence with init/update/uninstall. Strict typecheck and asset integrity checks pass. Real-project inventory was checked read-only. No new runtime dependency was added. Interactive semantic migration has not been model-validated; it still requires the user's answers and proposal review.

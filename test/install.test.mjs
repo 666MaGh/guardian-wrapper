@@ -8,6 +8,7 @@ import test from 'node:test';
 import { applyPlan, listFiles, hash } from '../dist/files.js';
 import { planInstall, planUninstall, readInstallation, selectProfile, installationProblems, startMarker } from '../dist/install.js';
 import { exportPlugin } from '../dist/plugin.js';
+import { version } from '../dist/bundle.js';
 
 const cli = resolve('dist/cli.js');
 const core = { groups: ['core'], graft: false };
@@ -246,7 +247,7 @@ test('an npm-style symlink entrypoint runs the CLI', t => {
   symlinkSync(cli, executable);
   const result = spawnSync(process.execPath, [executable, '--version'], { encoding: 'utf8' });
   assert.equal(result.status, 0, result.stderr);
-  assert.equal(result.stdout.trim(), '0.1.0');
+  assert.equal(result.stdout.trim(), version);
 });
 
 test('the actual sh/fswatch pipeline observes editor changes without a Git parent', { skip: spawnSync('fswatch', ['--version'], { stdio: 'ignore' }).status !== 0 }, async t => {

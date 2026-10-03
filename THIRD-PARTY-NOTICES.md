@@ -1,6 +1,6 @@
 # Sources and adaptations
 
-The wrapper CLI, installer, project watcher and adapted Guardian distribution are MIT, copyright 2026 Martin Ghaoui. Guardian and the initial installer/watcher were supplied by the user as Claude/Codex chat output; the original conversation has not been independently inspected.
+The wrapper CLI, installer, project watcher, guided migration workflow and adapted Guardian distribution are MIT, copyright 2026 Martin Ghaoui. Guardian and the initial installer/watcher were supplied by the user as Claude/Codex chat output; the original conversation has not been independently inspected.
 
 ## Matt Pocock skills
 

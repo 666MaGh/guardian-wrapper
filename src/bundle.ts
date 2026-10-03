@@ -6,7 +6,7 @@ import type { Installation, OwnedFile, Profile, Skill } from './types.js';
 
 export const packageRoot: string = fileURLToPath(new URL('../', import.meta.url));
 export const assetsRoot: string = join(packageRoot, 'assets');
-export const version: string = '0.1.0';
+export const version: string = '0.2.0';
 
 export function object(value: unknown): Record<string, unknown> {
   if (typeof value !== 'object' || value === null || Array.isArray(value)) throw new Error('Expected JSON object');

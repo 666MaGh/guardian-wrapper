@@ -28,14 +28,14 @@ npm run build
 node dist/cli.js init /path/to/project --groups all
 ```
 
-Alternatively download the npm tarball from [GitHub Releases](https://github.com/666MaGh/guardian-wrapper/releases). Version 0.1.0 is a prerelease: project installation is tested, while fresh model-session behavior remains pending.
+Alternatively download the npm tarball from [GitHub Releases](https://github.com/666MaGh/guardian-wrapper/releases). Versions 0.1.0 and 0.2.0 are prereleases: project installation is tested, while fresh model-session behavior remains pending.
 
 After building, **the last line is the single project setup command**. It works in ordinary directories and Git worktrees; it does not create a Git repository or adopt the product domain.
 
 To install the CLI itself from a local tarball produced by `npm pack`:
 
 ```sh
-npm install -g ./guardian-context-wrapper-0.1.0.tgz
+npm install -g ./guardian-context-wrapper-0.2.0.tgz
 guardian-wrapper init /path/to/project --groups all
 ```
 
@@ -50,6 +50,31 @@ Open the initialized project in Claude Code or Codex and start a fresh conversat
 Confirm that the project-local Guardian is used. Claude project skills can be explicitly requested with `/guardian`; Codex skills with `$guardian`. Host UI/version determines the available invocation interface. Complete [fresh-session checks](docs/HOST-VERIFICATION.md) before treating a host/project combination as verified.
 
 After adoption, try a bounded request such as: "Use Guardian to fix this bug, reproduce it first, and report what was verified." Request user-only specialist workflows explicitly; they are never chained automatically. Matt's tracker/domain setup is a separate opt-in workflow and can change project documentation; review its proposed changes against this wrapper's AGENTS.md convention.
+
+## Migrate chat or project context
+
+`migrate` prepares a local review brief. It inventories the target's root/nested AGENTS.md, CLAUDE.md, README.md, glossary and agent rules; optional sources can be another project, a saved chat handoff, or both. It records source paths/hashes and leaves existing documents intact. It neither installs the setup nor copies source assertions into policy.
+
+```sh
+# Reconcile an existing project or prepare a new setup in an existing empty folder.
+guardian-wrapper migrate /path/to/project
+# Bring knowledge from a saved chat summary.
+guardian-wrapper migrate /path/to/project --from-chat /path/to/handoff.md
+# Transfer selected context from another project.
+guardian-wrapper migrate /path/to/new-project --from-project /path/to/source-project
+# Inspect the inputs/questions without writing anything.
+guardian-wrapper migrate /path/to/project --from-project /path/to/source-project --dry-run
+```
+
+Then open a new agent conversation in the target and ask:
+
+> Read .guardian/migration.md and inspect the listed inputs. Ask me the unresolved migration questions, then show the proposed file/content changes for my review before applying them.
+
+The brief embeds the workflow, so it also works before Guardian is installed. The agent asks about purpose, what remains valid, conflicts, existing rules, glossary, hosts/skills, tracker and checks. After your answers it shows a source-to-destination proposal and the setup dry run. Approved context/setup changes are applied only to the target; the source remains intact. Existing user text and subtree rules are preserved. See [migration workflow](assets/skills/guardian/references/migration.md).
+
+For the current chat, ask Guardian to create a reviewed handoff using [this template](assets/skills/guardian/assets/templates/context-handoff.md). For a different chat, supply a pasted summary/export file. The CLI does not connect to a chat service or call an LLM; semantic synthesis and questions happen in your agent conversation. File inventory is not a conflict-resolution engine. Sources outside the target may need host file-access approval.
+
+`.guardian/migration.md` is user-editable, never overwritten, and not claimed by the installation manifest. Move a completed brief before preparing a new one. It contains machine-local paths: keep it local; init adds its gitignore entry. Dry-run is fully read-only. Discovery skips symlinks and common generated/vendor directories and is bounded to 12 levels, 10,000 entries and 200 context files; each input is limited to 1 MiB. Use focused summaries/subprojects for larger sources. The 0.1.0 package predates this command. It is available in the 0.2.0 candidate checkout; use the source instructions above until that release is published.
 
 ## Choose a profile
 

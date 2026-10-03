@@ -74,17 +74,17 @@ function desiredFiles(profile: Profile): Map<string, { data: Buffer; kind: 'file
   const skillShelf = profile.hosts.includes('codex') ? '.agents/skills' : '.claude/skills';
   const rules = [
     '# Guardian project guidance',
-    `Read ${skillShelf}/guardian/SKILL.md for project adoption, changes, fixes and verification.`,
+    `Read ${skillShelf}/guardian/SKILL.md for project adoption, context migration, changes, fixes and verification.`,
     'Before changing code, read docs/agents/guardian.md for installed capabilities and verification commands.',
     ...(profile.graft ? ['Read graft/INDEX.md and relevant cards before code edits. Refresh missing or stale cards with node .guardian/bin/guardian.mjs graft . build. Verify affected source and callers.'] : []),
     'TypeScript: use strict types and unknown at external boundaries; no explicit or implicit any. Give public functions, components and hooks explicit return types.',
     'Keep changes scoped to the authorized task; preserve existing work and verify observable behavior.',
     ...(profile.adhd ? ['ADHD format is active: read .guardian/communication.md at session start. Honor "stop adhd mode" for this session; project default remains enabled until changed through the CLI.'] : []),
-    'Domain terminology belongs in GLOSSARY.md; ICM operational contracts belong under docs/map/. Create them only with real content.',
+    'Use the project’s approved domain glossary (GLOSSARY.md for new setups); preserve existing conventions until a reviewed migration. ICM operational contracts belong under docs/map/. Create them only with real content.',
   ];
   file('AGENTS.md', block(rules.join('\n')), 'block');
   file('CLAUDE.md', block('@AGENTS.md'), 'block');
-  file('.gitignore', block(['graft/', '.guardian/install.lock', '.guardian/runtime.json'].join('\n')), 'block');
+  file('.gitignore', block(['graft/', '.guardian/install.lock', '.guardian/runtime.json', '.guardian/migration.md'].join('\n')), 'block');
   const bindings = catalog().filter(skill => profile.skills.includes(skill.name)).map(skill => `| ${skill.name} | ${skill.provider} | ${skill.userOnly ? 'User only' : 'Model or user'} |`);
   file('docs/agents/guardian.md', block([
     '# Guardian installation',
