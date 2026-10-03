@@ -17,7 +17,7 @@ Requires Node >=22.12 and npm. Claude Code or Codex must be installed and authen
 
 ## Verification and compatibility
 
-20 local integration tests passed, including actual fswatch graph updates; strict typecheck, asset hashes/licenses and native Claude plugin validation passed. Release tarball installation is checked separately. Remote CI results are recorded in VALIDATION.md.
+20 local integration tests passed, including actual fswatch graph updates; strict typecheck, asset hashes/licenses and native Claude plugin validation passed. Release tarball installation is checked separately. All four macOS/Linux jobs on Node 22/24 passed on the initial publication commit; the final release commit is also checked before publication. Results are recorded in VALIDATION.md.
 
 This is a prerelease. Fresh Claude Code and Codex model sessions have not been verified; file installation and plugin-manifest validation do not prove agent behavior. Experimental upstream skills and host-specific workflows require their own capabilities. Windows is not supported in this release.
 
