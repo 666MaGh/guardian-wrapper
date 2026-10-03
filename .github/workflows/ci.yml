@@ -1,0 +1,29 @@
+name: Verify wrapper
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        node: [22, 24]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - name: Install fswatch (Linux)
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y fswatch
+      - name: Install fswatch (macOS)
+        if: runner.os == 'macOS'
+        run: brew install fswatch
+      - run: npm ci
+      - run: npm test
+      - run: npm run typecheck
+      - run: npm run check:assets
+      - run: bash -n assets/scripts/watch-graft.sh
+      - run: npm pack --dry-run

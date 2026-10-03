@@ -1,0 +1,242 @@
+[
+  {
+    "name": "ask-matt",
+    "group": "engineering",
+    "provider": "mattpocock",
+    "userOnly": true
+  },
+  {
+    "name": "code-review",
+    "group": "engineering",
+    "provider": "mattpocock",
+    "userOnly": false
+  },
+  {
+    "name": "codebase-design",
+    "group": "engineering",
+    "provider": "mattpocock",
+    "userOnly": false
+  },
+  {
+    "name": "diagnosing-bugs",
+    "group": "engineering",
+    "provider": "mattpocock",
+    "userOnly": false
+  },
+  {
+    "name": "domain-modeling",
+    "group": "engineering",
+    "provider": "mattpocock",
+    "userOnly": false
+  },
+  {
+    "name": "grill-with-docs",
+    "group": "engineering",
+    "provider": "mattpocock",
+    "userOnly": true
+  },
+  {
+    "name": "implement",
+    "group": "engineering",
+    "provider": "mattpocock",
+    "userOnly": true
+  },
+  {
+    "name": "implement-spec",
+    "group": "engineering",
+    "provider": "mattpocock",
+    "userOnly": true
+  },
+  {
+    "name": "improve-codebase-architecture",
+    "group": "engineering",
+    "provider": "mattpocock",
+    "userOnly": true
+  },
+  {
+    "name": "pr",
+    "group": "engineering",
+    "provider": "mattpocock",
+    "userOnly": false
+  },
+  {
+    "name": "prototype",
+    "group": "engineering",
+    "provider": "mattpocock",
+    "userOnly": false
+  },
+  {
+    "name": "research",
+    "group": "engineering",
+    "provider": "mattpocock",
+    "userOnly": false
+  },
+  {
+    "name": "retro",
+    "group": "engineering",
+    "provider": "mattpocock",
+    "userOnly": true
+  },
+  {
+    "name": "setup-matt-pocock-skills",
+    "group": "engineering",
+    "provider": "mattpocock",
+    "userOnly": true
+  },
+  {
+    "name": "tdd",
+    "group": "engineering",
+    "provider": "mattpocock",
+    "userOnly": false
+  },
+  {
+    "name": "to-spec",
+    "group": "engineering",
+    "provider": "mattpocock",
+    "userOnly": true
+  },
+  {
+    "name": "to-tickets",
+    "group": "engineering",
+    "provider": "mattpocock",
+    "userOnly": true
+  },
+  {
+    "name": "triage",
+    "group": "engineering",
+    "provider": "mattpocock",
+    "userOnly": true
+  },
+  {
+    "name": "wayfinder",
+    "group": "engineering",
+    "provider": "mattpocock",
+    "userOnly": true
+  },
+  {
+    "name": "wizard",
+    "group": "engineering",
+    "provider": "mattpocock",
+    "userOnly": false
+  },
+  {
+    "name": "grill-me",
+    "group": "productivity",
+    "provider": "mattpocock",
+    "userOnly": true
+  },
+  {
+    "name": "grilling",
+    "group": "productivity",
+    "provider": "mattpocock",
+    "userOnly": false
+  },
+  {
+    "name": "handoff",
+    "group": "productivity",
+    "provider": "mattpocock",
+    "userOnly": true
+  },
+  {
+    "name": "teach",
+    "group": "productivity",
+    "provider": "mattpocock",
+    "userOnly": true
+  },
+  {
+    "name": "to-questionnaire",
+    "group": "productivity",
+    "provider": "mattpocock",
+    "userOnly": true
+  },
+  {
+    "name": "wait-what",
+    "group": "productivity",
+    "provider": "mattpocock",
+    "userOnly": true
+  },
+  {
+    "name": "writing-for-agents",
+    "group": "productivity",
+    "provider": "mattpocock",
+    "userOnly": false
+  },
+  {
+    "name": "git-guardrails-claude-code",
+    "group": "misc",
+    "provider": "mattpocock",
+    "userOnly": false
+  },
+  {
+    "name": "migrate-to-shoehorn",
+    "group": "misc",
+    "provider": "mattpocock",
+    "userOnly": false
+  },
+  {
+    "name": "scaffold-exercises",
+    "group": "misc",
+    "provider": "mattpocock",
+    "userOnly": false
+  },
+  {
+    "name": "setup-pre-commit",
+    "group": "misc",
+    "provider": "mattpocock",
+    "userOnly": false
+  },
+  {
+    "name": "claude-handoff",
+    "group": "in-progress",
+    "provider": "mattpocock",
+    "userOnly": true
+  },
+  {
+    "name": "loop-me",
+    "group": "in-progress",
+    "provider": "mattpocock",
+    "userOnly": true
+  },
+  {
+    "name": "setup-ts-deep-modules",
+    "group": "in-progress",
+    "provider": "mattpocock",
+    "userOnly": true
+  },
+  {
+    "name": "writing-beats",
+    "group": "in-progress",
+    "provider": "mattpocock",
+    "userOnly": true
+  },
+  {
+    "name": "writing-fragments",
+    "group": "in-progress",
+    "provider": "mattpocock",
+    "userOnly": true
+  },
+  {
+    "name": "writing-shape",
+    "group": "in-progress",
+    "provider": "mattpocock",
+    "userOnly": true
+  },
+  {
+    "name": "guardian",
+    "group": "core",
+    "provider": "guardian",
+    "userOnly": false
+  },
+  {
+    "name": "icm-architect",
+    "group": "core",
+    "provider": "icm-architect",
+    "userOnly": false
+  },
+  {
+    "name": "i-have-adhd",
+    "group": "core",
+    "provider": "i-have-adhd",
+    "userOnly": true
+  }
+]

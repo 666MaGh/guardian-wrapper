@@ -1,0 +1,48 @@
+{
+  "name": "guardian-context-wrapper",
+  "version": "0.1.0",
+  "description": "Project-local Guardian, ICM, ADHD, Matt Pocock skills and graft for Claude Code and Codex",
+  "type": "module",
+  "license": "MIT",
+  "author": "Martin Ghaoui",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "bin": {
+    "guardian-wrapper": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "assets",
+    "LICENSE",
+    "THIRD-PARTY-NOTICES.md",
+    "sources.lock.json",
+    "npm-shrinkwrap.json",
+    "README.md",
+    "docs",
+    "CONTRIBUTING.md",
+    "VALIDATION.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "test": "npm run build && node --test test/*.test.mjs",
+    "check:assets": "node scripts/check-assets.mjs",
+    "prepack": "npm run build && npm run check:assets"
+  },
+  "dependencies": {
+    "@nanonets/graft": "0.21.1"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "@types/node": "22.19.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/666MaGh/guardian-wrapper.git"
+  },
+  "homepage": "https://github.com/666MaGh/guardian-wrapper#readme",
+  "bugs": {
+    "url": "https://github.com/666MaGh/guardian-wrapper/issues"
+  }
+}
