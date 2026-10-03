@@ -51,6 +51,7 @@ The runtime stays with the wrapper installation. Target applications do not gain
 | src/files.ts | Safe paths, hashing, locks, transaction and rollback |
 | src/graft.ts | Pinned graph runtime, build lock and watcher event queue |
 | src/plugin.ts | Claude export |
+| src/migration.ts | Bounded document inventory and local migration review brief; no automatic semantic imports |
 | src/bundle.ts and src/types.ts | Bundle metadata and typed boundaries |
 | assets/catalog.json | Skill selection and invocation-policy inventory |
 | assets/skills | Vendored instructions and supporting resources |
@@ -60,7 +61,7 @@ The runtime stays with the wrapper installation. Target applications do not gain
 
 ## Exact foundations
 
-- Guardian: user-supplied 0.3.0 adapted for wrapper 0.1.0. The original installer embedded Guardian only; it was not a complete ICM/Matt distribution. Supplied installer and watcher informed the design; the Python installer is replaced by the TypeScript CLI and the watcher is rewritten.
+- Guardian: user-supplied 0.3.0 adapted for wrapper 0.2.0. The original installer embedded Guardian only; it was not a complete ICM/Matt distribution. Supplied installer and watcher informed the design; the Python installer is replaced by the TypeScript CLI and the watcher is rewritten.
 - ICM: RinDig/icm-architect at e16cafe6a664dcf6d787a726b452adba77d913f4, MIT Jake Van Clief. Entry templates now use AGENTS.md authority and CLAUDE.md import.
 - Matt: mattpocock/skills at d81f3a183412e71a5b1e84ca21bc1a35eea03a60, upstream plugin 1.2.3, MIT Matt Pocock. Full resources and original explicit-only policy are retained; Codex metadata is added where needed.
 - ADHD: supplied local snapshot of ayghri/i-have-adhd, MIT Ayoub Ghriss. No upstream revision is claimed. Startup communication is generated from the skill body; the old global hook is excluded.

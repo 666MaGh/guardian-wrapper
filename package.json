@@ -1,6 +1,6 @@
 {
   "name": "guardian-context-wrapper",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Project-local Guardian, ICM, ADHD, Matt Pocock skills and graft for Claude Code and Codex",
   "type": "module",
   "license": "MIT",

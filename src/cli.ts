@@ -9,6 +9,7 @@ import { applyPlan } from './files.js';
 import { graftRoot, runGraft, toolAvailable, watchEvents } from './graft.js';
 import { installationProblems, planInstall, planUninstall, projectRoot, readInstallation } from './install.js';
 import { exportPlugin } from './plugin.js';
+import { prepareMigration } from './migration.js';
 import type { InitOptions, Plan, Profile } from './types.js';
 
 const help: string = `Guardian Wrapper ${version}
@@ -18,6 +19,7 @@ guardian-wrapper init [project] [--groups engineering,productivity|all|core]
   [--graft on|off] [--watch] [--dry-run]
 guardian-wrapper update [project] [same options]
 guardian-wrapper doctor [project]
+guardian-wrapper migrate [project] [--from-project <path>] [--from-chat <file>] [--dry-run]
 guardian-wrapper config [project] adhd on|off [--dry-run]
 guardian-wrapper uninstall [project] [--dry-run]
 guardian-wrapper graft [project] build|check|ask|grep|map|callers|skeleton|viz [args]
@@ -133,6 +135,7 @@ export async function main(args: string[]): Promise<number> {
     if (['help', '--help', '-h'].includes(command)) { console.log(help); return 0; }
     if (command === '--version') { console.log(version); return 0; }
     verifyBundle();
+    if (command === 'migrate') { prepareMigration(args.slice(1)); return 0; }
     if (command === 'list') {
       for (const skill of catalog()) console.log(`${skill.group.padEnd(13)} ${skill.name}${skill.userOnly ? ' (user only)' : ''}`);
       return 0;

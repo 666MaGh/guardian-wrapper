@@ -19,7 +19,7 @@ walk(join(root, 'assets'));
 writeFileSync(join(root, 'sources.lock.json'), JSON.stringify({
   schema: 1,
   sources: {
-    guardian: { origin: 'User-provided Claude/Codex chat output, attribution supplied by user', version: '0.3.0 adapted for wrapper 0.1.0', license: 'MIT' },
+    guardian: { origin: 'User-provided Claude/Codex chat output, attribution supplied by user', version: '0.3.0 adapted for wrapper 0.2.0', license: 'MIT' },
     mattpocock: { url: 'https://github.com/mattpocock/skills', revision: 'd81f3a183412e71a5b1e84ca21bc1a35eea03a60', version: '1.2.3', license: 'MIT', skills: skills.filter(skill => skill.provider === 'mattpocock').map(skill => skill.name) },
     'icm-architect': { url: 'https://github.com/RinDig/icm-architect', origin: 'User-provided installed Git checkout, tracked files clean before wrapper adaptations', revision: 'e16cafe6a664dcf6d787a726b452adba77d913f4', copyright: '2026 Jake Van Clief', license: 'MIT' },
     'i-have-adhd': { url: 'https://github.com/ayghri/i-have-adhd', origin: 'User-provided installed skill snapshot; upstream copyright/license retained', revision: null, license: 'MIT' },
@@ -30,7 +30,8 @@ writeFileSync(join(root, 'sources.lock.json'), JSON.stringify({
     'ICM authoritative AGENTS.md and CLAUDE.md import convention',
     'Explicit-only Codex metadata added when absent; upstream skill policy retained',
     'ADHD startup reference generated from the supplied skill; old global opt-in hook removed',
-    'New project-scoped fswatch script and CLI replace the supplied watcher implementation'
+    'New project-scoped fswatch script and CLI replace the supplied watcher implementation',
+    'Guardian guided chat/project context migration and handoff template added by wrapper author'
   ],
   files: Object.fromEntries(Object.entries(files).sort(([left], [right]) => left.localeCompare(right)))
 }, null, 2) + '\n');

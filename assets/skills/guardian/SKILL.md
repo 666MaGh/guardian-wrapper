@@ -1,6 +1,6 @@
 ---
 name: guardian
-description: Coordinate app changes, bug fixes, project memory, and adoption of existing repositories using bundled ICM Architect and Matt Pocock skills. Use when the user asks Guardian to adopt, build, fix, verify, or report on a coding project. Supports Claude Code and Codex project installations or namespaced plugins.
+description: Coordinate app changes, bug fixes, project memory, adoption and guided context migration using bundled ICM Architect and Matt Pocock skills. Use when the user asks Guardian to adopt, migrate chat or project context, build, fix, verify, or report on a coding project. Supports Claude Code and Codex project installations or namespaced plugins.
 ---
 
 # Guardian
@@ -10,6 +10,7 @@ Be the user's single entry into a maintainable app project. Speak Swedish unless
 ## Entry and routing
 
 Interpret the request as one of:
+- `migrate` / "för över kontext" / "migrera setup": import chat knowledge, transfer selected context from another project, or reconcile an existing setup. Read [migration](references/migration.md) and a prepared .guardian/migration.md when present.
 - `adopt` / "strukturera befintligt bygge": inspect and adopt a repository. Read [adoption](references/adoption.md).
 - `setup`: establish only the memory and checks needed by a new project. Read [memory](references/memory.md).
 - `change` / "bygg": implement an authorized change. Read [change](references/change.md).
