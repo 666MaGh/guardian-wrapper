@@ -56,13 +56,15 @@ After adoption, try a bounded request such as: "Use Guardian to fix this bug, re
 For guided onboarding, run one command in an interactive terminal:
 
 ```sh
-guardian-wrapper onboard /path/to/project --host claude
-# Or use Codex; optional inputs are a source project and/or saved chat handoff.
+guardian-wrapper onboard /path/to/project
+# Or choose explicitly; optional inputs are a source project and/or saved chat handoff.
 guardian-wrapper onboard /path/to/project --host codex --from-chat /path/to/handoff.md
 guardian-wrapper onboard /path/to/new-project --host codex --from-project /path/to/source-project
 ```
 
-`onboard` prepares `.guardian/migration.md` and opens a fresh session of the selected agent with the onboarding request already supplied. The agent inspects existing instructions, asks unresolved questions in small rounds, waits for answers and presents concrete changes for approval before applying setup/context changes. It works in an existing empty folder or a project that already has instructions/setup. `init` remains the installation command; onboarding is an explicit command, not an init or SessionStart hook. The CLI must already be installed and signed in; its normal trust/permission prompts and account limits still apply. Existing global settings are retained, so verify provider conflicts during onboarding.
+`onboard` checks the Claude Code and Codex CLI executables in PATH using `--version`. A single working CLI is selected automatically; when both work it asks which one to use, and when neither works it shows installation/sign-in guidance. Detection checks executables, not authentication, subscriptions or which app invoked the wrapper. Use `--host claude|codex` to choose explicitly. A noninteractive dry-run with both available requires `--host`.
+
+It prepares `.guardian/migration.md` and opens a fresh session of the selected agent with the onboarding request already supplied. The agent inspects existing instructions, asks unresolved questions in small rounds, waits for answers and presents concrete changes for approval before applying setup/context changes. It works in an existing empty folder or a project that already has instructions/setup. `init` remains the installation command; onboarding is an explicit command, not an init or SessionStart hook. The CLI must already be installed and signed in; its normal trust/permission prompts and account limits still apply. Existing global settings are retained, so verify provider conflicts during onboarding.
 
 Use `--dry-run` to preview without writes or agent launch. Use `--resume` to reopen an existing brief without overwriting your decisions; it cannot be combined with new source flags. If the agent exits or its account is limited, the prepared brief remains available for resuming with either host:
 
@@ -187,3 +189,7 @@ npm pack
 Tests cover installation, preservation, conflicts, symlinks/case collisions, rollback, selection, plugin output and real graft changes. CI config targets macOS/Linux with Node 22/24; local validation does not claim those remote jobs ran. Doctor verifies owned bytes/blocks and reports tool presence. It does not certify host discovery, subagent permission, application tests or CI enforcement.
 
 Vendored source snapshots and exact hashes are in sources.lock.json; npm runtime resolution is in package-lock.json and the synchronized npm-shrinkwrap.json included in the release. Maintainers change assets deliberately, regenerate the communication reference when its skill changes, run `node scripts/lock-assets.mjs`, then verify. No upstream refresh happens during feature work. See THIRD-PARTY-NOTICES.md for sources and adaptations.
+
+## Optional project memory
+
+Hindsight is a possible future addon for remembering reviewed decisions and session summaries across Claude/Codex sessions. It is not installed or required by this wrapper. See the [source review and proposed integration](docs/HINDSIGHT.md) for the available mechanisms, added dependencies and project-scoped design.

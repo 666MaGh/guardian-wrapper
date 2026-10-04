@@ -21,7 +21,7 @@ guardian-wrapper init [project] [--groups engineering,productivity|all|core]
 guardian-wrapper update [project] [same options]
 guardian-wrapper doctor [project]
 guardian-wrapper migrate [project] [--from-project <path>] [--from-chat <file>] [--dry-run]
-guardian-wrapper onboard [project] --host claude|codex
+guardian-wrapper onboard [project] [--host claude|codex]
   [--from-project <path>] [--from-chat <file>] [--resume] [--dry-run]
 guardian-wrapper config [project] adhd on|off [--dry-run]
 guardian-wrapper uninstall [project] [--dry-run]
