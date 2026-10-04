@@ -52,6 +52,7 @@ The runtime stays with the wrapper installation. Target applications do not gain
 | src/graft.ts | Pinned graph runtime, build lock and watcher event queue |
 | src/plugin.ts | Claude export |
 | src/migration.ts | Bounded document inventory and local migration review brief; no automatic semantic imports |
+| src/onboarding.ts | Explicit interactive Claude/Codex launch with the review workflow supplied; preserves existing briefs on resume |
 | src/bundle.ts and src/types.ts | Bundle metadata and typed boundaries |
 | assets/catalog.json | Skill selection and invocation-policy inventory |
 | assets/skills | Vendored instructions and supporting resources |

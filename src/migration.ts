@@ -62,7 +62,7 @@ function inventory(root: string): Inventory {
   return result;
 }
 
-export function prepareMigration(args: string[]): void {
+export function prepareMigration(args: string[], quiet: boolean = false): string {
   let target = '.';
   let hasTarget = false;
   let sourceProject: string | null = null;
@@ -102,9 +102,13 @@ export function prepareMigration(args: string[]): void {
   const path = '.guardian/migration.md';
   const before = readOptional(root, path);
   if (before !== null) throw new Error('A migration brief already exists; review or move it before preparing another. It is never overwritten.');
-  console.log(body);
-  if (dryRun) { console.log('Dry run: no files written, no init, no downloads, no graph build.'); return; }
+  if (!quiet) console.log(body);
+  if (dryRun) {
+    console.log('Dry run: no files written, no init, no downloads, no graph build.');
+    return root;
+  }
   const plan: Plan = { root, installation: null, changes: [{ path, before: null, after: Buffer.from(body) }] };
   applyPlan(plan);
-  console.log(`Prepared ${join(root, path)}. Open a fresh agent session in the target and ask: Read .guardian/migration.md, inspect the listed inputs, and ask me the migration questions before making changes.`);
+  if (!quiet) console.log(`Prepared ${join(root, path)}. Start onboarding with: guardian-wrapper onboard ${JSON.stringify(root)} --host claude --resume (or select --host codex)`);
+  return root;
 }

@@ -138,3 +138,7 @@ Default: core + engineering + productivity (30). --groups all adds misc and in-p
 | to-questionnaire | productivity | mattpocock | Explicit user request |
 | wait-what | productivity | mattpocock | Explicit user request |
 | writing-for-agents | productivity | mattpocock | Host may invoke |
+
+## Guided onboarding
+
+`onboard --host claude|codex` requires an interactive terminal and the selected CLI installed and authenticated. It launches the normal interactive host with a starting prompt; it installs no SDK, connector, hook or credentials. The host's trust prompts, permissions, global configuration and account limits remain active. `--dry-run` and `migrate` require neither an authenticated host nor a provider request. External source documents may require host read-access approval. Source directories are not added as writable workspaces.
