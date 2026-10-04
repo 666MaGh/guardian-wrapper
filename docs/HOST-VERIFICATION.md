@@ -1,6 +1,6 @@
 # Fresh host acceptance checks
 
-File installation and native plugin manifest checks have passed. Actual model behavior in a new Claude Code or Codex conversation is not yet recorded. Run these checks before promoting v0.1.0 from a prerelease. Use a disposable project; record host version, wrapper version, profile and date, without credentials or private application code.
+File installation and native plugin manifest checks have passed. Read-only fresh-session behavior has been recorded for Codex project skills and the Claude plugin alternative; see VALIDATION.md. The complete checklist below remains a release gate. Run these checks before promoting v0.1.0 from a prerelease. Use a disposable project; record host version, wrapper version, profile and date, without credentials or private application code.
 
 ## Project skills — test each host separately
 
@@ -22,3 +22,7 @@ Export to a new directory; run claude plugin validate. Initialize the fixture wi
 ## Evidence record
 
 For each path, record environment, command/profile, discovered provider identifier, expected/observed result, test output and unresolved limitations. Store a short sanitized report in VALIDATION.md or a linked report. The release gate passes only when both project host paths work; plugin behavior is a separate claim. Host-specific upstream experiments may remain explicitly unsupported and must not be advertised as universally verified.
+
+## Onboarding acceptance
+
+Run `onboard <fixture> --host claude|codex` in an interactive terminal. Verify that it opens the selected agent in the target, supplies the embedded migration workflow and asks unresolved questions before proposing or applying changes. Check an existing instruction conflict, a saved chat assertion and an external source project. Close the agent and use `--resume`: the brief must remain intact. Verify normal trust/permission handling and a concrete proposal including init dry-run before approving application. A launcher test or read-only inspection alone does not certify the complete semantic migration.

@@ -53,6 +53,23 @@ After adoption, try a bounded request such as: "Use Guardian to fix this bug, re
 
 ## Migrate chat or project context
 
+For guided onboarding, run one command in an interactive terminal:
+
+```sh
+guardian-wrapper onboard /path/to/project --host claude
+# Or use Codex; optional inputs are a source project and/or saved chat handoff.
+guardian-wrapper onboard /path/to/project --host codex --from-chat /path/to/handoff.md
+guardian-wrapper onboard /path/to/new-project --host codex --from-project /path/to/source-project
+```
+
+`onboard` prepares `.guardian/migration.md` and opens a fresh session of the selected agent with the onboarding request already supplied. The agent inspects existing instructions, asks unresolved questions in small rounds, waits for answers and presents concrete changes for approval before applying setup/context changes. It works in an existing empty folder or a project that already has instructions/setup. `init` remains the installation command; onboarding is an explicit command, not an init or SessionStart hook. The CLI must already be installed and signed in; its normal trust/permission prompts and account limits still apply. Existing global settings are retained, so verify provider conflicts during onboarding.
+
+Use `--dry-run` to preview without writes or agent launch. Use `--resume` to reopen an existing brief without overwriting your decisions; it cannot be combined with new source flags. If the agent exits or its account is limited, the prepared brief remains available for resuming with either host:
+
+```sh
+guardian-wrapper onboard /path/to/project --host codex --resume
+```
+
 `migrate` prepares a local review brief. It inventories the target's root/nested AGENTS.md, CLAUDE.md, README.md, glossary and agent rules; optional sources can be another project, a saved chat handoff, or both. It records source paths/hashes and leaves existing documents intact. It neither installs the setup nor copies source assertions into policy.
 
 ```sh
@@ -72,7 +89,7 @@ Then open a new agent conversation in the target and ask:
 
 The brief embeds the workflow, so it also works before Guardian is installed. The agent asks about purpose, what remains valid, conflicts, existing rules, glossary, hosts/skills, tracker and checks. After your answers it shows a source-to-destination proposal and the setup dry run. Approved context/setup changes are applied only to the target; the source remains intact. Existing user text and subtree rules are preserved. See [migration workflow](assets/skills/guardian/references/migration.md).
 
-For the current chat, ask Guardian to create a reviewed handoff using [this template](assets/skills/guardian/assets/templates/context-handoff.md). For a different chat, supply a pasted summary/export file. The CLI does not connect to a chat service or call an LLM; semantic synthesis and questions happen in your agent conversation. File inventory is not a conflict-resolution engine. Sources outside the target may need host file-access approval.
+For the current chat, ask Guardian to create a reviewed handoff using [this template](assets/skills/guardian/assets/templates/context-handoff.md). For a different chat, supply a pasted summary/export file. `migrate` does not contact a provider. `onboard` launches your installed Claude Code/Codex CLI; semantic synthesis and questions happen in that agent conversation, using its existing authentication and account limits. File inventory is not a conflict-resolution engine. Sources outside the target may need host file-access approval.
 
 `.guardian/migration.md` is user-editable, never overwritten, and not claimed by the installation manifest. Move a completed brief before preparing a new one. It contains machine-local paths: keep it local; init adds its gitignore entry. Dry-run is fully read-only. Discovery skips symlinks and common generated/vendor directories and is bounded to 12 levels, 10,000 entries and 200 context files; each input is limited to 1 MiB. Use focused summaries/subprojects for larger sources. The 0.1.0 package predates this command. It is available in the 0.2.0 candidate checkout; use the source instructions above until that release is published.
 
