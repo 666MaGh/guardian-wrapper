@@ -72,8 +72,16 @@ Local Claude Code/Codex JSONL discovery and ChatGPT/Claude JSON/text export sele
 
 Pseudo-terminal acceptance exercises both fixture clients through export selection, keyword search and chat choice, confirming the target directory, inherited terminal, selected evidence/brief handoff and propagated exit status without automatic setup. Read-only discovery against existing local sessions found both Claude Code and Codex candidates; it wrote no files and contacted no provider.
 
-The 2026-10-07 runtime audit reports five moderate affected package entries for one unpatched sprintf-js advisory, GHSA-hp3w-g68c-fv3c, through graft/gray-matter/js-yaml/argparse. This audit does not pass; no claim of an advisory-free release is made. Exploitability through graft is unverified. See docs/DEPENDENCIES.md.
+Before the security update, the 2026-10-07 runtime audit reported five moderate affected package entries for one unpatched sprintf-js advisory, GHSA-hp3w-g68c-fv3c, through graft/gray-matter/js-yaml/argparse. That earlier audit did not pass; it is superseded by the security-update results below. Exploitability through graft is unverified. See docs/DEPENDENCIES.md.
 
 A clean npm consumer installed the 0.2.0 tarball with native dependency scripts enabled. Core init, doctor, export browsing, selected packet creation, read-only dry-run and uninstall passed; original README and selected evidence survived. The all-skills Claude plugin export passed `claude plugin validate`.
 
 The 0.2.0 chat-import PR matrix passed macOS/Linux with Node 22/24 ([run](https://github.com/666MaGh/guardian-wrapper/actions/runs/37641616403)). A duplicate branch-push macOS job failed before starting because GitHub could not acquire a runner; rerun endpoints returned HTTP 500. CI now verifies pull requests and main/tag pushes, avoiding duplicate branch-push jobs while retaining all four required platform checks. The exact final tarball consumer also passed migration-brief preparation and preservation through uninstall.
+
+## Security update and isolated runtime — 2026-10-07
+
+The scoped argparse 2.0.1 override removes sprintf-js rather than suppressing its advisory. A plain dependency override failed the clean-consumer test because npm does not propagate a library’s override; it is not used as the distribution mechanism. Graft now installs through postinstall into runtime/ with its own locked npm ci, and the resolver uses that private tree. Root and runtime audits report zero known vulnerabilities.
+
+43 local tests pass, including front-matter/provenance round trips, malformed YAML, YAML helper conversion/errors and existing real graft build/callers/refresh/watcher tests. Strict types and all 40 asset checks pass. The internal YAML helper’s deprecated --version option produces no output with argparse 2; graft’s library API and wrapper commands are unaffected. Both roots are audited in CI. argparse’s Python-2.0 license and installation/script-policy behavior are documented.
+
+A fresh tarball consumer installed the isolated runtime, passed both advisory audits with zero vulnerabilities, and exercised init, doctor, real graft build/callers/check and uninstall while preserving its README. The fixture explicitly approved the wrapper installer without changing global npm or agent settings.

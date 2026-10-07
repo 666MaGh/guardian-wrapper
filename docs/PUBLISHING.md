@@ -10,7 +10,7 @@ Before first push:
 
 - Confirm owner/name and package identity. Add repository, homepage and bugs URLs to package.json only after the canonical URL is known; synchronize lockfiles.
 - Inspect the exact publish set for private paths, credentials, app-specific facts and unintended Git metadata. Publish source/docs/assets and locks; exclude node_modules, local graft/runtime data, dist and artifacts from Git. Release artifacts are attached separately.
-- Run npm ci, npm test, npm run typecheck, npm run check:assets, Bash syntax, npm audit and npm pack. Inspect packed inventory and test a clean tarball consumer. Resolve failures; investigate advisories, document unpatched dependency risks and avoid automatic broad fixes. A prerelease with a disclosed upstream issue does not imply an advisory-free stable release.
+- Run npm ci, npm test, npm run typecheck, npm run check:assets, Bash syntax, npm audit in both the root and runtime/, and npm pack. Inspect packed inventory and test a clean tarball consumer. Resolve failures; investigate advisories, document unpatched dependency risks and avoid automatic broad fixes. A prerelease with a disclosed upstream issue does not imply an advisory-free stable release.
 - Complete fresh-host acceptance checks or label the release a prerelease with the exact remaining verification boundary. No model/session pass is inferred from file checks.
 
 Done when: the reviewed tree and release files match the documented claims and license/source records; local checks are green; missing platform/host evidence is explicit.
@@ -25,7 +25,7 @@ These are commands for the publication step, not commands that have been execute
 # Set to the agreed canonical owner and name.
 repo_slug='666MaGh/guardian-wrapper'
 
-git add .github .gitignore AGENTS.md CLAUDE.md LICENSE README.md THIRD-PARTY-NOTICES.md VALIDATION.md CONTRIBUTING.md SECURITY.md RELEASE-NOTES.md docs assets src test scripts package.json package-lock.json npm-shrinkwrap.json sources.lock.json tsconfig.json
+git add .github .gitignore AGENTS.md CLAUDE.md LICENSE README.md THIRD-PARTY-NOTICES.md VALIDATION.md CONTRIBUTING.md SECURITY.md RELEASE-NOTES.md docs assets src test scripts runtime/package.json runtime/npm-shrinkwrap.json package.json package-lock.json npm-shrinkwrap.json sources.lock.json tsconfig.json
 git diff --cached --check
 git diff --cached --stat
 # Review the staged content before the initial commit.
@@ -63,4 +63,4 @@ Done when: published tag matches the tested commit, assets/checksums match and a
 
 ## 5. Maintain the distribution
 
-Use reviewed pull requests for code/upstream changes. Update sources.lock.json and all licenses/asset hashes deliberately, synchronize both npm locks, rerun integrity/tests/host checks for affected behavior, and publish a new version instead of changing a released snapshot. Keep release notes and compatibility evidence current. npm registry publication can follow later after name/account/provenance and trusted publishing are separately configured.
+Use reviewed pull requests for code/upstream changes. Update sources.lock.json and all licenses/asset hashes deliberately, synchronize the root npm locks and reviewed runtime shrinkwrap, rerun integrity/tests/host checks for affected behavior, and publish a new version instead of changing a released snapshot. Keep release notes and compatibility evidence current. npm registry publication can follow later after name/account/provenance and trusted publishing are separately configured.

@@ -76,3 +76,7 @@ The adapted Guardian uses Matt's current GLOSSARY.md convention. Existing ICM hu
 Skills are instructions interpreted by a model. They do not create compiler rules, merge gates or process permissions. Some upstream skills propose commits, tracker writes, hooks or additional packages; those actions still require applicable project/user authorization. All skills being installed does not mean all have run or work in every project. Doctor checks file integrity and tool presence, not semantic adoption or host capability.
 
 No global agent configuration is changed by init. Deep summaries may send source content to a selected provider; default structural builds do not make LLM calls. Graft telemetry is disabled for wrapper calls, although upstream npm version checks can still use the network. MCP/cloud installation and autonomous services are outside v1.
+
+## Locked graft runtime
+
+`runtime/package.json` and `runtime/npm-shrinkwrap.json` define a separate npm installation root. `scripts/install-runtime.mjs` runs npm ci there during package postinstall, preserving the argparse security override for source and tarball consumers. `src/graft.ts` resolves graft from this directory. Native parser modules are installed on the user’s platform rather than bundled from the maintainer’s machine. The wrapper root has only development dependencies; audit both roots.

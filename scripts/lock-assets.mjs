@@ -23,7 +23,7 @@ writeFileSync(join(root, 'sources.lock.json'), JSON.stringify({
     mattpocock: { url: 'https://github.com/mattpocock/skills', revision: 'd81f3a183412e71a5b1e84ca21bc1a35eea03a60', version: '1.2.3', license: 'MIT', skills: skills.filter(skill => skill.provider === 'mattpocock').map(skill => skill.name) },
     'icm-architect': { url: 'https://github.com/RinDig/icm-architect', origin: 'User-provided installed Git checkout, tracked files clean before wrapper adaptations', revision: 'e16cafe6a664dcf6d787a726b452adba77d913f4', copyright: '2026 Jake Van Clief', license: 'MIT' },
     'i-have-adhd': { url: 'https://github.com/ayghri/i-have-adhd', origin: 'User-provided installed skill snapshot; upstream copyright/license retained', revision: null, license: 'MIT' },
-    graft: { package: '@nanonets/graft', version: '0.21.1', url: 'https://github.com/trailhq/Graft', license: 'MIT', dependencyLock: 'package-lock.json' }
+    graft: { package: '@nanonets/graft', version: '0.21.1', url: 'https://github.com/trailhq/Graft', license: 'MIT', dependencyLock: 'runtime/npm-shrinkwrap.json' }
   },
   adaptations: [
     'Guardian bundling contract, Codex routing, GLOSSARY.md and wrapper doctor; legacy Python checker and project-specific HexTurf guidance removed',

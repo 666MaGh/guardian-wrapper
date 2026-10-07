@@ -133,7 +133,7 @@ graft/                       regenerable local graph
 
 Existing user instructions survive installation. Existing skill files are never silently claimed, even when identical; overlapping installations require an explicit decision. Global skills/plugins remain intact, and doctor flags known global skill copies. Check actual provider names and shadowing in a **fresh host session**. The wrapper does not automatically invoke user-only skills.
 
-The launcher binds to the installed wrapper location. If the wrapper/checkouts move, run init from the new CLI location to refresh runtime.json. Skills remain readable even when the runtime has moved. Runtime dependencies belong to this wrapper, not the application's package.json.
+The launcher binds to the installed wrapper location. If the wrapper/checkouts move, run init from the new CLI location to refresh runtime.json. Skills remain readable even when the runtime has moved. Runtime dependencies belong to this wrapper, not the application's package.json. Installation runs a second locked npm install inside the package’s runtime/ directory for graft; network/native-toolchain requirements still apply. Use npm audit --omit=dev --prefix /path/to/installed-wrapper/runtime to audit that tree.
 
 Project commands work without putting the wrapper on PATH:
 
@@ -191,7 +191,7 @@ npm pack
 
 Tests cover installation, preservation, conflicts, symlinks/case collisions, rollback, selection, plugin output and real graft changes. CI config targets macOS/Linux with Node 22/24; local validation does not claim those remote jobs ran. Doctor verifies owned bytes/blocks and reports tool presence. It does not certify host discovery, subagent permission, application tests or CI enforcement.
 
-Vendored source snapshots and exact hashes are in sources.lock.json; npm runtime resolution is in package-lock.json and the synchronized npm-shrinkwrap.json included in the release. Maintainers change assets deliberately, regenerate the communication reference when its skill changes, run `node scripts/lock-assets.mjs`, then verify. No upstream refresh happens during feature work. See THIRD-PARTY-NOTICES.md for sources and adaptations.
+Vendored source snapshots and exact hashes are in sources.lock.json; wrapper build resolution is in package-lock.json and the synchronized root npm-shrinkwrap.json. Graft has a separate runtime/package.json and runtime/npm-shrinkwrap.json; postinstall runs npm ci in that isolated directory so consumers receive the reviewed security override. Both runtime manifests and the installer are included in the release. Maintainers change assets deliberately, regenerate the communication reference when its skill changes, run `node scripts/lock-assets.mjs`, then verify. No upstream refresh happens during feature work. See THIRD-PARTY-NOTICES.md for sources and adaptations.
 
 ## Optional project memory
 
