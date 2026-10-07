@@ -84,7 +84,7 @@ function desiredFiles(profile: Profile): Map<string, { data: Buffer; kind: 'file
   ];
   file('AGENTS.md', block(rules.join('\n')), 'block');
   file('CLAUDE.md', block('@AGENTS.md'), 'block');
-  file('.gitignore', block(['graft/', '.guardian/install.lock', '.guardian/runtime.json', '.guardian/migration.md'].join('\n')), 'block');
+  file('.gitignore', block(['graft/', '.guardian/install.lock', '.guardian/runtime.json', '.guardian/migration.md', '.guardian/chat-context.md'].join('\n')), 'block');
   const bindings = catalog().filter(skill => profile.skills.includes(skill.name)).map(skill => `| ${skill.name} | ${skill.provider} | ${skill.userOnly ? 'User only' : 'Model or user'} |`);
   file('docs/agents/guardian.md', block([
     '# Guardian installation',

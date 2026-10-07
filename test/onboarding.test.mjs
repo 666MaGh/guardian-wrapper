@@ -89,13 +89,13 @@ test('onboarding prepares one brief and explicit resume preserves reviewed decis
   const beforePath = process.env.PATH;
   process.env.PATH = `${bin}:${beforePath}`;
   try {
-    const first = await prepareOnboarding([target, '--host', 'codex'], true, cli);
+    const first = await prepareOnboarding([target, '--host', 'codex', '--no-chats'], true, cli);
     assert.equal(first.root, target);
     const brief = join(target, '.guardian/migration.md');
     assert.ok(existsSync(brief));
     assert.equal(readFileSync(join(target, 'README.md'), 'utf8'), '# Existing product\n');
     assert.ok(!existsSync(join(target, '.guardian/installation.json')));
-    await assert.rejects(prepareOnboarding([target, '--host', 'codex'], true, cli), /already exists/);
+    await assert.rejects(prepareOnboarding([target, '--host', 'codex', '--no-chats'], true, cli), /already exists/);
     writeFileSync(brief, '# Reviewed decisions\nKeep CONTEXT.md\n');
     const resumed = await prepareOnboarding([target, '--host', 'codex', '--resume'], true, cli);
     assert.equal(resumed.root, target);

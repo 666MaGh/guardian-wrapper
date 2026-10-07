@@ -51,6 +51,7 @@ The runtime stays with the wrapper installation. Target applications do not gain
 | src/files.ts | Safe paths, hashing, locks, transaction and rollback |
 | src/graft.ts | Pinned graph runtime, build lock and watcher event queue |
 | src/plugin.ts | Claude export |
+| src/chats.ts | Bounded local/export conversation discovery, explicit selection and provenance-preserving evidence packets |
 | src/migration.ts | Bounded document inventory and local migration review brief; no automatic semantic imports |
 | src/onboarding.ts | Explicit interactive Claude/Codex launch with the review workflow supplied; preserves existing briefs on resume |
 | src/bundle.ts and src/types.ts | Bundle metadata and typed boundaries |

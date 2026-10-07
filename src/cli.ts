@@ -11,6 +11,7 @@ import { installationProblems, planInstall, planUninstall, projectRoot, readInst
 import { exportPlugin } from './plugin.js';
 import { prepareMigration } from './migration.js';
 import { runOnboarding } from './onboarding.js';
+import { runChats } from './chats.js';
 import type { InitOptions, Plan, Profile } from './types.js';
 
 const help: string = `Guardian Wrapper ${version}
@@ -22,7 +23,10 @@ guardian-wrapper update [project] [same options]
 guardian-wrapper doctor [project]
 guardian-wrapper migrate [project] [--from-project <path>] [--from-chat <file>] [--dry-run]
 guardian-wrapper onboard [project] [--host claude|codex]
-  [--from-project <path>] [--from-chat <file>] [--resume] [--dry-run]
+  [--from-project <path>] [--from-chat <file>] [--chats|--no-chats] [--query <text>]
+  [--export <file-or-directory>] [--source all|claude|codex|exports] [--select <ids>] [--resume] [--dry-run]
+guardian-wrapper chats [project] [--query <text>] [--export <file-or-directory>]
+  [--source all|claude|codex|exports] [--select <id,id>] [--dry-run]
 guardian-wrapper config [project] adhd on|off [--dry-run]
 guardian-wrapper uninstall [project] [--dry-run]
 guardian-wrapper graft [project] build|check|ask|grep|map|callers|skeleton|viz [args]
@@ -139,6 +143,7 @@ export async function main(args: string[]): Promise<number> {
     if (command === '--version') { console.log(version); return 0; }
     verifyBundle();
     if (command === 'migrate') { prepareMigration(args.slice(1)); return 0; }
+    if (command === 'chats') { runChats(args.slice(1)); return 0; }
     if (command === 'onboard') return await runOnboarding(args.slice(1), realpathSync(process.argv[1] ?? 'dist/cli.js'));
     if (command === 'list') {
       for (const skill of catalog()) console.log(`${skill.group.padEnd(13)} ${skill.name}${skill.userOnly ? ' (user only)' : ''}`);

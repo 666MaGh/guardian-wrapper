@@ -1,6 +1,6 @@
 # GitHub publication plan
 
-Publication target: [666MaGh/guardian-wrapper](https://github.com/666MaGh/guardian-wrapper), authorized by the owner. Version 0.1.0 is a prerelease while fresh host model-session acceptance remains pending. This document records the repeatable publication procedure; VALIDATION.md and the release page carry observed results. GitHub publication and npm registry publication are separate: no npm registry publication is included here.
+Publication target: [666MaGh/guardian-wrapper](https://github.com/666MaGh/guardian-wrapper), authorized by the owner. Versions 0.1.0 and 0.2.0 are prereleases; full interactive semantic migration acceptance remains pending. This document records the repeatable publication procedure; VALIDATION.md and the release page carry observed results. GitHub publication and npm registry publication are separate: no npm registry publication is included here.
 
 ## 1. Prepare the public tree
 
@@ -10,7 +10,7 @@ Before first push:
 
 - Confirm owner/name and package identity. Add repository, homepage and bugs URLs to package.json only after the canonical URL is known; synchronize lockfiles.
 - Inspect the exact publish set for private paths, credentials, app-specific facts and unintended Git metadata. Publish source/docs/assets and locks; exclude node_modules, local graft/runtime data, dist and artifacts from Git. Release artifacts are attached separately.
-- Run npm ci, npm test, npm run typecheck, npm run check:assets, Bash syntax, npm audit and npm pack. Inspect packed inventory and test a clean tarball consumer. Resolve any failures/advisories rather than running automatic broad fixes.
+- Run npm ci, npm test, npm run typecheck, npm run check:assets, Bash syntax, npm audit and npm pack. Inspect packed inventory and test a clean tarball consumer. Resolve failures; investigate advisories, document unpatched dependency risks and avoid automatic broad fixes. A prerelease with a disclosed upstream issue does not imply an advisory-free stable release.
 - Complete fresh-host acceptance checks or label the release a prerelease with the exact remaining verification boundary. No model/session pass is inferred from file checks.
 
 Done when: the reviewed tree and release files match the documented claims and license/source records; local checks are green; missing platform/host evidence is explicit.
@@ -51,10 +51,10 @@ Regenerate all release artifacts from the reviewed commit. Build the npm tarball
 
 ```sh
 # From the clean, verified publication commit.
-git tag -a v0.1.0 -m 'Guardian Wrapper 0.1.0'
-git push origin v0.1.0
-gh release create v0.1.0 --verify-tag --draft --title 'Guardian Wrapper 0.1.0' --notes-file RELEASE-NOTES.md
-gh release upload v0.1.0 artifacts/guardian-context-wrapper-0.1.0.tgz artifacts/guardian-plugin-0.1.0.zip artifacts/SHA256SUMS
+git tag -a v0.2.0 -m 'Guardian Wrapper 0.2.0'
+git push origin v0.2.0
+gh release create v0.2.0 --verify-tag --draft --prerelease --title 'Guardian Wrapper 0.2.0' --notes-file RELEASE-NOTES.md
+gh release upload v0.2.0 artifacts/release-0.2.0/guardian-context-wrapper-0.2.0.tgz artifacts/release-0.2.0/guardian-plugin-0.2.0.zip artifacts/release-0.2.0/SHA256SUMS
 ```
 
 Write RELEASE-NOTES.md from final verified scope before running these commands. If host acceptance remains pending, mark the release as a prerelease and say which paths are unverified. Review the draft's asset names/checksums, version, instructions and claims; publish it only when the agreed gates are met. GitHub also automatically attaches source snapshots for the release tag. See [Managing releases](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository).

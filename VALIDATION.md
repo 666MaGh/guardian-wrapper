@@ -63,3 +63,15 @@ A real fresh Claude session with the new onboarding prompt inspected a disposabl
 `onboard <project>` now checks working Claude/Codex CLI executables in PATH, selects a sole client, asks when both work and gives installation/sign-in guidance when neither works. Explicit `--host` overrides selection. This detects CLI availability, not authentication or the invoking app. The onboarding prompt identifies the selected client for the setup-profile discussion; installation remains subject to questions and proposal review.
 
 33 local tests pass; strict typecheck and asset integrity pass. New fixtures cover each sole client, failed/missing executables, ambiguity in a noninteractive preview and explicit override. Pseudo-terminal tests choose both clients separately, confirm target/terminal/prompt handoff and propagated exit status, and cancel at EOF without creating a brief. Existing project documents remain intact and no setup is applied automatically. Fixture launch tests do not make provider requests.
+
+## Selected chat evidence — 2026-10-07
+
+Local Claude Code/Codex JSONL discovery and ChatGPT/Claude JSON/text export selection feed the existing migration brief and onboarding. Evidence remains unreviewed until the agent and user settle its scope and status. No new runtime dependency or Hindsight ingestion is added.
+
+41 local tests pass, including active ChatGPT branch selection, role/tool/reasoning filtering, keyword/project ranking, bounded sampling, malformed/ambiguous/duplicate inputs, changed sources, symlinks, private output, dry-run, existing-file protection and coexistence with init/uninstall. Export schemas are synthetic-fixture tested; no real user account export was supplied. Actual provider behavior and CLI versions can vary; full project adoption still requires user answers and approval.
+
+Pseudo-terminal acceptance exercises both fixture clients through export selection, keyword search and chat choice, confirming the target directory, inherited terminal, selected evidence/brief handoff and propagated exit status without automatic setup. Read-only discovery against existing local sessions found both Claude Code and Codex candidates; it wrote no files and contacted no provider.
+
+The 2026-10-07 runtime audit reports five moderate affected package entries for one unpatched sprintf-js advisory, GHSA-hp3w-g68c-fv3c, through graft/gray-matter/js-yaml/argparse. This audit does not pass; no claim of an advisory-free release is made. Exploitability through graft is unverified. See docs/DEPENDENCIES.md.
+
+A clean npm consumer installed the 0.2.0 tarball with native dependency scripts enabled. Core init, doctor, export browsing, selected packet creation, read-only dry-run and uninstall passed; original README and selected evidence survived. The all-skills Claude plugin export passed `claude plugin validate`.

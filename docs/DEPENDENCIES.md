@@ -13,7 +13,7 @@
 
 Node's floor is 22.12 because graft's commander 15 dependency is stricter than graft's own Node >=20 declaration. TypeScript 5.9.3 and @types/node 22.19.0 are build-time dependencies; the release's compiled CLI does not need a global TypeScript install. npm install scripts run for graft/native parsers; do not assume an --ignore-scripts install is usable.
 
-On macOS a missing native toolchain can be installed with `xcode-select --install` plus a supported Python 3 installation. On Linux use your distribution's Python 3 and build tool packages (for example python3 and build-essential on Ubuntu). First target platforms are macOS and Linux. Local evidence covers macOS arm64/Node 26; Node 22/24 and Linux are CI targets awaiting remote execution. Windows support is not claimed.
+On macOS a missing native toolchain can be installed with `xcode-select --install` plus a supported Python 3 installation. On Linux use your distribution's Python 3 and build tool packages (for example python3 and build-essential on Ubuntu). First target platforms are macOS and Linux. Local evidence covers macOS arm64/Node 26; Node 22/24 and macOS/Linux passed the earlier publication CI matrix; each feature release is checked again. Windows support is not claimed.
 
 ## Optional and workflow-specific requirements
 
@@ -90,7 +90,7 @@ Generated from package-lock.json on 2026-10-03; regenerate after any dependency 
 | `web-tree-sitter` | 0.26.13 | MIT |  |
 | `which` | 2.0.2 | ISC |  |
 
-Provider SDKs are installed as graft dependencies even for structural-only use. Having the SDK installed does not cause an LLM request by itself. npm audit --omit=dev reported zero known advisories on 2026-10-03; this is time-bound advisory evidence, not proof of security.
+Provider SDKs are installed as graft dependencies even for structural-only use. Having the SDK installed does not cause an LLM request by itself. The 2026-10-07 runtime audit reports five moderate affected package entries from one advisory, [GHSA-hp3w-g68c-fv3c](https://github.com/advisories/GHSA-hp3w-g68c-fv3c): graft → gray-matter → js-yaml → argparse → sprintf-js. The advisory describes denial of service when attacker-controlled format strings contain excessive precision. No patched sprintf-js version is listed. No dependency override or install-script bypass is applied; exploitability through graft has not been established. The earlier zero-advisory result is historical evidence only. Track the upstream fix and re-audit before a stable release.
 
 ## Complete skill catalog
 
@@ -142,3 +142,7 @@ Default: core + engineering + productivity (30). --groups all adds misc and in-p
 ## Guided onboarding
 
 `onboard` requires an interactive terminal and a working Claude Code or Codex CLI in PATH. It probes both with `--version`, selects a sole available client or asks when both work. `--host claude|codex` selects explicitly. The chosen CLI must be authenticated; detection does not check login or account limits. It launches the normal interactive host with a starting prompt; it installs no SDK, connector, hook or credentials. The host's trust prompts, permissions, global configuration and account limits remain active. `--dry-run` and `migrate` require neither an authenticated host nor a provider request. External source documents may require host read-access approval. Source directories are not added as writable workspaces.
+
+## Earlier chat discovery
+
+No additional runtime dependency or provider SDK is added. Local Claude/Codex transcript formats and extracted ChatGPT/Claude JSON or UTF-8 text exports are supported as described in [CHAT-IMPORT.md](CHAT-IMPORT.md). ZIP files must be unpacked by the user. Discovery and selection are local; semantic review happens in the chosen existing agent. Optional Hindsight remains uninstalled.
