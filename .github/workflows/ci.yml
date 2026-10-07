@@ -1,5 +1,9 @@
 name: Verify wrapper
-on: [push, pull_request]
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
 permissions:
   contents: read
 jobs:
@@ -22,6 +26,8 @@ jobs:
         if: runner.os == 'macOS'
         run: brew install fswatch
       - run: npm ci
+      - run: npm audit --omit=dev
+      - run: npm audit --omit=dev --prefix runtime
       - run: npm test
       - run: npm run typecheck
       - run: npm run check:assets

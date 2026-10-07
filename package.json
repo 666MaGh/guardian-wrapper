@@ -21,17 +21,18 @@
     "README.md",
     "docs",
     "CONTRIBUTING.md",
-    "VALIDATION.md"
+    "VALIDATION.md",
+    "runtime/package.json",
+    "runtime/npm-shrinkwrap.json",
+    "scripts/install-runtime.mjs"
   ],
   "scripts": {
     "build": "tsc",
     "typecheck": "tsc --noEmit",
     "test": "npm run build && node --test test/*.test.mjs",
     "check:assets": "node scripts/check-assets.mjs",
-    "prepack": "npm run build && npm run check:assets"
-  },
-  "dependencies": {
-    "@nanonets/graft": "0.21.1"
+    "prepack": "npm run build && npm run check:assets",
+    "postinstall": "node scripts/install-runtime.mjs"
   },
   "devDependencies": {
     "typescript": "5.9.3",

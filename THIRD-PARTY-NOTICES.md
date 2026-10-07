@@ -20,7 +20,9 @@ User-supplied skill snapshot, copyright 2026 Ayoub Ghriss, MIT. See assets/licen
 
 ## Graft and runtime dependencies
 
-@nanonets/graft 0.21.1, MIT. Upstream: https://github.com/trailhq/Graft (formerly NanoNets/context-graph-engine). Installed as a pinned npm dependency with its own license and all transitive licenses preserved by npm. package-lock.json records exact resolved runtime/development dependencies and integrity values. Native tree-sitter installation may require a build toolchain where a compatible prebuilt binary is unavailable.
+@nanonets/graft 0.21.1, MIT. Upstream: https://github.com/trailhq/Graft (formerly NanoNets/context-graph-engine). Installed as a pinned npm dependency with its own license and all transitive licenses preserved by npm. runtime/npm-shrinkwrap.json records exact graft runtime dependencies and integrity values; the root lockfiles cover development tools. Native tree-sitter installation may require a build toolchain where a compatible prebuilt binary is unavailable.
+
+The scoped js-yaml 3.15.2 → argparse override pins argparse 2.0.1 to remove the vulnerable sprintf-js dependency. argparse 2.0.1 is distributed under Python-2.0, with its complete upstream license retained by npm. No upstream source files are patched. See docs/DEPENDENCIES.md for compatibility and validation.
 
 ## Runtime boundaries
 

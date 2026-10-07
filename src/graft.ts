@@ -13,7 +13,7 @@ interface Locks {
 }
 
 export function graftRoot(): string {
-  const require = createRequire(import.meta.url);
+  const require = createRequire(new URL('../runtime/package.json', import.meta.url));
   return dirname(require.resolve('@nanonets/graft/package.json'));
 }
 

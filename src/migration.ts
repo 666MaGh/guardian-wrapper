@@ -4,6 +4,8 @@ import { assetsRoot } from './bundle.js';
 import { applyPlan, hash, readOptional, safePath } from './files.js';
 import { projectRoot } from './install.js';
 import type { Plan } from './types.js';
+import { chatPrivacyChange } from './chats.js';
+import type { ChatContext } from './chats.js';
 
 interface DocumentRef {
   path: string;
@@ -62,7 +64,7 @@ function inventory(root: string): Inventory {
   return result;
 }
 
-export function prepareMigration(args: string[], quiet: boolean = false): string {
+export function prepareMigration(args: string[], quiet: boolean = false, selectedChat?: ChatContext): string {
   let target = '.';
   let hasTarget = false;
   let sourceProject: string | null = null;
@@ -91,23 +93,29 @@ export function prepareMigration(args: string[], quiet: boolean = false): string
   }
   const root = projectRoot(target);
   if (!statSync(root).isDirectory()) throw new Error('Migration target must be an existing directory');
-  const chatPath = chat === null ? null : realpathSync(resolve(chat));
-  if (chatPath !== null && !statSync(chatPath).isFile()) throw new Error('Chat input must be a text file');
+  if (selectedChat !== undefined && chat !== null) throw new Error('Choose selected chats or --from-chat, not both');
+  if (selectedChat !== undefined && readOptional(root, selectedChat.path) !== null) throw new Error('Selected chat context already exists; review or move it before preparing another.');
+  const chatPath = selectedChat !== undefined ? safePath(root, selectedChat.path) : chat === null ? null : realpathSync(resolve(chat));
+  if (selectedChat === undefined && chatPath !== null && !statSync(chatPath).isFile()) throw new Error('Chat input must be a text file');
   const sourceRoot = sourceProject === null ? null : projectRoot(sourceProject);
   if (sourceRoot !== null && !statSync(sourceRoot).isDirectory()) throw new Error('Source project must be a directory');
-  const inputs = { schema: 1, target: inventory(root), source: sourceRoot === null ? null : inventory(sourceRoot), chat: chatPath === null ? null : reference(chatPath) };
+  const chatRef = selectedChat === undefined ? chatPath === null ? null : reference(chatPath) : { path: chatPath, sha256: hash(selectedChat.content), bytes: selectedChat.content.length };
+  const inputs = { schema: 1, target: inventory(root), source: sourceRoot === null ? null : inventory(sourceRoot), chat: chatRef };
   const guide = readFileSync(join(assetsRoot, 'skills/guardian/references/migration.md'), 'utf8').replace('../assets/templates/context-handoff.md', '#chat-handoff-template');
   const handoff = readFileSync(join(assetsRoot, 'skills/guardian/assets/templates/context-handoff.md'), 'utf8');
-  const body = `# Guided migration brief\n\nStage: prepared; no setup or context migration has been applied.\n\nSource document bytes are not copied. Paths and SHA-256 values identify the reviewed inputs; recheck them before transferring facts. File inventories do not resolve semantic conflicts.\n\n## Input inventory\n\n\`\`\`json\n${JSON.stringify(inputs, null, 2)}\n\`\`\`\n\n## Agent workflow\n\n${guide}\n## Chat handoff template\n\n${handoff}`;
+  const body = `# Guided migration brief\n\nStage: prepared; no setup or context migration has been applied.\n\nSource document bytes are not copied into this brief. Selected message text, when requested, is stored separately in the referenced chat evidence packet. Paths and SHA-256 values identify the reviewed inputs; recheck them before transferring facts. File inventories do not resolve semantic conflicts.\n\n## Input inventory\n\n\`\`\`json\n${JSON.stringify(inputs, null, 2)}\n\`\`\`\n\n## Agent workflow\n\n${guide}\n## Chat handoff template\n\n${handoff}`;
   const path = '.guardian/migration.md';
   const before = readOptional(root, path);
   if (before !== null) throw new Error('A migration brief already exists; review or move it before preparing another. It is never overwritten.');
-  if (!quiet) console.log(body);
+  if (!quiet) {
+    console.log(body);
+    if (dryRun && selectedChat !== undefined) console.log(selectedChat.content.toString());
+  }
   if (dryRun) {
     console.log('Dry run: no files written, no init, no downloads, no graph build.');
     return root;
   }
-  const plan: Plan = { root, installation: null, changes: [{ path, before: null, after: Buffer.from(body) }] };
+  const plan: Plan = { root, installation: null, changes: [...chatPrivacyChange(root), ...(selectedChat === undefined ? [] : [{ path: selectedChat.path, before: null, after: selectedChat.content }]), { path, before: null, after: Buffer.from(body) }] };
   applyPlan(plan);
   if (!quiet) console.log(`Prepared ${join(root, path)}. Start onboarding with: guardian-wrapper onboard ${JSON.stringify(root)} --host claude --resume (or select --host codex)`);
   return root;

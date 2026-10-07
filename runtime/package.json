@@ -1,0 +1,17 @@
+{
+  "name": "guardian-graft-runtime",
+  "version": "0.2.0",
+  "private": true,
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "dependencies": {
+    "@nanonets/graft": "0.21.1"
+  },
+  "overrides": {
+    "js-yaml@3.15.2": {
+      "argparse": "2.0.1"
+    }
+  }
+}
