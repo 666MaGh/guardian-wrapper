@@ -31,7 +31,7 @@ export function selectProfile(options: InitOptions, previous: Profile | null = n
   for (const name of explicit) if (!all.some(skill => skill.name === name)) throw new Error(`Unknown skill: ${name}`);
   const keep = previous !== null && options.groups === undefined && options.skills === undefined ? previous.skills : [];
   const names = all.filter(skill => skill.group === 'core' || groups.includes('all') || groups.includes(skill.group) || explicit.includes(skill.name) || keep.includes(skill.name)).map(skill => skill.name).sort();
-  const profile = { hosts: [...new Set(hosts)].sort(), skills: names, adhd: options.adhd ?? previous?.adhd ?? true, graft: options.graft ?? previous?.graft ?? true, watch: options.watch ?? previous?.watch ?? false };
+  const profile = { hosts: [...new Set(hosts)].sort(), skills: names, adhd: options.adhd ?? previous?.adhd ?? true, graft: options.graft ?? previous?.graft ?? true, watch: options.watch ?? previous?.watch ?? false, orchestration: options.orchestration ?? previous?.orchestration ?? false };
   if (profile.watch && !profile.graft) throw new Error('Watch requires graft');
   return profile;
 }
@@ -78,6 +78,7 @@ function desiredFiles(profile: Profile): Map<string, { data: Buffer; kind: 'file
     'Before changing code, read docs/agents/guardian.md for installed capabilities and verification commands.',
     ...(profile.graft ? ['Read graft/INDEX.md and relevant cards before code edits. Refresh missing or stale cards with node .guardian/bin/guardian.mjs graft . build. Verify affected source and callers.'] : []),
     'TypeScript: use strict types and unknown at external boundaries; no explicit or implicit any. Give public functions, components and hooks explicit return types.',
+    ...(profile.orchestration ? [`Agent orchestration is available on explicit request. Read ${skillShelf}/guardian/references/orchestration.md before delegating; use host subagents only when available.`] : []),
     'Keep changes scoped to the authorized task; preserve existing work and verify observable behavior.',
     ...(profile.adhd ? ['ADHD format is active: read .guardian/communication.md at session start. Honor "stop adhd mode" for this session; project default remains enabled until changed through the CLI.'] : []),
     'Use the project’s approved domain glossary (GLOSSARY.md for new setups); preserve existing conventions until a reviewed migration. ICM operational contracts belong under docs/map/. Create them only with real content.',
@@ -92,6 +93,8 @@ function desiredFiles(profile: Profile): Map<string, { data: Buffer; kind: 'file
     'The skills below are installed files; actual host discovery and provider binding must be checked in a fresh session.',
     'Run `node .guardian/bin/guardian.mjs doctor .` for integrity and tool observations.',
     'Use `node .guardian/bin/guardian.mjs config . adhd off` to disable the project ADHD default.',
+    `Orchestration: ${profile.orchestration ? 'enabled on request' : 'off'}. Enable with node .guardian/bin/guardian.mjs config . orchestration on.`,
+    'Use node .guardian/bin/guardian.mjs maintain . to start dependency maintenance in agent chat; update only reapplies this installed bundle.',
     'This installation has not adopted the domain, run app tests, configured CI gates or migrated documentation.',
     'Inspect package scripts and existing docs to choose real project verification commands. Record exact commands/results in the active work record.',
     'If no issue tracker is configured, start with local work records under docs/work. Create tracker/domain contracts when needed; do not claim Matt setup ran.',

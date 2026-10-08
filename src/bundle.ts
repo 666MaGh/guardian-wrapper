@@ -27,7 +27,7 @@ function boolean(value: unknown): boolean {
 
 export function parseProfile(value: unknown): Profile {
   const profile = object(value);
-  return { hosts: strings(profile.hosts), skills: strings(profile.skills), adhd: boolean(profile.adhd), graft: boolean(profile.graft), watch: boolean(profile.watch) };
+  return { hosts: strings(profile.hosts), skills: strings(profile.skills), adhd: boolean(profile.adhd), graft: boolean(profile.graft), watch: boolean(profile.watch), orchestration: profile.orchestration === undefined ? false : boolean(profile.orchestration) };
 }
 
 export function catalog(): Skill[] {

@@ -11,6 +11,7 @@ import { installationProblems, planInstall, planUninstall, projectRoot, readInst
 import { exportPlugin } from './plugin.js';
 import { prepareMigration } from './migration.js';
 import { runOnboarding } from './onboarding.js';
+import { runWorkflow } from './workflows.js';
 import { runChats } from './chats.js';
 import type { InitOptions, Plan, Profile } from './types.js';
 
@@ -18,7 +19,7 @@ const help: string = `Guardian Wrapper ${version}
 
 guardian-wrapper init [project] [--groups engineering,productivity|all|core]
   [--skills tdd,code-review] [--hosts claude,codex] [--adhd on|off]
-  [--graft on|off] [--watch] [--dry-run]
+  [--graft on|off] [--orchestration on|off] [--watch] [--dry-run]
 guardian-wrapper update [project] [same options]
 guardian-wrapper doctor [project]
 guardian-wrapper migrate [project] [--from-project <path>] [--from-chat <file>] [--dry-run]
@@ -27,7 +28,9 @@ guardian-wrapper onboard [project] [--host claude|codex]
   [--export <file-or-directory>] [--source all|claude|codex|exports] [--select <ids>] [--resume] [--dry-run]
 guardian-wrapper chats [project] [--query <text>] [--export <file-or-directory>]
   [--source all|claude|codex|exports] [--select <id,id>] [--dry-run]
-guardian-wrapper config [project] adhd on|off [--dry-run]
+guardian-wrapper orchestrate [project] --task <text> [--host claude|codex] [--dry-run]
+guardian-wrapper maintain [project] [--scope app|wrapper|skills|all] [--host claude|codex] [--dry-run]
+guardian-wrapper config [project] adhd|orchestration on|off [--dry-run]
 guardian-wrapper uninstall [project] [--dry-run]
 guardian-wrapper graft [project] build|check|ask|grep|map|callers|skeleton|viz [args]
 guardian-wrapper watch [project]
@@ -35,7 +38,7 @@ guardian-wrapper list
 guardian-wrapper export-plugin <new-directory> [--groups all|...] [--adhd on|off]
 
 Default: Claude Code + Codex, core + engineering + productivity, ADHD on,
-structural graft on, no background watcher. All 37 Matt skills are available.
+structural graft on, orchestration off, no background watcher. All 37 Matt skills are available.
 No publication or global agent configuration changes. Node >=22.12.0 required.
 `;
 
@@ -59,9 +62,10 @@ function parse(args: string[]): Parsed {
     if (arg === '--groups') result.options.groups = value.split(',');
     else if (arg === '--skills') result.options.skills = value.split(',');
     else if (arg === '--hosts') result.options.hosts = value.split(',');
-    else if (arg === '--adhd' || arg === '--graft') {
+    else if (arg === '--adhd' || arg === '--graft' || arg === '--orchestration') {
       if (value !== 'on' && value !== 'off') throw new Error(`${arg} expects on or off`);
       if (arg === '--adhd') result.options.adhd = value === 'on';
+      else if (arg === '--orchestration') result.options.orchestration = value === 'on';
       else result.options.graft = value === 'on';
     } else throw new Error(`Unknown option: ${arg}`);
   }
@@ -91,6 +95,7 @@ function doctor(root: string): number {
   const installation = readInstallation(root);
   if (installation === null) return 1;
   console.log(`Guardian ${installation.version}; ${installation.profile.skills.length} skills; ADHD ${installation.profile.adhd ? 'on' : 'off'}`);
+  console.log(`Orchestration: ${installation.profile.orchestration ? 'enabled on explicit request' : 'off'}`);
   if (errors.length === 0) console.log('Owned files and instruction blocks: integrity OK');
   for (const notice of shadows(installation.profile)) console.log(`NOTICE ${notice}`);
   for (const host of installation.profile.hosts) console.log(`${host} executable: ${toolAvailable(host) ? 'available' : 'unavailable'}; skill discovery is not certified by this check`);
@@ -131,7 +136,7 @@ async function install(root: string, options: InitOptions, dryRun: boolean): Pro
   if (plan.installation?.profile.graft) await runGraft(root, ['build']);
   applyPlan(plan);
   console.log(`Setup installed. ${plan.installation?.profile.skills.length ?? 0} skills. No semantic project adoption has run.`);
-  for (const notice of shadows(plan.installation?.profile ?? { hosts: [], skills: [], adhd: false, graft: false, watch: false })) console.log(`NOTICE ${notice}`);
+  for (const notice of shadows(plan.installation?.profile ?? { hosts: [], skills: [], adhd: false, graft: false, watch: false, orchestration: false })) console.log(`NOTICE ${notice}`);
   console.log('Open a fresh Claude Code/Codex session here. Use Guardian to adopt the project, or run node .guardian/bin/guardian.mjs doctor .');
   return 0;
 }
@@ -145,6 +150,7 @@ export async function main(args: string[]): Promise<number> {
     if (command === 'migrate') { prepareMigration(args.slice(1)); return 0; }
     if (command === 'chats') { runChats(args.slice(1)); return 0; }
     if (command === 'onboard') return await runOnboarding(args.slice(1), realpathSync(process.argv[1] ?? 'dist/cli.js'));
+    if (command === 'orchestrate' || command === 'maintain') return await runWorkflow(command, args.slice(1));
     if (command === 'list') {
       for (const skill of catalog()) console.log(`${skill.group.padEnd(13)} ${skill.name}${skill.userOnly ? ' (user only)' : ''}`);
       return 0;
@@ -182,7 +188,7 @@ export async function main(args: string[]): Promise<number> {
       console.log(`Claude plugin exported to ${resolve(path)}. Validate with claude plugin validate <directory>.`);
       return 0;
     }
-    const configOffset = command === 'config' && parsed.positionals[0] === 'adhd' ? 0 : 1;
+    const configOffset = command === 'config' && ['adhd', 'orchestration'].includes(parsed.positionals[0] ?? '') ? 0 : 1;
     const root = projectRoot(configOffset === 0 ? '.' : parsed.positionals[0] ?? '.');
     if (command === 'init' || command === 'update') {
       if (parsed.positionals.length > 1) throw new Error('Expected one project path');
@@ -191,9 +197,10 @@ export async function main(args: string[]): Promise<number> {
     }
     if (command === 'doctor') return doctor(root);
     if (command === 'config') {
-      if (parsed.positionals[configOffset] !== 'adhd' || !['on', 'off'].includes(parsed.positionals[configOffset + 1] ?? '')) throw new Error('Use config <project> adhd on|off');
+      if (!['adhd', 'orchestration'].includes(parsed.positionals[configOffset] ?? '') || !['on', 'off'].includes(parsed.positionals[configOffset + 1] ?? '')) throw new Error('Use config <project> adhd|orchestration on|off');
       if (readInstallation(root) === null) throw new Error('Run init first');
-      return await install(root, { adhd: parsed.positionals[configOffset + 1] === 'on' }, parsed.dryRun);
+      const enabled = parsed.positionals[configOffset + 1] === 'on';
+      return await install(root, parsed.positionals[configOffset] === 'adhd' ? { adhd: enabled } : { orchestration: enabled }, parsed.dryRun);
     }
     if (command === 'uninstall') {
       const plan = planUninstall(root);

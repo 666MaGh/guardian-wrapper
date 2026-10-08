@@ -11,6 +11,7 @@ export interface Profile {
   adhd: boolean;
   graft: boolean;
   watch: boolean;
+  orchestration: boolean;
 }
 
 export interface OwnedFile {
@@ -46,4 +47,5 @@ export interface InitOptions {
   adhd?: boolean;
   graft?: boolean;
   watch?: boolean;
+  orchestration?: boolean;
 }

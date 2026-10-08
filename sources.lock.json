@@ -78,7 +78,8 @@
     "Explicit-only Codex metadata added when absent; upstream skill policy retained",
     "ADHD startup reference generated from the supplied skill; old global opt-in hook removed",
     "New project-scoped fswatch script and CLI replace the supplied watcher implementation",
-    "Guardian guided chat/project context migration, selected conversation evidence and handoff template added by wrapper author"
+    "Guardian guided chat/project context migration, selected conversation evidence and handoff template added by wrapper author",
+    "Optional Guardian orchestration adapts Matt research, code-review and TDD; coordination and dependency maintenance are wrapper-authored workflows"
   ],
   "files": {
     "catalog.json": "e8057cf96ef4dada103973161dbf030282b1deea4dd08ad5c8013e632ec3154f",
@@ -136,10 +137,12 @@
     "skills/guardian/references/adoption.md": "fe80c8e9a5b1e14691917d97bd8ba467a07f74be8bd3f9d499cb84392ce641f9",
     "skills/guardian/references/change.md": "d691d4df7a64242af3da7e33008e0ce92710e98386866831f2b765dc7c0ec1bc",
     "skills/guardian/references/integration.md": "74bfdc845b55f6d53b12864c465d17042e5afd0e75a954979943f4a769aa4f84",
+    "skills/guardian/references/maintenance.md": "87dbca6efffa55b370f2bf46c6396d2edf9f2d2ad9f24e14682bf05349fe2605",
     "skills/guardian/references/memory.md": "82a85f982106811a2eb67088a682853f00ef282586f932f713d03f474e8989e6",
     "skills/guardian/references/migration.md": "36b8b4fef35bba11a4bc51867dbfe464366c7c9150932939f73f942951edaa46",
+    "skills/guardian/references/orchestration.md": "5c8468520807968577efe413d624d376131672d4475f2a21c7179ea869d65a71",
     "skills/guardian/references/verification.md": "02967906eef43caaab987c943c418b1136ad631ef86a5c304594e7c4759648a7",
-    "skills/guardian/SKILL.md": "6f076979e459f6741c63a99a5379764db5a8426a83da71f8c2eb3a7d79fd55d7",
+    "skills/guardian/SKILL.md": "0e2aff770b11f2e6019e7e8ac5869cb2fcee9b36d5411de6ce83cd1a3bac1c8a",
     "skills/handoff/agents/openai.yaml": "5c479fd562c691851690e8b18c8501045bef0943c10743d636b2fae26add1d28",
     "skills/handoff/LICENSE": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
     "skills/handoff/SKILL.md": "7c62de979fdc7ac32fb5ddb2146156c917f80ee070d30fadc9d40343c4b6ed25",

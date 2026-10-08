@@ -9,3 +9,7 @@ Vendored content is a reviewed snapshot, not an automatic dependency refresh. Fo
 Describe the concrete change, actual checks and remaining limitations in pull requests. Report bugs with wrapper/host/Node/OS versions, selected profile and a sanitized reproduction. Keep credentials and private project files out of issues.
 
 The initial GitHub publication and release gates are documented in docs/PUBLISHING.md.
+
+## Dependency proposals
+
+Weekly Dependabot PRs cover root npm, `runtime/` npm and GitHub Actions. Review the proposed version, release notes and security impact; CI does not authorize an automatic merge. After an npm change synchronize `package-lock.json` with `npm-shrinkwrap.json`, or `runtime/package-lock.json` with `runtime/npm-shrinkwrap.json`, using the reviewed resulting resolution. Run both audit commands and the normal checks. Keep the scoped argparse override until a tested replacement removes the affected chain. The runtime package-lock mirrors the release shrinkwrap for dependency-graph visibility; it is not packed or used by postinstall. Asset snapshot updates require a pinned upstream commit, licenses/adaptation review and regenerated `sources.lock.json`.

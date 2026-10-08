@@ -8,6 +8,8 @@ Source: https://github.com/mattpocock/skills
 Revision: d81f3a183412e71a5b1e84ca21bc1a35eea03a60 (plugin 1.2.3).
 All 37 skill folders and their resources are bundled. Copyright 2026 Matt Pocock, MIT. See assets/licenses/mattpocock.txt and each skill's LICENSE. Existing credits, including engineering/pr/CREDITS.md, are retained. User-only skills retain their invocation restriction; Codex metadata is added only where necessary.
 
+Guardian's optional coordination workflow adapts primary-source background research, independent Standards/Spec review and behavioral vertical slices from the pinned `research`, `code-review` and `tdd` skills. Task/file ownership, host fallback and dependency maintenance are Guardian additions, not an upstream Matt updater or agent scheduler. Exact links appear in the orchestration reference; the underlying skill snapshots are unchanged.
+
 ## ICM Architect
 
 Source: https://github.com/RinDig/icm-architect
