@@ -80,3 +80,11 @@ No global agent configuration is changed by init. Deep summaries may send source
 ## Locked graft runtime
 
 `runtime/package.json` and `runtime/npm-shrinkwrap.json` define a separate npm installation root. `scripts/install-runtime.mjs` runs npm ci there during package postinstall, preserving the argparse security override for source and tarball consumers. `src/graft.ts` resolves graft from this directory. Native parser modules are installed on the user’s platform rather than bundled from the maintainer’s machine. The wrapper root has only development dependencies; audit both roots.
+
+## Optional orchestration and maintenance
+
+Project profiles include `orchestration` (false for new and legacy profiles). Managed guidance advertises delegation only when enabled. Guardian routes explicit coordination requests to its orchestration reference, grounded in pinned Matt research, code-review and TDD methods. `src/workflows.ts` validates the installed profile/integrity and opens the selected interactive Claude/Codex CLI with the shared workflow and literal task/scope. The host owns subagent execution, permissions and authentication; no scheduler, global config or custom agent definition is installed. Missing delegation falls back to sequential work with an explicit limitation.
+
+`maintain` defaults to app dependency inspection; wrapper/skills/all are selectable. It starts an agent-led proposal/apply/verify session and does not directly run a package manager. Concrete dependency changes need review in that conversation. Consumer wrapper/skill upgrades use reviewed releases; editing bundled upstream snapshots requires an authorized wrapper source checkout. `update` retains its narrower meaning of reapplying the executing package to a project.
+
+Weekly Dependabot proposals cover source root npm, isolated runtime npm and Actions. The runtime package-lock mirrors its release shrinkwrap for GitHub dependency-graph discovery; asset checks enforce equality. Postinstall still consumes only the reviewed runtime shrinkwrap. Neither Dependabot nor Guardian automatically merges upgrades or treats an audit pass as compatibility evidence.

@@ -1,6 +1,6 @@
 ---
 name: guardian
-description: Coordinate app changes, bug fixes, project memory, adoption and guided context migration using bundled ICM Architect and Matt Pocock skills. Use when the user asks Guardian to adopt, migrate chat or project context, build, fix, verify, or report on a coding project. Supports Claude Code and Codex project installations or namespaced plugins.
+description: Coordinate app changes, bug fixes, project memory, adoption and guided context migration using bundled ICM Architect and Matt Pocock skills. Use when the user asks Guardian to adopt, migrate context, build, fix, verify, coordinate agents, maintain dependencies, or report on a coding project. Supports Claude Code and Codex project installations or namespaced plugins.
 ---
 
 # Guardian
@@ -18,6 +18,8 @@ Interpret the request as one of:
 - `verify`: collect actual verification evidence for the current change. Read [verification](references/verification.md).
 - `status`: read the current task, working tree and recorded checks; report completed, blocked, unverified and next. Do not silently implement pending work.
 - `doctor`: check installed dependencies and setup per [integration](references/integration.md).
+- `orchestrate` / "samordna agenter": coordinate an explicitly requested task with host subagents when the optional workflow is enabled. Read [orchestration](references/orchestration.md).
+- `maintain` / "uppdatera beroenden": inspect and propose updates to app dependencies, the wrapper or bundled skills, then apply approved changes and verify them. Read [maintenance](references/maintenance.md).
 
 When installed globally, use the current working project as the subject; never store project memory in the global skill directory or mix information between projects. If no working project is identifiable, ask for its path before writing.
 

@@ -159,6 +159,36 @@ node .guardian/bin/guardian.mjs watch .
 
 The sh script watches one explicit root and sends NUL-separated file paths. Bursts are debounced and a pending rebuild is retained during active builds. Graphs, caches, dependency directories and Drive temporary files are excluded. Ctrl-C stops the watcher. Query refresh is sufficient for ordinary graft use; the watcher is optional and is not started by init.
 
+## Optional agents and dependency maintenance
+
+These commands are available from the source checkout after rebuilding. Enable orchestration per project; it is off by default:
+
+```sh
+guardian-wrapper config /path/to/project orchestration on
+# Or select it during installation:
+guardian-wrapper init /path/to/project --orchestration on
+guardian-wrapper orchestrate /path/to/project --host codex --task "Implement the approved login change and review it"
+guardian-wrapper config /path/to/project orchestration off
+```
+
+The command opens agent chat with the requested task and Guardian's coordination workflow. It uses the host's subagents when available, passes project context explicitly, keeps one writer by default and separates Standards/Spec review. Small or tightly coupled tasks remain sequential. Enabling the option does not automatically delegate every task. Guardian adds no agent daemon, experimental team setting or global configuration. See [workflow and pinned Matt Pocock methods](assets/skills/guardian/references/orchestration.md).
+
+Start dependency maintenance in the same way:
+
+```sh
+guardian-wrapper maintain /path/to/project --host claude
+# Inspect the wrapper, bundled skills and app dependencies together:
+guardian-wrapper maintain /path/to/project --scope all --host codex
+# Preview without agent launch, dependency downloads or project writes:
+guardian-wrapper maintain /path/to/project --scope app --host codex --dry-run
+```
+
+Scopes are `app` (default), `wrapper`, `skills` and `all`. The agent discovers the application's package manager/workspaces, checks versions and release notes, proposes concrete changes, then waits for your approval before applying them and running the project's checks. Existing installed Guardian profiles and modified files are checked before launch. Dependency updates are an agent-assisted workflow, not a deterministic unattended updater; the chosen host needs authentication, permissions and tools for the target project. No compatibility pass is claimed until real checks run.
+
+Wrapper/skill updates in a consumer project use a reviewed Guardian release and the ordinary setup `update`; vendored source/lock changes belong in an explicitly selected wrapper source checkout. The workflow preserves security overrides and source provenance. Read [the maintenance procedure](assets/skills/guardian/references/maintenance.md). The wrapper repository also has weekly Dependabot proposals for root npm, graft runtime and GitHub Actions; they are reviewed through CI, with synchronized locks, rather than automatically merged.
+
+Both commands require an installed project and an interactive terminal for actual launch. A sole selected host is used automatically; when both hosts are selected the same executable discovery/choice as onboarding applies. `--host` must belong to the project profile. `--dry-run` previews the prompt without launching a provider. Use `node .guardian/bin/guardian.mjs` instead of `guardian-wrapper` when the CLI is not on PATH. Account limits and normal host permissions still apply.
+
 ## Update and uninstall
 
 ```sh

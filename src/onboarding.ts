@@ -26,7 +26,7 @@ async function ask(prompt: string): Promise<string> {
   } finally { terminal.close(); }
 }
 
-async function discoverHost(interactive: boolean): Promise<OnboardingSession['host']> {
+export async function discoverHost(interactive: boolean): Promise<OnboardingSession['host']> {
   const hosts: Array<OnboardingSession['host']> = ['claude', 'codex'];
   const available = hosts.filter(toolAvailable);
   const only = available[0];

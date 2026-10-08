@@ -147,3 +147,7 @@ Default: core + engineering + productivity (30). --groups all adds misc and in-p
 ## Earlier chat discovery
 
 No additional runtime dependency or provider SDK is added. Local Claude/Codex transcript formats and extracted ChatGPT/Claude JSON or UTF-8 text exports are supported as described in [CHAT-IMPORT.md](CHAT-IMPORT.md). ZIP files must be unpacked by the user. Discovery and selection are local; semantic review happens in the chosen existing agent. Optional Hindsight remains uninstalled.
+
+## Optional Guardian workflows
+
+`orchestrate` is enabled per project with `--orchestration on` or `config orchestration on`; it needs a host with permitted subagents for parallel work and Git worktrees for concurrent writers. It falls back to sequential execution when delegation is unavailable. `maintain` needs the target project's own package manager, network access for version/advisory queries and working verification commands. It starts the same authenticated interactive CLI as onboarding; no new SDK/service is installed. Both are instructions executed by the agent, not guaranteed background automation. Details: [orchestration](../assets/skills/guardian/references/orchestration.md), [maintenance](../assets/skills/guardian/references/maintenance.md).

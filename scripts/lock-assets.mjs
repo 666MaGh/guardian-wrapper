@@ -31,7 +31,8 @@ writeFileSync(join(root, 'sources.lock.json'), JSON.stringify({
     'Explicit-only Codex metadata added when absent; upstream skill policy retained',
     'ADHD startup reference generated from the supplied skill; old global opt-in hook removed',
     'New project-scoped fswatch script and CLI replace the supplied watcher implementation',
-    'Guardian guided chat/project context migration, selected conversation evidence and handoff template added by wrapper author'
+    'Guardian guided chat/project context migration, selected conversation evidence and handoff template added by wrapper author',
+    'Optional Guardian orchestration adapts Matt research, code-review and TDD; coordination and dependency maintenance are wrapper-authored workflows'
   ],
   files: Object.fromEntries(Object.entries(files).sort(([left], [right]) => left.localeCompare(right)))
 }, null, 2) + '\n');
