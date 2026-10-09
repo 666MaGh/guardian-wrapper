@@ -1,4 +1,5 @@
 export interface Skill {
+  sourceName: string;
   name: string;
   group: string;
   provider: string;
@@ -44,6 +45,7 @@ export interface InitOptions {
   hosts?: string[];
   groups?: string[];
   skills?: string[];
+  addSkills?: string[];
   adhd?: boolean;
   graft?: boolean;
   watch?: boolean;

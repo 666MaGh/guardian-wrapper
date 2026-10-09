@@ -48,7 +48,7 @@ Open the initialized project in Claude Code or Codex and start a fresh conversat
 
 > Use Guardian to inspect this repository without editing application code. Read the project instructions and graft map. Report the current architecture, available checks, missing context, and a proposed adoption plan.
 
-Confirm that the project-local Guardian is used. Claude project skills can be explicitly requested with `/guardian`; Codex skills with `$guardian`. Host UI/version determines the available invocation interface. Complete [fresh-session checks](docs/HOST-VERIFICATION.md) before treating a host/project combination as verified.
+Confirm that the project-local Guardian is used. Claude project skills can be explicitly requested with `/guardian-main`; Codex skills with `$guardian-main`. Host UI/version determines the available invocation interface. Complete [fresh-session checks](docs/HOST-VERIFICATION.md) before treating a host/project combination as verified.
 
 After adoption, try a bounded request such as: "Use Guardian to fix this bug, reproduce it first, and report what was verified." Request user-only specialist workflows explicitly; they are never chained automatically. Matt's tracker/domain setup is a separate opt-in workflow and can change project documentation; review its proposed changes against this wrapper's AGENTS.md convention.
 
@@ -92,15 +92,33 @@ Then open a new agent conversation in the target and ask:
 
 > Read .guardian/migration.md and inspect the listed inputs. Ask me the unresolved migration questions, then show the proposed file/content changes for my review before applying them.
 
-The brief embeds the workflow, so it also works before Guardian is installed. The agent asks about purpose, what remains valid, conflicts, existing rules, glossary, hosts/skills, tracker and checks. After your answers it shows a source-to-destination proposal and the setup dry run. Approved context/setup changes are applied only to the target; the source remains intact. Existing user text and subtree rules are preserved. See [migration workflow](assets/skills/guardian/references/migration.md).
+The brief embeds the workflow, so it also works before Guardian is installed. The agent asks about purpose, what remains valid, conflicts, existing rules, glossary, hosts/skills, tracker and checks. After your answers it shows a source-to-destination proposal and the setup dry run. Approved context/setup changes are applied only to the target; the source remains intact. Existing user text and subtree rules are preserved. See [migration workflow](assets/skills/guardian-main/references/migration.md).
 
-For the current chat, ask Guardian to create a reviewed handoff using [this template](assets/skills/guardian/assets/templates/context-handoff.md). For a different chat, supply a pasted summary/export file. `migrate` does not contact a provider. `onboard` launches your installed Claude Code/Codex CLI; semantic synthesis and questions happen in that agent conversation, using its existing authentication and account limits. File inventory is not a conflict-resolution engine. Sources outside the target may need host file-access approval.
+For the current chat, ask Guardian to create a reviewed handoff using [this template](assets/skills/guardian-main/assets/templates/context-handoff.md). For a different chat, supply a pasted summary/export file. `migrate` does not contact a provider. `onboard` launches your installed Claude Code/Codex CLI; semantic synthesis and questions happen in that agent conversation, using its existing authentication and account limits. File inventory is not a conflict-resolution engine. Sources outside the target may need host file-access approval.
 
 `.guardian/migration.md` is user-editable, never overwritten, and not claimed by the installation manifest. Move a completed brief before preparing a new one. It contains machine-local paths: keep it local; init adds its gitignore entry. Dry-run is fully read-only. Discovery skips symlinks and common generated/vendor directories and is bounded to 12 levels, 10,000 entries and 200 context files; each input is limited to 1 MiB. Use focused summaries/subprojects for larger sources. The 0.1.0 package predates onboarding, migration and chat discovery. Use the 0.2.0 source checkout or its GitHub release assets when available.
 
+## Guardian names and optional audit
+
+All bundled skill calls use `guardian-`: `/guardian-main`, `/guardian-tdd`, `/guardian-code-review` in Claude Code, or `$guardian-main`, `$guardian-tdd`, `$guardian-code-review` in Codex. Exported Claude plugins use `/guardian-wrapper:guardian-main` and the corresponding namespaced specialist commands. Original upstream names remain in `assets/catalog.json` (`sourceName`) and `sources.lock.json` (`skillNames`); ownership, credits and invocation restrictions are preserved.
+
+Updating an older installation migrates its owned skill files and selections to the new names. Modified owned files stop migration for review. Unrelated instructions/files and global installations are preserved. Legacy names in CLI `--skills`/`--add-skills` are accepted for migration, but host slash/skill calls use the new installed names in a fresh session. Installing this wrapper does not rename global Matt/Ponytail plugins; verify the provider you invoke.
+
+Ponytail contributes a decision ladder inside Guardian's existing change workflow: use existing code, platform/standard-library capabilities and suitable installed dependencies before introducing new code or packages. It retains acceptance criteria, security, accessibility and data-loss handling. No Ponytail session mode, lifecycle hook or scheduler is installed.
+
+`guardian-audit` is an optional whole-project report based on Ponytail audit. It is outside the default profile; choose it individually or through `misc`/`all`:
+
+```sh
+guardian-wrapper update /path/to/project --add-skills guardian-audit --dry-run
+guardian-wrapper update /path/to/project --add-skills guardian-audit
+guardian-wrapper guardian-audit /path/to/project --host codex
+```
+
+Or invoke `/guardian-audit` (Claude Code) / `$guardian-audit` (Codex) directly in an initialized project. It reads project context and actual source, then reports concrete correctness/security/load/testing/complexity findings in your language. It changes no code; applying findings needs a separate authorized task. The CLI opens normal agent chat with that workflow and needs authentication/permissions; `--dry-run` previews without launch or writes. See [source and adaptations](THIRD-PARTY-NOTICES.md).
+
 ## Karpathy-inspired coding guidelines
 
-`karpathy-guidelines` is included in every core profile for Claude Code and Codex. It covers surfacing assumptions, keeping solutions simple, limiting edits to the task and verifying success criteria. The unchanged skill comes from [multica-ai/andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills/tree/2c606141936f1eeef17fa3043a72095b4765b9c2/skills/karpathy-guidelines), inspired by Karpathy's observations; it is not an official Karpathy package. Project instructions point to the skill rather than duplicating its full body. Existing project rules remain intact and applicable.
+`karpathy-guidelines` is included in every core profile for Claude Code and Codex. It covers surfacing assumptions, keeping solutions simple, limiting edits to the task and verifying success criteria. The skill comes from [multica-ai/andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills/tree/2c606141936f1eeef17fa3043a72095b4765b9c2/skills/karpathy-guidelines), inspired by Karpathy's observations; it is not an official Karpathy package. Project instructions point to the skill rather than duplicating its full body. Existing project rules remain intact and applicable.
 
 No additional executable, npm package, hook or API key is required. The upstream MIT declarations and absence of a separate license file are recorded in [attribution](THIRD-PARTY-NOTICES.md). Source users can add it to an existing setup after rebuilding the wrapper:
 
@@ -113,16 +131,16 @@ This addition is available in current source, not the older v0.2.0 release tarba
 
 ## Choose a profile
 
-Default profile: core + engineering + productivity (31 skills), both hosts, ADHD on, graft on. All groups include 41 skills including the four core skills. Original user-only commands retain their restrictions.
+Default profile: core + engineering + productivity (31 skills), both hosts, ADHD on, graft on. All groups include 42 skills including the four core skills. Original user-only commands retain their restrictions.
 
 ```sh
-guardian-wrapper init /path/to/project --groups core --skills tdd,code-review
+guardian-wrapper init /path/to/project --groups core --skills guardian-tdd,guardian-code-review
 guardian-wrapper init /path/to/project --groups all --dry-run
 guardian-wrapper init /path/to/project --hosts codex --graft off
 guardian-wrapper init /path/to/project --watch
 ```
 
-Groups: `core`, `engineering`, `productivity`, `misc`, `in-progress`, `all`. Core is always included. `in-progress` skills are experimental upstream workflows. `list` shows all skills and invocation policy. Explicit groups/skills replace the previous selection; omitted choices preserve an existing profile.
+Groups: `core`, `engineering`, `productivity`, `misc`, `in-progress`, `all`. Core is always included. `in-progress` skills are experimental upstream workflows. `list` shows all skills and invocation policy. Use `--add-skills guardian-audit` to add skills without replacing the current selection. Explicit groups/skills replace the previous selection; omitted choices preserve an existing profile.
 
 `--dry-run` changes nothing: no project writes, downloads, graph builds or services. Existing directories are required so the target is unambiguous. Real init preflights conflicts, builds graft, then transactionally writes owned files and managed instruction blocks. A failed graph build leaves instructions uninstalled; generated cache may remain. A failed file transaction rolls back its completed writes. A hard process kill or power loss is not guaranteed to roll back; the next doctor exposes incomplete state.
 
@@ -184,7 +202,7 @@ guardian-wrapper orchestrate /path/to/project --host codex --task "Implement the
 guardian-wrapper config /path/to/project orchestration off
 ```
 
-The command opens agent chat with the requested task and Guardian's coordination workflow. It uses the host's subagents when available, passes project context explicitly, keeps one writer by default and separates Standards/Spec review. Small or tightly coupled tasks remain sequential. Enabling the option does not automatically delegate every task. Guardian adds no agent daemon, experimental team setting or global configuration. See [workflow and pinned Matt Pocock methods](assets/skills/guardian/references/orchestration.md).
+The command opens agent chat with the requested task and Guardian's coordination workflow. It uses the host's subagents when available, passes project context explicitly, keeps one writer by default and separates Standards/Spec review. Small or tightly coupled tasks remain sequential. Enabling the option does not automatically delegate every task. Guardian adds no agent daemon, experimental team setting or global configuration. See [workflow and pinned Matt Pocock methods](assets/skills/guardian-main/references/orchestration.md).
 
 Start dependency maintenance in the same way:
 
@@ -198,7 +216,7 @@ guardian-wrapper maintain /path/to/project --scope app --host codex --dry-run
 
 Scopes are `app` (default), `wrapper`, `skills` and `all`. The agent discovers the application's package manager/workspaces, checks versions and release notes, proposes concrete changes, then waits for your approval before applying them and running the project's checks. Existing installed Guardian profiles and modified files are checked before launch. Dependency updates are an agent-assisted workflow, not a deterministic unattended updater; the chosen host needs authentication, permissions and tools for the target project. No compatibility pass is claimed until real checks run.
 
-Wrapper/skill updates in a consumer project use a reviewed Guardian release and the ordinary setup `update`; vendored source/lock changes belong in an explicitly selected wrapper source checkout. The workflow preserves security overrides and source provenance. Read [the maintenance procedure](assets/skills/guardian/references/maintenance.md). The wrapper repository also has weekly Dependabot proposals for root npm, graft runtime and GitHub Actions; they are reviewed through CI, with synchronized locks, rather than automatically merged.
+Wrapper/skill updates in a consumer project use a reviewed Guardian release and the ordinary setup `update`; vendored source/lock changes belong in an explicitly selected wrapper source checkout. The workflow preserves security overrides and source provenance. Read [the maintenance procedure](assets/skills/guardian-main/references/maintenance.md). The wrapper repository also has weekly Dependabot proposals for root npm, graft runtime and GitHub Actions; they are reviewed through CI, with synchronized locks, rather than automatically merged.
 
 Both commands require an installed project and an interactive terminal for actual launch. A sole selected host is used automatically; when both hosts are selected the same executable discovery/choice as onboarding applies. `--host` must belong to the project profile. `--dry-run` previews the prompt without launching a provider. Use `node .guardian/bin/guardian.mjs` instead of `guardian-wrapper` when the CLI is not on PATH. Account limits and normal host permissions still apply.
 
@@ -221,7 +239,7 @@ claude plugin validate ./artifacts/guardian-plugin
 claude --plugin-dir ./artifacts/guardian-plugin
 ```
 
-Export destination must be new. The generated plugin includes selected skills and a SessionStart ADHD hook. When a project profile exists, the hook defers to AGENTS.md to avoid duplicate injection. For plugin use, initialize the project with `--hosts codex` so the CLI still creates AGENTS.md/CLAUDE.md and graft without a second Claude skill provider. Plugin commands are namespaced, such as `/guardian-wrapper:guardian`. A native Codex plugin is not included; Codex uses its documented project skill directories.
+Export destination must be new. The generated plugin includes selected skills and a SessionStart ADHD hook. When a project profile exists, the hook defers to AGENTS.md to avoid duplicate injection. For plugin use, initialize the project with `--hosts codex` so the CLI still creates AGENTS.md/CLAUDE.md and graft without a second Claude skill provider. Plugin commands are namespaced, such as `/guardian-wrapper:guardian-main`. A native Codex plugin is not included; Codex uses its documented project skill directories.
 
 ## Verification and maintenance
 

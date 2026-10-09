@@ -1,6 +1,6 @@
 import { existsSync, readFileSync, realpathSync } from 'node:fs';
 import { join } from 'node:path';
-import { assetsRoot, catalog, packageRoot, parseInstallation, version } from './bundle.js';
+import { assetsRoot, catalog, packageRoot, parseInstallation, skillName, version } from './bundle.js';
 import { hash, listFiles, readOptional, safePath } from './files.js';
 import type { Change, InitOptions, Installation, OwnedFile, Plan, Profile } from './types.js';
 
@@ -27,9 +27,9 @@ export function selectProfile(options: InitOptions, previous: Profile | null = n
   const groups = options.groups ?? (previous === null ? ['engineering', 'productivity'] : []);
   const knownGroups = new Set(all.map(skill => skill.group));
   for (const group of groups) if (group !== 'all' && !knownGroups.has(group)) throw new Error(`Unknown group: ${group}`);
-  const explicit = options.skills ?? [];
+  const explicit = [...(options.skills ?? []), ...(options.addSkills ?? [])].map(skillName);
   for (const name of explicit) if (!all.some(skill => skill.name === name)) throw new Error(`Unknown skill: ${name}`);
-  const keep = previous !== null && options.groups === undefined && options.skills === undefined ? previous.skills : [];
+  const keep = previous !== null && options.groups === undefined && options.skills === undefined ? previous.skills.map(skillName) : [];
   const names = all.filter(skill => skill.group === 'core' || groups.includes('all') || groups.includes(skill.group) || explicit.includes(skill.name) || keep.includes(skill.name)).map(skill => skill.name).sort();
   const profile = { hosts: [...new Set(hosts)].sort(), skills: names, adhd: options.adhd ?? previous?.adhd ?? true, graft: options.graft ?? previous?.graft ?? true, watch: options.watch ?? previous?.watch ?? false, orchestration: options.orchestration ?? previous?.orchestration ?? false };
   if (profile.watch && !profile.graft) throw new Error('Watch requires graft');
@@ -74,12 +74,12 @@ function desiredFiles(profile: Profile): Map<string, { data: Buffer; kind: 'file
   const skillShelf = profile.hosts.includes('codex') ? '.agents/skills' : '.claude/skills';
   const rules = [
     '# Guardian project guidance',
-    `Read ${skillShelf}/guardian/SKILL.md for project adoption, context migration, changes, fixes and verification.`,
+    `Read ${skillShelf}/guardian-main/SKILL.md for project adoption, context migration, changes, fixes and verification.`,
     'Before changing code, read docs/agents/guardian.md for installed capabilities and verification commands.',
     ...(profile.graft ? ['Read graft/INDEX.md and relevant cards before code edits. Refresh missing or stale cards with node .guardian/bin/guardian.mjs graft . build. Verify affected source and callers.'] : []),
-    `Before writing, reviewing or refactoring code, read ${skillShelf}/karpathy-guidelines/SKILL.md. Apply its principles alongside project-specific rules; scale the process to the task.`,
+    `Before writing, reviewing or refactoring code, read ${skillShelf}/guardian-karpathy-guidelines/SKILL.md. Apply its principles alongside project-specific rules; scale the process to the task.`,
     'TypeScript: use strict types and unknown at external boundaries; no explicit or implicit any. Give public functions, components and hooks explicit return types.',
-    ...(profile.orchestration ? [`Agent orchestration is available on explicit request. Read ${skillShelf}/guardian/references/orchestration.md before delegating; use host subagents only when available.`] : []),
+    ...(profile.orchestration ? [`Agent orchestration is available on explicit request. Read ${skillShelf}/guardian-main/references/orchestration.md before delegating; use host subagents only when available.`] : []),
     'Keep changes scoped to the authorized task; preserve existing work and verify observable behavior.',
     ...(profile.adhd ? ['ADHD format is active: read .guardian/communication.md at session start. Honor "stop adhd mode" for this session; project default remains enabled until changed through the CLI.'] : []),
     'Use the project’s approved domain glossary (GLOSSARY.md for new setups); preserve existing conventions until a reviewed migration. ICM operational contracts belong under docs/map/. Create them only with real content.',

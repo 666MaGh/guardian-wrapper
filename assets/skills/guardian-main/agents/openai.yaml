@@ -1,0 +1,4 @@
+interface:
+  display_name: "Guardian"
+  short_description: "Coordinate project changes with ICM and verified skills"
+  default_prompt: "Use $guardian-main to adopt this project and report its next step."

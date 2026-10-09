@@ -30,14 +30,18 @@ export function parseProfile(value: unknown): Profile {
   return { hosts: strings(profile.hosts), skills: strings(profile.skills), adhd: boolean(profile.adhd), graft: boolean(profile.graft), watch: boolean(profile.watch), orchestration: profile.orchestration === undefined ? false : boolean(profile.orchestration) };
 }
 
+export function skillName(name: string): string {
+  return name.startsWith('guardian-') ? name : `guardian-${name === 'guardian' ? 'main' : name === 'ponytail-audit' ? 'audit' : name}`;
+}
+
 export function catalog(): Skill[] {
   const raw: unknown = JSON.parse(readFileSync(join(assetsRoot, 'catalog.json'), 'utf8'));
   if (!Array.isArray(raw)) throw new Error('Invalid skill catalog');
   return raw.map((value: unknown): Skill => {
     const entry = object(value);
-    for (const field of ['name', 'group', 'provider']) if (typeof entry[field] !== 'string') throw new Error(`Invalid catalog ${field}`);
+    for (const field of ['name', 'group', 'provider', 'sourceName']) if (typeof entry[field] !== 'string') throw new Error(`Invalid catalog ${field}`);
     if (typeof entry.name !== 'string' || !/^[a-z0-9-]+$/.test(entry.name)) throw new Error('Unsafe skill name');
-    return { name: entry.name, group: String(entry.group), provider: String(entry.provider), userOnly: boolean(entry.userOnly) };
+    return { sourceName: String(entry.sourceName), name: entry.name, group: String(entry.group), provider: String(entry.provider), userOnly: boolean(entry.userOnly) };
   });
 }
 

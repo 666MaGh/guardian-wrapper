@@ -77,7 +77,7 @@ test('invalid scope, unselected host, duplicate flags and noninteractive launch 
 
 test('modified owned files prevent workflow launch', t => {
   const root = fixture(t);
-  writeFileSync(join(root, '.agents/skills/guardian/SKILL.md'), 'User changes');
+  writeFileSync(join(root, '.agents/skills/guardian-main/SKILL.md'), 'User changes');
   const result = run(root, 'maintain', '--dry-run');
   assert.equal(result.status, 1);
   assert.match(result.stderr, /Resolve doctor findings first/);
@@ -103,4 +103,17 @@ test('interactive launch passes one literal prompt and project cwd, preserving h
     assert.ok(!listFiles(root).includes('should-not-exist'));
     await assert.rejects(launchWorkflow({ ...session, dryRun: true }), /Cannot launch/);
   } finally { process.env.PATH = oldPath; }
+});
+
+test('guardian-audit is opt-in and its preview is a report-only session without writes', t => {
+  const root = fixture(t);
+  assert.equal(run(root, 'guardian-audit', '--dry-run').status, 1);
+  applyPlan(planInstall(root, { addSkills: ['guardian-audit'] }));
+  const before = snapshot(root);
+  const result = run(root, 'guardian-audit', '--dry-run');
+  assert.equal(result.status, 0, result.stderr);
+  assert.match(result.stdout, /Run guardian-audit/);
+  assert.match(result.stdout, /report findings only/);
+  assert.deepEqual(snapshot(root), before);
+  assert.equal(run(root, 'guardian-audit', '--scope', 'app', '--dry-run').status, 1);
 });

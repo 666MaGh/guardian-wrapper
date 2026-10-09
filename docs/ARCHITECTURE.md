@@ -10,7 +10,7 @@ A repeatable, project-local foundation for AI-assisted software work. The intend
 | --- | --- | --- |
 | Guardian | Entry point and orchestration for adopt/setup/change/fix/verify/status/doctor | Adapted skill with references and record templates |
 | ICM Architect | Structure durable context, maps and selective context loading | Bundled core skill; Guardian routes to it when needed |
-| i-have-adhd | Short, actionable communication and reduced cognitive load | Original explicit-only skill plus generated startup reference |
+| guardian-i-have-adhd | Short, actionable communication and reduced cognitive load | Original explicit-only skill plus generated startup reference |
 | Karpathy guidelines | Four coding behavior principles inspired by Karpathy | Unchanged pinned core skill; shared instructions point to it |
 | Matt Pocock collection | Engineering, productivity and specialist workflows | All 37 upstream skills, selectable groups |
 | graft 0.21.1 | Structural repository graph and code retrieval | Pinned npm runtime; project-local graph |
@@ -92,4 +92,10 @@ Weekly Dependabot proposals cover source root npm, isolated runtime npm and Acti
 
 ## Karpathy-inspired guidelines source
 
-`karpathy-guidelines` is a fourth core skill from multica-ai/andrej-karpathy-skills at `2c606141936f1eeef17fa3043a72095b4765b9c2` (upstream plugin 1.0.0). It retains its original skill frontmatter/body; the wrapper adds licensing evidence and pointers from shared project guidance and Guardian integration. No upstream root CLAUDE.md, marketplace, Cursor rule or runtime code is imported. Existing project instructions are preserved by the normal managed-block installation. The package is inspired by Karpathy's observations and names forrestchang in its upstream plugin manifest; it is not attributed as software authored by Karpathy.
+`karpathy-guidelines` is a fourth core skill from multica-ai/andrej-karpathy-skills at `2c606141936f1eeef17fa3043a72095b4765b9c2` (upstream plugin 1.0.0). Its frontmatter name is adapted to guardian-karpathy-guidelines and its behavioral body is retained; the wrapper adds licensing evidence and pointers from shared project guidance and Guardian integration. No upstream root CLAUDE.md, marketplace, Cursor rule or runtime code is imported. Existing project instructions are preserved by the normal managed-block installation. The package is inspired by Karpathy's observations and names forrestchang in its upstream plugin manifest; it is not attributed as software authored by Karpathy.
+
+## Namespaced skills and Ponytail adaptation
+
+The 42 catalog skills use guardian- names, including guardian-main. Source names are retained separately. Profile selection resolves legacy names only at install planning, so old manifests can still be integrity-checked/uninstalled before migration; owned paths/hashes remain authoritative. Updates create new owned paths and remove old owned files in the same existing transaction. User-modified owned bytes still block updates. Cross-skill call references are adapted while upstream URLs/resources/licenses and invocation policies remain intact.
+
+Ponytail supplies a decision ladder in Guardian's change reference and the optional guardian-audit skill in misc. Audit launches through the existing interactive workflow dispatcher and validates that the skill is selected. It reports only, in the user's language; the host executes instructions, so static/dispatch checks do not certify a semantic audit. No hooks or persistent Ponytail modes are imported.

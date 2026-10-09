@@ -28,15 +28,15 @@ On macOS a missing native toolchain can be installed with `xcode-select --instal
 | Matt engineering workflow conventions | Tracker choice, triage vocabulary, GLOSSARY/domain docs and ADR location | Explicit setup-matt-pocock-skills request; inspect proposed writes |
 | Parallel review/research/implementation | Host supports subagents/background work, permitted by host/project policy | Workflows requesting delegation; not a wrapper-created runtime |
 | Research/UI prototypes | Browsing capability or access to supplied sources; project browser/test tools as appropriate | Relevant research/prototype task |
-| git-guardrails-claude-code | Claude PreToolUse hooks, Bash and jq | Explicit opt-in hook install; Codex enforcement is not supplied |
-| setup-pre-commit | Target repo package manager, Husky, lint-staged, Prettier and working project typecheck/test scripts | Explicit project change; packages are not installed by wrapper init |
-| migrate-to-shoehorn | TypeScript test project and @total-typescript/shoehorn | Explicit migration |
-| setup-ts-deep-modules | TypeScript repo/package layout, dependency-cruiser | Experimental explicit workflow |
-| scaffold-exercises | Suitable AI Hero course project, pnpm and ai-hero-cli lint command | Specialized opt-in skill; not a generic project generator |
-| claude-handoff | Claude CLI supports the upstream --bg/--name and agents interface | Experimental explicit workflow; verify current host support |
-| wizard | Bash, common shell utilities/curl, target service access and any required gh/glab commands | Per generated provisioning procedure |
+| guardian-git-guardrails-claude-code | Claude PreToolUse hooks, Bash and jq | Explicit opt-in hook install; Codex enforcement is not supplied |
+| guardian-setup-pre-commit | Target repo package manager, Husky, lint-staged, Prettier and working project typecheck/test scripts | Explicit project change; packages are not installed by wrapper init |
+| guardian-migrate-to-shoehorn | TypeScript test project and @total-typescript/shoehorn | Explicit migration |
+| guardian-setup-ts-deep-modules | TypeScript repo/package layout, dependency-cruiser | Experimental explicit workflow |
+| guardian-scaffold-exercises | Suitable AI Hero course project, pnpm and ai-hero-cli lint command | Specialized opt-in skill; not a generic project generator |
+| guardian-claude-handoff | Claude CLI supports the upstream --bg/--name and agents interface | Experimental explicit workflow; verify current host support |
+| guardian-wizard | Bash, common shell utilities/curl, target service access and any required gh/glab commands | Per generated provisioning procedure |
 
-There is no single universal “all dependencies” installation: some skills target different environments and third-party accounts. All 41 can be installed together; full use means satisfying the relevant row for the selected workflow. Init does not authenticate hosts, configure trackers, install application dependencies, add git guards or run semantic adoption. Original user-only commands retain their policy. Shared AGENTS.md/CLAUDE.md conventions must be preserved when an upstream setup workflow proposes edits.
+There is no single universal “all dependencies” installation: some skills target different environments and third-party accounts. All 42 can be installed together; full use means satisfying the relevant row for the selected workflow. Init does not authenticate hosts, configure trackers, install application dependencies, add git guards or run semantic adoption. Original user-only commands retain their policy. Shared AGENTS.md/CLAUDE.md conventions must be preserved when an upstream setup workflow proposes edits.
 
 ## Locked npm runtime inventory
 
@@ -95,51 +95,51 @@ This eliminates the affected dependency chain for [GHSA-hp3w-g68c-fv3c](https://
 
 ## Complete skill catalog
 
-Default: core + engineering + productivity (31). --groups all adds misc and in-progress (41). Core is always present. The six in-progress skills retain upstream experimental status.
+Default: core + engineering + productivity (31). --groups all adds misc and in-progress (42). Core is always present. The six in-progress skills retain upstream experimental status.
 
 | Skill | Group | Source | Invocation policy |
 | --- | --- | --- | --- |
-| guardian | core | guardian | Host may invoke |
-| karpathy-guidelines | core | multica-ai | Host may invoke |
-| i-have-adhd | core | i-have-adhd | Explicit user request |
-| icm-architect | core | icm-architect | Host may invoke |
-| ask-matt | engineering | mattpocock | Explicit user request |
-| code-review | engineering | mattpocock | Host may invoke |
-| codebase-design | engineering | mattpocock | Host may invoke |
-| diagnosing-bugs | engineering | mattpocock | Host may invoke |
-| domain-modeling | engineering | mattpocock | Host may invoke |
-| grill-with-docs | engineering | mattpocock | Explicit user request |
-| implement | engineering | mattpocock | Explicit user request |
-| implement-spec | engineering | mattpocock | Explicit user request |
-| improve-codebase-architecture | engineering | mattpocock | Explicit user request |
-| pr | engineering | mattpocock | Host may invoke |
-| prototype | engineering | mattpocock | Host may invoke |
-| research | engineering | mattpocock | Host may invoke |
-| retro | engineering | mattpocock | Explicit user request |
-| setup-matt-pocock-skills | engineering | mattpocock | Explicit user request |
-| tdd | engineering | mattpocock | Host may invoke |
-| to-spec | engineering | mattpocock | Explicit user request |
-| to-tickets | engineering | mattpocock | Explicit user request |
-| triage | engineering | mattpocock | Explicit user request |
-| wayfinder | engineering | mattpocock | Explicit user request |
-| wizard | engineering | mattpocock | Host may invoke |
-| claude-handoff | in-progress | mattpocock | Explicit user request |
-| loop-me | in-progress | mattpocock | Explicit user request |
-| setup-ts-deep-modules | in-progress | mattpocock | Explicit user request |
-| writing-beats | in-progress | mattpocock | Explicit user request |
-| writing-fragments | in-progress | mattpocock | Explicit user request |
-| writing-shape | in-progress | mattpocock | Explicit user request |
-| git-guardrails-claude-code | misc | mattpocock | Host may invoke |
-| migrate-to-shoehorn | misc | mattpocock | Host may invoke |
-| scaffold-exercises | misc | mattpocock | Host may invoke |
-| setup-pre-commit | misc | mattpocock | Host may invoke |
-| grill-me | productivity | mattpocock | Explicit user request |
-| grilling | productivity | mattpocock | Host may invoke |
-| handoff | productivity | mattpocock | Explicit user request |
-| teach | productivity | mattpocock | Explicit user request |
-| to-questionnaire | productivity | mattpocock | Explicit user request |
-| wait-what | productivity | mattpocock | Explicit user request |
-| writing-for-agents | productivity | mattpocock | Host may invoke |
+| guardian-main | core | guardian-main | Host may invoke |
+| guardian-karpathy-guidelines | core | multica-ai | Host may invoke |
+| guardian-i-have-adhd | core | guardian-i-have-adhd | Explicit user request |
+| guardian-icm-architect | core | guardian-icm-architect | Host may invoke |
+| guardian-ask-matt | engineering | mattpocock | Explicit user request |
+| guardian-code-review | engineering | mattpocock | Host may invoke |
+| guardian-codebase-design | engineering | mattpocock | Host may invoke |
+| guardian-diagnosing-bugs | engineering | mattpocock | Host may invoke |
+| guardian-domain-modeling | engineering | mattpocock | Host may invoke |
+| guardian-grill-with-docs | engineering | mattpocock | Explicit user request |
+| guardian-implement | engineering | mattpocock | Explicit user request |
+| guardian-implement-spec | engineering | mattpocock | Explicit user request |
+| guardian-improve-codebase-architecture | engineering | mattpocock | Explicit user request |
+| guardian-pr | engineering | mattpocock | Host may invoke |
+| guardian-prototype | engineering | mattpocock | Host may invoke |
+| guardian-research | engineering | mattpocock | Host may invoke |
+| guardian-retro | engineering | mattpocock | Explicit user request |
+| guardian-setup-matt-pocock-skills | engineering | mattpocock | Explicit user request |
+| guardian-tdd | engineering | mattpocock | Host may invoke |
+| guardian-to-spec | engineering | mattpocock | Explicit user request |
+| guardian-to-tickets | engineering | mattpocock | Explicit user request |
+| guardian-triage | engineering | mattpocock | Explicit user request |
+| guardian-wayfinder | engineering | mattpocock | Explicit user request |
+| guardian-wizard | engineering | mattpocock | Host may invoke |
+| guardian-claude-handoff | in-progress | mattpocock | Explicit user request |
+| guardian-loop-me | in-progress | mattpocock | Explicit user request |
+| guardian-setup-ts-deep-modules | in-progress | mattpocock | Explicit user request |
+| guardian-writing-beats | in-progress | mattpocock | Explicit user request |
+| guardian-writing-fragments | in-progress | mattpocock | Explicit user request |
+| guardian-writing-shape | in-progress | mattpocock | Explicit user request |
+| guardian-git-guardrails-claude-code | misc | mattpocock | Host may invoke |
+| guardian-migrate-to-shoehorn | misc | mattpocock | Host may invoke |
+| guardian-scaffold-exercises | misc | mattpocock | Host may invoke |
+| guardian-setup-pre-commit | misc | mattpocock | Host may invoke |
+| guardian-grill-me | productivity | mattpocock | Explicit user request |
+| guardian-grilling | productivity | mattpocock | Host may invoke |
+| guardian-handoff | productivity | mattpocock | Explicit user request |
+| guardian-teach | productivity | mattpocock | Explicit user request |
+| guardian-to-questionnaire | productivity | mattpocock | Explicit user request |
+| guardian-wait-what | productivity | mattpocock | Explicit user request |
+| guardian-writing-for-agents | productivity | mattpocock | Host may invoke |
 
 ## Guided onboarding
 
@@ -151,8 +151,12 @@ No additional runtime dependency or provider SDK is added. Local Claude/Codex tr
 
 ## Optional Guardian workflows
 
-`orchestrate` is enabled per project with `--orchestration on` or `config orchestration on`; it needs a host with permitted subagents for parallel work and Git worktrees for concurrent writers. It falls back to sequential execution when delegation is unavailable. `maintain` needs the target project's own package manager, network access for version/advisory queries and working verification commands. It starts the same authenticated interactive CLI as onboarding; no new SDK/service is installed. Both are instructions executed by the agent, not guaranteed background automation. Details: [orchestration](../assets/skills/guardian/references/orchestration.md), [maintenance](../assets/skills/guardian/references/maintenance.md).
+`orchestrate` is enabled per project with `--orchestration on` or `config orchestration on`; it needs a host with permitted subagents for parallel work and Git worktrees for concurrent writers. It falls back to sequential execution when delegation is unavailable. `maintain` needs the target project's own package manager, network access for version/advisory queries and working verification commands. It starts the same authenticated interactive CLI as onboarding; no new SDK/service is installed. Both are instructions executed by the agent, not guaranteed background automation. Details: [orchestration](../assets/skills/guardian-main/references/orchestration.md), [maintenance](../assets/skills/guardian-main/references/maintenance.md).
 
 ## Karpathy guidelines
 
 The additional core skill is Markdown only: no new runtime dependency, hook, service or credential. It is pinned to `multica-ai/andrej-karpathy-skills` revision `2c606141936f1eeef17fa3043a72095b4765b9c2`, with original model/user invocation behavior. See the licensing evidence in THIRD-PARTY-NOTICES.md. The wrapper distributes the skill, not the upstream marketplace, root CLAUDE.md or Cursor configuration.
+
+## Optional guardian-audit
+
+Ponytail's audit is packaged as `guardian-audit` in misc (also included by all), outside the default 31-skill profile. Add it with `update --add-skills guardian-audit` to retain existing choices. It is Markdown only; no Ponytail npm package, lifecycle hook, service or credential is installed. The optional CLI command opens your existing authenticated Claude/Codex session. Source and MIT license are pinned in sources.lock.json. All 42 bundled skill names now use guardian-; upstream names are mapped rather than silently claimed as Guardian authorship.
