@@ -11,6 +11,7 @@ A repeatable, project-local foundation for AI-assisted software work. The intend
 | Guardian | Entry point and orchestration for adopt/setup/change/fix/verify/status/doctor | Adapted skill with references and record templates |
 | ICM Architect | Structure durable context, maps and selective context loading | Bundled core skill; Guardian routes to it when needed |
 | i-have-adhd | Short, actionable communication and reduced cognitive load | Original explicit-only skill plus generated startup reference |
+| Karpathy guidelines | Four coding behavior principles inspired by Karpathy | Unchanged pinned core skill; shared instructions point to it |
 | Matt Pocock collection | Engineering, productivity and specialist workflows | All 37 upstream skills, selectable groups |
 | graft 0.21.1 | Structural repository graph and code retrieval | Pinned npm runtime; project-local graph |
 | Wrapper CLI | Install, update, inspect, configure, remove and export | Strict TypeScript compiled to Node ESM |
@@ -88,3 +89,7 @@ Project profiles include `orchestration` (false for new and legacy profiles). Ma
 `maintain` defaults to app dependency inspection; wrapper/skills/all are selectable. It starts an agent-led proposal/apply/verify session and does not directly run a package manager. Concrete dependency changes need review in that conversation. Consumer wrapper/skill upgrades use reviewed releases; editing bundled upstream snapshots requires an authorized wrapper source checkout. `update` retains its narrower meaning of reapplying the executing package to a project.
 
 Weekly Dependabot proposals cover source root npm, isolated runtime npm and Actions. The runtime package-lock mirrors its release shrinkwrap for GitHub dependency-graph discovery; asset checks enforce equality. Postinstall still consumes only the reviewed runtime shrinkwrap. Neither Dependabot nor Guardian automatically merges upgrades or treats an audit pass as compatibility evidence.
+
+## Karpathy-inspired guidelines source
+
+`karpathy-guidelines` is a fourth core skill from multica-ai/andrej-karpathy-skills at `2c606141936f1eeef17fa3043a72095b4765b9c2` (upstream plugin 1.0.0). It retains its original skill frontmatter/body; the wrapper adds licensing evidence and pointers from shared project guidance and Guardian integration. No upstream root CLAUDE.md, marketplace, Cursor rule or runtime code is imported. Existing project instructions are preserved by the normal managed-block installation. The package is inspired by Karpathy's observations and names forrestchang in its upstream plugin manifest; it is not attributed as software authored by Karpathy.

@@ -23,6 +23,7 @@ writeFileSync(join(root, 'sources.lock.json'), JSON.stringify({
     mattpocock: { url: 'https://github.com/mattpocock/skills', revision: 'd81f3a183412e71a5b1e84ca21bc1a35eea03a60', version: '1.2.3', license: 'MIT', skills: skills.filter(skill => skill.provider === 'mattpocock').map(skill => skill.name) },
     'icm-architect': { url: 'https://github.com/RinDig/icm-architect', origin: 'User-provided installed Git checkout, tracked files clean before wrapper adaptations', revision: 'e16cafe6a664dcf6d787a726b452adba77d913f4', copyright: '2026 Jake Van Clief', license: 'MIT' },
     'i-have-adhd': { url: 'https://github.com/ayghri/i-have-adhd', origin: 'User-provided installed skill snapshot; upstream copyright/license retained', revision: null, license: 'MIT' },
+    'karpathy-guidelines': { url: 'https://github.com/multica-ai/andrej-karpathy-skills', revision: '2c606141936f1eeef17fa3043a72095b4765b9c2', path: 'skills/karpathy-guidelines', version: '1.0.0', license: 'MIT', licenseEvidence: ['skills/karpathy-guidelines/SKILL.md frontmatter', 'README.md License section', '.claude-plugin/plugin.json'], author: 'forrestchang (upstream plugin manifest)', upstreamLicenseFile: false },
     graft: { package: '@nanonets/graft', version: '0.21.1', url: 'https://github.com/trailhq/Graft', license: 'MIT', dependencyLock: 'runtime/npm-shrinkwrap.json' }
   },
   adaptations: [
@@ -32,6 +33,7 @@ writeFileSync(join(root, 'sources.lock.json'), JSON.stringify({
     'ADHD startup reference generated from the supplied skill; old global opt-in hook removed',
     'New project-scoped fswatch script and CLI replace the supplied watcher implementation',
     'Guardian guided chat/project context migration, selected conversation evidence and handoff template added by wrapper author',
+    'Karpathy guidelines vendored unchanged; wrapper adds a license declaration record and project/Guardian pointers without copying upstream CLAUDE.md or Cursor settings',
     'Optional Guardian orchestration adapts Matt research, code-review and TDD; coordination and dependency maintenance are wrapper-authored workflows'
   ],
   files: Object.fromEntries(Object.entries(files).sort(([left], [right]) => left.localeCompare(right)))

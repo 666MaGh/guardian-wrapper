@@ -1,6 +1,6 @@
 # Guardian Wrapper
 
-A project setup for Claude Code and Codex: Guardian, ICM Architect, ADHD communication, all 37 Matt Pocock skills as selectable groups, and pinned graft 0.21.1. Nothing is installed into your global agent settings. MIT; upstream credits and licenses are preserved.
+A project setup for Claude Code and Codex: Guardian, ICM Architect, ADHD communication, Karpathy-inspired coding guidelines, all 37 Matt Pocock skills as selectable groups, and pinned graft 0.21.1. Nothing is installed into your global agent settings. MIT; upstream credits and licenses are preserved.
 
 ## Purpose
 
@@ -98,9 +98,22 @@ For the current chat, ask Guardian to create a reviewed handoff using [this temp
 
 `.guardian/migration.md` is user-editable, never overwritten, and not claimed by the installation manifest. Move a completed brief before preparing a new one. It contains machine-local paths: keep it local; init adds its gitignore entry. Dry-run is fully read-only. Discovery skips symlinks and common generated/vendor directories and is bounded to 12 levels, 10,000 entries and 200 context files; each input is limited to 1 MiB. Use focused summaries/subprojects for larger sources. The 0.1.0 package predates onboarding, migration and chat discovery. Use the 0.2.0 source checkout or its GitHub release assets when available.
 
+## Karpathy-inspired coding guidelines
+
+`karpathy-guidelines` is included in every core profile for Claude Code and Codex. It covers surfacing assumptions, keeping solutions simple, limiting edits to the task and verifying success criteria. The unchanged skill comes from [multica-ai/andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills/tree/2c606141936f1eeef17fa3043a72095b4765b9c2/skills/karpathy-guidelines), inspired by Karpathy's observations; it is not an official Karpathy package. Project instructions point to the skill rather than duplicating its full body. Existing project rules remain intact and applicable.
+
+No additional executable, npm package, hook or API key is required. The upstream MIT declarations and absence of a separate license file are recorded in [attribution](THIRD-PARTY-NOTICES.md). Source users can add it to an existing setup after rebuilding the wrapper:
+
+```sh
+guardian-wrapper update /path/to/project --dry-run
+guardian-wrapper update /path/to/project
+```
+
+This addition is available in current source, not the older v0.2.0 release tarball. Start a fresh agent session after updating so the new project instructions and skill can be discovered.
+
 ## Choose a profile
 
-Default profile: core + engineering + productivity (30 skills), both hosts, ADHD on, graft on. All groups include 40 skills including the three core skills. Original user-only commands retain their restrictions.
+Default profile: core + engineering + productivity (31 skills), both hosts, ADHD on, graft on. All groups include 41 skills including the four core skills. Original user-only commands retain their restrictions.
 
 ```sh
 guardian-wrapper init /path/to/project --groups core --skills tdd,code-review

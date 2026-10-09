@@ -10,6 +10,14 @@ All 37 skill folders and their resources are bundled. Copyright 2026 Matt Pocock
 
 Guardian's optional coordination workflow adapts primary-source background research, independent Standards/Spec review and behavioral vertical slices from the pinned `research`, `code-review` and `tdd` skills. Task/file ownership, host fallback and dependency maintenance are Guardian additions, not an upstream Matt updater or agent scheduler. Exact links appear in the orchestration reference; the underlying skill snapshots are unchanged.
 
+## Karpathy-inspired guidelines
+
+Source: https://github.com/multica-ai/andrej-karpathy-skills
+Revision: 2c606141936f1eeef17fa3043a72095b4765b9c2 (plugin 1.0.0).
+The original `skills/karpathy-guidelines/SKILL.md` is bundled unchanged, including its link to Andrej Karpathy's observations. Upstream `.claude-plugin/plugin.json` names forrestchang as the author. This is an independent Karpathy-inspired repository, not a claim of Karpathy authorship or endorsement.
+
+MIT is explicitly declared in the skill frontmatter, README License section and plugin manifest. This pinned upstream tree contains no separate LICENSE file or copyright notice. The wrapper records those declarations and supplies standard MIT permission/disclaimer text in assets/licenses/karpathy-guidelines.txt and the skill's LICENSE without inventing a copyright holder/year. Added project/Guardian pointers and licensing records are wrapper integration; no upstream root CLAUDE.md, Cursor settings or marketplace is redistributed.
+
 ## ICM Architect
 
 Source: https://github.com/RinDig/icm-architect

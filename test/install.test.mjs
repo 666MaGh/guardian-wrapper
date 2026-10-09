@@ -34,6 +34,8 @@ test('a new project gets both hosts, core skills and default ADHD; repeated init
   for (const host of ['.claude', '.agents']) {
     assert.ok(existsSync(join(root, host, 'skills/guardian/SKILL.md')));
     assert.ok(existsSync(join(root, host, 'skills/icm-architect/LICENSE')));
+    assert.ok(existsSync(join(root, host, 'skills/karpathy-guidelines/SKILL.md')));
+    assert.ok(existsSync(join(root, host, 'skills/karpathy-guidelines/LICENSE')));
   }
   assert.match(readFileSync(join(root, 'CLAUDE.md'), 'utf8'), /@AGENTS\.md/);
   assert.match(readFileSync(join(root, 'AGENTS.md'), 'utf8'), /communication\.md/);
@@ -156,9 +158,9 @@ test('an active installation lock prevents simultaneous installs', t => {
 });
 
 test('group and individual choices select the full catalog or minimal core', () => {
-  assert.equal(selectProfile({ groups: ['all'] }).skills.length, 40);
-  assert.equal(selectProfile({ groups: ['core'], skills: ['tdd'] }).skills.length, 4);
-  assert.equal(selectProfile({}).skills.length, 30);
+  assert.equal(selectProfile({ groups: ['all'] }).skills.length, 41);
+  assert.equal(selectProfile({ groups: ['core'], skills: ['tdd'] }).skills.length, 5);
+  assert.equal(selectProfile({}).skills.length, 31);
   assert.throws(() => selectProfile({ skills: ['missing'] }), /Unknown skill/);
   assert.throws(() => selectProfile({ groups: ['typo'] }), /Unknown group/);
   assert.throws(() => selectProfile({ graft: false, watch: true }), /Watch requires graft/);
@@ -196,7 +198,7 @@ test('a full Claude plugin export includes all skills and project-aware ADHD hoo
   exportPlugin(destination, selectProfile({ groups: ['all'] }));
   const manifest = JSON.parse(readFileSync(join(destination, '.claude-plugin/plugin.json'), 'utf8'));
   assert.equal(manifest.name, 'guardian-wrapper');
-  assert.equal(listFiles(join(destination, 'skills')).filter(path => path.endsWith('/SKILL.md')).length, 40);
+  assert.equal(listFiles(join(destination, 'skills')).filter(path => path.endsWith('/SKILL.md')).length, 41);
   assert.ok(existsSync(join(destination, 'skills/implement-spec/agents/openai.yaml')));
   const fresh = spawnSync(process.execPath, [join(destination, 'hooks/session-start.mjs')], { cwd: root, encoding: 'utf8' });
   assert.equal(fresh.status, 0);

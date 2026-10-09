@@ -77,6 +77,7 @@ function desiredFiles(profile: Profile): Map<string, { data: Buffer; kind: 'file
     `Read ${skillShelf}/guardian/SKILL.md for project adoption, context migration, changes, fixes and verification.`,
     'Before changing code, read docs/agents/guardian.md for installed capabilities and verification commands.',
     ...(profile.graft ? ['Read graft/INDEX.md and relevant cards before code edits. Refresh missing or stale cards with node .guardian/bin/guardian.mjs graft . build. Verify affected source and callers.'] : []),
+    `Before writing, reviewing or refactoring code, read ${skillShelf}/karpathy-guidelines/SKILL.md. Apply its principles alongside project-specific rules; scale the process to the task.`,
     'TypeScript: use strict types and unknown at external boundaries; no explicit or implicit any. Give public functions, components and hooks explicit return types.',
     ...(profile.orchestration ? [`Agent orchestration is available on explicit request. Read ${skillShelf}/guardian/references/orchestration.md before delegating; use host subagents only when available.`] : []),
     'Keep changes scoped to the authorized task; preserve existing work and verify observable behavior.',
