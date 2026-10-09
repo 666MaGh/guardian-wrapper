@@ -64,6 +64,20 @@
       "revision": null,
       "license": "MIT"
     },
+    "karpathy-guidelines": {
+      "url": "https://github.com/multica-ai/andrej-karpathy-skills",
+      "revision": "2c606141936f1eeef17fa3043a72095b4765b9c2",
+      "path": "skills/karpathy-guidelines",
+      "version": "1.0.0",
+      "license": "MIT",
+      "licenseEvidence": [
+        "skills/karpathy-guidelines/SKILL.md frontmatter",
+        "README.md License section",
+        ".claude-plugin/plugin.json"
+      ],
+      "author": "forrestchang (upstream plugin manifest)",
+      "upstreamLicenseFile": false
+    },
     "graft": {
       "package": "@nanonets/graft",
       "version": "0.21.1",
@@ -79,13 +93,15 @@
     "ADHD startup reference generated from the supplied skill; old global opt-in hook removed",
     "New project-scoped fswatch script and CLI replace the supplied watcher implementation",
     "Guardian guided chat/project context migration, selected conversation evidence and handoff template added by wrapper author",
+    "Karpathy guidelines vendored unchanged; wrapper adds a license declaration record and project/Guardian pointers without copying upstream CLAUDE.md or Cursor settings",
     "Optional Guardian orchestration adapts Matt research, code-review and TDD; coordination and dependency maintenance are wrapper-authored workflows"
   ],
   "files": {
-    "catalog.json": "e8057cf96ef4dada103973161dbf030282b1deea4dd08ad5c8013e632ec3154f",
+    "catalog.json": "649f496fe5623930c1ce95b9d563d89d6be20796f12a9937e96fbebed3e7b132",
     "communication/adhd.md": "854f54763e858a780eb17fa4dca2d1a9e59dc89174c5e3dd15ff555674c52e2d",
     "licenses/i-have-adhd.txt": "8acbb618089b738404f76ac60fca1aaa995d9a87995eddf95f0b777acd7f7d2c",
     "licenses/icm-architect.txt": "e13cd56a64956720629206c84499871594585bb3e17b6ef01ccca570cf38ce1d",
+    "licenses/karpathy-guidelines.txt": "a88bb62025ae2495602b63ed27ee217867e0f0f941886805820a4fcf0c1b917d",
     "licenses/mattpocock.txt": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
     "scripts/guardian.mjs": "7fb0e2210d2f9ec682508ed140db61693716f2b6ebee33a58c3054d810491b6d",
     "scripts/plugin-session-start.mjs": "1d8ba6a24d7c708dd9359f24d6db5accf550c3cf0cc737f989d02a08ad8b2777",
@@ -136,7 +152,7 @@
     "skills/guardian/LICENSE": "15b75c755a04420b586cd3e25670b990718f0fc1e7755478e800ca8019b03240",
     "skills/guardian/references/adoption.md": "fe80c8e9a5b1e14691917d97bd8ba467a07f74be8bd3f9d499cb84392ce641f9",
     "skills/guardian/references/change.md": "d691d4df7a64242af3da7e33008e0ce92710e98386866831f2b765dc7c0ec1bc",
-    "skills/guardian/references/integration.md": "74bfdc845b55f6d53b12864c465d17042e5afd0e75a954979943f4a769aa4f84",
+    "skills/guardian/references/integration.md": "09331c37f7252dbba467445588b39e18c2da33c4674f1c2a76a5f887b86b1b6c",
     "skills/guardian/references/maintenance.md": "87dbca6efffa55b370f2bf46c6396d2edf9f2d2ad9f24e14682bf05349fe2605",
     "skills/guardian/references/memory.md": "82a85f982106811a2eb67088a682853f00ef282586f932f713d03f474e8989e6",
     "skills/guardian/references/migration.md": "36b8b4fef35bba11a4bc51867dbfe464366c7c9150932939f73f942951edaa46",
@@ -175,6 +191,8 @@
     "skills/improve-codebase-architecture/HTML-REPORT.md": "581e8bb5a521e46bbda8ca7e19b15948bed882187108092ebb90c62513b77528",
     "skills/improve-codebase-architecture/LICENSE": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
     "skills/improve-codebase-architecture/SKILL.md": "552240a5ab5cec6b67c15dd1ad6e9f6962b1bca6ce870059a8c2713760c20392",
+    "skills/karpathy-guidelines/LICENSE": "a88bb62025ae2495602b63ed27ee217867e0f0f941886805820a4fcf0c1b917d",
+    "skills/karpathy-guidelines/SKILL.md": "6e22cc54cb02a5e98ae42d06d9d7292db0c1b43894831b32879beb0166b2aea7",
     "skills/loop-me/agents/openai.yaml": "b66fa10079957051be6a812f45e55b67ac394b71d5ba88349962b4c9205802c3",
     "skills/loop-me/LICENSE": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
     "skills/loop-me/SKILL.md": "e44d1cc3e760fb86ac42964c2a5f1fcac511715db50fb375f3f7be814de1eaa7",

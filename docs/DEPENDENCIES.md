@@ -36,7 +36,7 @@ On macOS a missing native toolchain can be installed with `xcode-select --instal
 | claude-handoff | Claude CLI supports the upstream --bg/--name and agents interface | Experimental explicit workflow; verify current host support |
 | wizard | Bash, common shell utilities/curl, target service access and any required gh/glab commands | Per generated provisioning procedure |
 
-There is no single universal “all dependencies” installation: some skills target different environments and third-party accounts. All 40 can be installed together; full use means satisfying the relevant row for the selected workflow. Init does not authenticate hosts, configure trackers, install application dependencies, add git guards or run semantic adoption. Original user-only commands retain their policy. Shared AGENTS.md/CLAUDE.md conventions must be preserved when an upstream setup workflow proposes edits.
+There is no single universal “all dependencies” installation: some skills target different environments and third-party accounts. All 41 can be installed together; full use means satisfying the relevant row for the selected workflow. Init does not authenticate hosts, configure trackers, install application dependencies, add git guards or run semantic adoption. Original user-only commands retain their policy. Shared AGENTS.md/CLAUDE.md conventions must be preserved when an upstream setup workflow proposes edits.
 
 ## Locked npm runtime inventory
 
@@ -95,11 +95,12 @@ This eliminates the affected dependency chain for [GHSA-hp3w-g68c-fv3c](https://
 
 ## Complete skill catalog
 
-Default: core + engineering + productivity (30). --groups all adds misc and in-progress (40). Core is always present. The six in-progress skills retain upstream experimental status.
+Default: core + engineering + productivity (31). --groups all adds misc and in-progress (41). Core is always present. The six in-progress skills retain upstream experimental status.
 
 | Skill | Group | Source | Invocation policy |
 | --- | --- | --- | --- |
 | guardian | core | guardian | Host may invoke |
+| karpathy-guidelines | core | multica-ai | Host may invoke |
 | i-have-adhd | core | i-have-adhd | Explicit user request |
 | icm-architect | core | icm-architect | Host may invoke |
 | ask-matt | engineering | mattpocock | Explicit user request |
@@ -151,3 +152,7 @@ No additional runtime dependency or provider SDK is added. Local Claude/Codex tr
 ## Optional Guardian workflows
 
 `orchestrate` is enabled per project with `--orchestration on` or `config orchestration on`; it needs a host with permitted subagents for parallel work and Git worktrees for concurrent writers. It falls back to sequential execution when delegation is unavailable. `maintain` needs the target project's own package manager, network access for version/advisory queries and working verification commands. It starts the same authenticated interactive CLI as onboarding; no new SDK/service is installed. Both are instructions executed by the agent, not guaranteed background automation. Details: [orchestration](../assets/skills/guardian/references/orchestration.md), [maintenance](../assets/skills/guardian/references/maintenance.md).
+
+## Karpathy guidelines
+
+The additional core skill is Markdown only: no new runtime dependency, hook, service or credential. It is pinned to `multica-ai/andrej-karpathy-skills` revision `2c606141936f1eeef17fa3043a72095b4765b9c2`, with original model/user invocation behavior. See the licensing evidence in THIRD-PARTY-NOTICES.md. The wrapper distributes the skill, not the upstream marketplace, root CLAUDE.md or Cursor configuration.

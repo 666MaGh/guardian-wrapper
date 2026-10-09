@@ -238,5 +238,11 @@
     "group": "core",
     "provider": "i-have-adhd",
     "userOnly": true
+  },
+  {
+    "name": "karpathy-guidelines",
+    "group": "core",
+    "provider": "multica-ai",
+    "userOnly": false
   }
 ]

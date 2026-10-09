@@ -89,3 +89,9 @@ A fresh tarball consumer installed the isolated runtime, passed both advisory au
 ## 2026-10-08 optional workflows (source changes)
 
 Local macOS checks: 49/49 tests passed including opt-in profile migration, both workflow scopes/validation, read-only previews, integrity rejection, and a controlled host executable confirming a single literal prompt, project cwd and preserved exit status. Typecheck and 40-skill integrity/license/policy checks passed. Root/runtime `npm audit --omit=dev` each reported zero vulnerabilities at the time of this check. Existing real graft/watcher tests still pass. This does not certify model delegation, live dependency migrations, authenticated host sessions or future advisory results. Neither released v0.2.0 tarball nor its tag is modified by these source changes.
+
+## 2026-10-09 Karpathy guidelines integration
+
+The vendored SKILL.md matches upstream revision 2c606141936f1eeef17fa3043a72095b4765b9c2 byte-for-byte (SHA-256 6e22cc54cb02a5e98ae42d06d9d7292db0c1b43894831b32879beb0166b2aea7). MIT licensing declarations were checked in the skill, README and plugin manifest; no separate upstream LICENSE/copyright notice is claimed. The added license records are wrapper-authored evidence plus standard MIT text.
+
+Local checks passed: 49/49 tests including installation to both hosts, preservation/uninstall, full plugin export, real graft changes and fswatch; typecheck; 41-skill integrity/license/invocation checks. The first graft checks exposed missing local native builds and inherited ELECTRON_RUN_AS_NODE; a clean locked runtime reinstall restored native artifacts, without changing dependency manifests/locks. Full tests then passed with the Electron variable removed. A normal-environment graft build also passed. These checks establish packaging and pointers, not guaranteed model compliance. Existing release tags/tarballs remain unchanged.

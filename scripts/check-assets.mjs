@@ -7,8 +7,8 @@ verifyBundle();
 assert.deepEqual(JSON.parse(readFileSync(new URL('../package-lock.json', import.meta.url), 'utf8')), JSON.parse(readFileSync(new URL('../npm-shrinkwrap.json', import.meta.url), 'utf8')), 'Keep the release shrinkwrap synchronized with package-lock.json');
 assert.deepEqual(JSON.parse(readFileSync(new URL('../runtime/package-lock.json', import.meta.url), 'utf8')), JSON.parse(readFileSync(new URL('../runtime/npm-shrinkwrap.json', import.meta.url), 'utf8')), 'Keep the runtime dependency graph lock synchronized with its release shrinkwrap');
 const skills = catalog();
-assert.equal(skills.length, 40);
-assert.equal(new Set(skills.map(skill => skill.name)).size, 40);
+assert.equal(skills.length, 41);
+assert.equal(new Set(skills.map(skill => skill.name)).size, 41);
 for (const skill of skills) {
   const directory = join(assetsRoot, 'skills', skill.name);
   const body = readFileSync(join(directory, 'SKILL.md'), 'utf8');

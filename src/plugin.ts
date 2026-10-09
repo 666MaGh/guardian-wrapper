@@ -18,7 +18,7 @@ export function exportPlugin(destination: string, profile: Profile): void {
   }
   mkdirSync(join(destination, '.claude-plugin'));
   writeFileSync(join(destination, '.claude-plugin/plugin.json'), JSON.stringify({
-    name: 'guardian-wrapper', version, description: 'Guardian with ICM, ADHD and selected Matt Pocock skills', author: { name: 'Martin Ghaoui' }, license: 'MIT',
+    name: 'guardian-wrapper', version, description: 'Guardian with ICM, ADHD, Karpathy guidelines and selected Matt Pocock skills', author: { name: 'Martin Ghaoui' }, license: 'MIT',
   }, null, 2) + '\n');
   if (profile.adhd) {
     mkdirSync(join(destination, 'hooks'));
