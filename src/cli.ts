@@ -4,7 +4,7 @@ import { existsSync, realpathSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { catalog, verifyBundle, version } from './bundle.js';
+import { catalog, verifyBundle, version, skillName } from './bundle.js';
 import { applyPlan } from './files.js';
 import { graftRoot, runGraft, toolAvailable, watchEvents } from './graft.js';
 import { installationProblems, planInstall, planUninstall, projectRoot, readInstallation } from './install.js';
@@ -18,7 +18,7 @@ import type { InitOptions, Plan, Profile } from './types.js';
 const help: string = `Guardian Wrapper ${version}
 
 guardian-wrapper init [project] [--groups engineering,productivity|all|core]
-  [--skills tdd,code-review] [--hosts claude,codex] [--adhd on|off]
+  [--skills guardian-tdd,guardian-code-review] [--add-skills guardian-audit] [--hosts claude,codex] [--adhd on|off]
   [--graft on|off] [--orchestration on|off] [--watch] [--dry-run]
 guardian-wrapper update [project] [same options]
 guardian-wrapper doctor [project]
@@ -29,6 +29,7 @@ guardian-wrapper onboard [project] [--host claude|codex]
 guardian-wrapper chats [project] [--query <text>] [--export <file-or-directory>]
   [--source all|claude|codex|exports] [--select <id,id>] [--dry-run]
 guardian-wrapper orchestrate [project] --task <text> [--host claude|codex] [--dry-run]
+guardian-wrapper guardian-audit [project] [--host claude|codex] [--dry-run]
 guardian-wrapper maintain [project] [--scope app|wrapper|skills|all] [--host claude|codex] [--dry-run]
 guardian-wrapper config [project] adhd|orchestration on|off [--dry-run]
 guardian-wrapper uninstall [project] [--dry-run]
@@ -61,6 +62,7 @@ function parse(args: string[]): Parsed {
     if (value === undefined || value.startsWith('--')) throw new Error(`Missing value for ${arg}`);
     if (arg === '--groups') result.options.groups = value.split(',');
     else if (arg === '--skills') result.options.skills = value.split(',');
+    else if (arg === '--add-skills') result.options.addSkills = value.split(',');
     else if (arg === '--hosts') result.options.hosts = value.split(',');
     else if (arg === '--adhd' || arg === '--graft' || arg === '--orchestration') {
       if (value !== 'on' && value !== 'off') throw new Error(`${arg} expects on or off`);
@@ -83,7 +85,9 @@ function shadows(profile: Profile): string[] {
   const results: string[] = [];
   for (const host of profile.hosts) {
     const shelf = host === 'claude' ? '.claude/skills' : '.agents/skills';
-    const found = profile.skills.filter(name => existsSync(join(homedir(), shelf, name)));
+    const sources = catalog();
+    const candidates = new Set(profile.skills.flatMap((name: string): string[] => [name, sources.find(skill => skill.name === skillName(name))?.sourceName ?? name]));
+    const found = [...candidates].filter(name => existsSync(join(homedir(), shelf, name)));
     if (found.length > 0) results.push(`${host}: global copies may shadow/duplicate ${found.join(', ')}; verify the project-local provider in a fresh session`);
   }
   return results;
@@ -119,7 +123,7 @@ function doctor(root: string): number {
     { names: ['wizard', 'diagnosing-bugs'], tools: ['bash', 'curl'], note: 'Browser and test tools depend on the target workflow.' },
   ];
   for (const capability of capabilities) {
-    if (!capability.names.some(name => installation.profile.skills.includes(name))) continue;
+    if (!capability.names.some(name => installation.profile.skills.some(selected => skillName(selected) === skillName(name)))) continue;
     console.log(`${capability.tools.map(tool => `${tool}=${toolAvailable(tool) ? 'available' : 'missing'}`).join(', ')}. ${capability.note}`);
   }
   console.log('Subagent access, app tests, typecheck/lint setup and CI gates must be verified in the host/project; installation alone does not certify them.');
@@ -150,6 +154,7 @@ export async function main(args: string[]): Promise<number> {
     if (command === 'migrate') { prepareMigration(args.slice(1)); return 0; }
     if (command === 'chats') { runChats(args.slice(1)); return 0; }
     if (command === 'onboard') return await runOnboarding(args.slice(1), realpathSync(process.argv[1] ?? 'dist/cli.js'));
+    if (command === 'guardian-audit') return await runWorkflow('audit', args.slice(1));
     if (command === 'orchestrate' || command === 'maintain') return await runWorkflow(command, args.slice(1));
     if (command === 'list') {
       for (const skill of catalog()) console.log(`${skill.group.padEnd(13)} ${skill.name}${skill.userOnly ? ' (user only)' : ''}`);

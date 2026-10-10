@@ -101,8 +101,8 @@ export function prepareMigration(args: string[], quiet: boolean = false, selecte
   if (sourceRoot !== null && !statSync(sourceRoot).isDirectory()) throw new Error('Source project must be a directory');
   const chatRef = selectedChat === undefined ? chatPath === null ? null : reference(chatPath) : { path: chatPath, sha256: hash(selectedChat.content), bytes: selectedChat.content.length };
   const inputs = { schema: 1, target: inventory(root), source: sourceRoot === null ? null : inventory(sourceRoot), chat: chatRef };
-  const guide = readFileSync(join(assetsRoot, 'skills/guardian/references/migration.md'), 'utf8').replace('../assets/templates/context-handoff.md', '#chat-handoff-template');
-  const handoff = readFileSync(join(assetsRoot, 'skills/guardian/assets/templates/context-handoff.md'), 'utf8');
+  const guide = readFileSync(join(assetsRoot, 'skills/guardian-main/references/migration.md'), 'utf8').replace('../assets/templates/context-handoff.md', '#chat-handoff-template');
+  const handoff = readFileSync(join(assetsRoot, 'skills/guardian-main/assets/templates/context-handoff.md'), 'utf8');
   const body = `# Guided migration brief\n\nStage: prepared; no setup or context migration has been applied.\n\nSource document bytes are not copied into this brief. Selected message text, when requested, is stored separately in the referenced chat evidence packet. Paths and SHA-256 values identify the reviewed inputs; recheck them before transferring facts. File inventories do not resolve semantic conflicts.\n\n## Input inventory\n\n\`\`\`json\n${JSON.stringify(inputs, null, 2)}\n\`\`\`\n\n## Agent workflow\n\n${guide}\n## Chat handoff template\n\n${handoff}`;
   const path = '.guardian/migration.md';
   const before = readOptional(root, path);

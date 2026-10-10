@@ -14,9 +14,20 @@ Guardian's optional coordination workflow adapts primary-source background resea
 
 Source: https://github.com/multica-ai/andrej-karpathy-skills
 Revision: 2c606141936f1eeef17fa3043a72095b4765b9c2 (plugin 1.0.0).
-The original `skills/karpathy-guidelines/SKILL.md` is bundled unchanged, including its link to Andrej Karpathy's observations. Upstream `.claude-plugin/plugin.json` names forrestchang as the author. This is an independent Karpathy-inspired repository, not a claim of Karpathy authorship or endorsement.
+The original `skills/karpathy-guidelines/SKILL.md` is bundled with its name adapted to `guardian-karpathy-guidelines`, including its link to Andrej Karpathy's observations. Upstream `.claude-plugin/plugin.json` names forrestchang as the author. This is an independent Karpathy-inspired repository, not a claim of Karpathy authorship or endorsement.
 
 MIT is explicitly declared in the skill frontmatter, README License section and plugin manifest. This pinned upstream tree contains no separate LICENSE file or copyright notice. The wrapper records those declarations and supplies standard MIT permission/disclaimer text in assets/licenses/karpathy-guidelines.txt and the skill's LICENSE without inventing a copyright holder/year. Added project/Guardian pointers and licensing records are wrapper integration; no upstream root CLAUDE.md, Cursor settings or marketplace is redistributed.
+
+## Ponytail
+
+Source: https://github.com/DietrichGebert/ponytail
+Revision: 9cc65d03aa2da1db7121b912d03596409ee340b8 (5.1.0). MIT, copyright 2026 DietrichGebert. The complete upstream LICENSE is retained in assets/licenses/ponytail.txt and assets/skills/guardian-audit/LICENSE.
+
+Guardian adapts the solution decision ladder into its existing change reference and packages only `skills/ponytail-audit/SKILL.md`, renamed `guardian-audit`, with project-instruction/graft entry and user-language conventions. The audit remains report-only and optional. Session modes, lifecycle hooks, other Ponytail skills, marketplace files and adapters are not imported. Upstream benchmark claims are not claimed as measured improvements to Guardian.
+
+## Guardian skill namespace
+
+Every bundled skill name is adapted to `guardian-`, with `guardian-main` as the entry skill. Directory/frontmatter names, skill-call examples and cross-skill invocation targets are updated consistently; the original name is retained as `sourceName` in the catalog and in the source lock mapping. This is wrapper packaging, not upstream authorship. Explicit-only policies, licenses, resources and upstream source URLs are retained. Previously byte-identical snapshots now differ in naming metadata/invocation references; historical validation records describe the earlier snapshot.
 
 ## ICM Architect
 

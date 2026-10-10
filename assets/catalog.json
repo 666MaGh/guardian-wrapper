@@ -1,248 +1,296 @@
 [
   {
-    "name": "ask-matt",
+    "name": "guardian-ask-matt",
     "group": "engineering",
     "provider": "mattpocock",
-    "userOnly": true
+    "userOnly": true,
+    "sourceName": "ask-matt"
   },
   {
-    "name": "code-review",
+    "name": "guardian-code-review",
     "group": "engineering",
     "provider": "mattpocock",
-    "userOnly": false
+    "userOnly": false,
+    "sourceName": "code-review"
   },
   {
-    "name": "codebase-design",
+    "name": "guardian-codebase-design",
     "group": "engineering",
     "provider": "mattpocock",
-    "userOnly": false
+    "userOnly": false,
+    "sourceName": "codebase-design"
   },
   {
-    "name": "diagnosing-bugs",
+    "name": "guardian-diagnosing-bugs",
     "group": "engineering",
     "provider": "mattpocock",
-    "userOnly": false
+    "userOnly": false,
+    "sourceName": "diagnosing-bugs"
   },
   {
-    "name": "domain-modeling",
+    "name": "guardian-domain-modeling",
     "group": "engineering",
     "provider": "mattpocock",
-    "userOnly": false
+    "userOnly": false,
+    "sourceName": "domain-modeling"
   },
   {
-    "name": "grill-with-docs",
+    "name": "guardian-grill-with-docs",
     "group": "engineering",
     "provider": "mattpocock",
-    "userOnly": true
+    "userOnly": true,
+    "sourceName": "grill-with-docs"
   },
   {
-    "name": "implement",
+    "name": "guardian-implement",
     "group": "engineering",
     "provider": "mattpocock",
-    "userOnly": true
+    "userOnly": true,
+    "sourceName": "implement"
   },
   {
-    "name": "implement-spec",
+    "name": "guardian-implement-spec",
     "group": "engineering",
     "provider": "mattpocock",
-    "userOnly": true
+    "userOnly": true,
+    "sourceName": "implement-spec"
   },
   {
-    "name": "improve-codebase-architecture",
+    "name": "guardian-improve-codebase-architecture",
     "group": "engineering",
     "provider": "mattpocock",
-    "userOnly": true
+    "userOnly": true,
+    "sourceName": "improve-codebase-architecture"
   },
   {
-    "name": "pr",
+    "name": "guardian-pr",
     "group": "engineering",
     "provider": "mattpocock",
-    "userOnly": false
+    "userOnly": false,
+    "sourceName": "pr"
   },
   {
-    "name": "prototype",
+    "name": "guardian-prototype",
     "group": "engineering",
     "provider": "mattpocock",
-    "userOnly": false
+    "userOnly": false,
+    "sourceName": "prototype"
   },
   {
-    "name": "research",
+    "name": "guardian-research",
     "group": "engineering",
     "provider": "mattpocock",
-    "userOnly": false
+    "userOnly": false,
+    "sourceName": "research"
   },
   {
-    "name": "retro",
+    "name": "guardian-retro",
     "group": "engineering",
     "provider": "mattpocock",
-    "userOnly": true
+    "userOnly": true,
+    "sourceName": "retro"
   },
   {
-    "name": "setup-matt-pocock-skills",
+    "name": "guardian-setup-matt-pocock-skills",
     "group": "engineering",
     "provider": "mattpocock",
-    "userOnly": true
+    "userOnly": true,
+    "sourceName": "setup-matt-pocock-skills"
   },
   {
-    "name": "tdd",
+    "name": "guardian-tdd",
     "group": "engineering",
     "provider": "mattpocock",
-    "userOnly": false
+    "userOnly": false,
+    "sourceName": "tdd"
   },
   {
-    "name": "to-spec",
+    "name": "guardian-to-spec",
     "group": "engineering",
     "provider": "mattpocock",
-    "userOnly": true
+    "userOnly": true,
+    "sourceName": "to-spec"
   },
   {
-    "name": "to-tickets",
+    "name": "guardian-to-tickets",
     "group": "engineering",
     "provider": "mattpocock",
-    "userOnly": true
+    "userOnly": true,
+    "sourceName": "to-tickets"
   },
   {
-    "name": "triage",
+    "name": "guardian-triage",
     "group": "engineering",
     "provider": "mattpocock",
-    "userOnly": true
+    "userOnly": true,
+    "sourceName": "triage"
   },
   {
-    "name": "wayfinder",
+    "name": "guardian-wayfinder",
     "group": "engineering",
     "provider": "mattpocock",
-    "userOnly": true
+    "userOnly": true,
+    "sourceName": "wayfinder"
   },
   {
-    "name": "wizard",
+    "name": "guardian-wizard",
     "group": "engineering",
     "provider": "mattpocock",
-    "userOnly": false
+    "userOnly": false,
+    "sourceName": "wizard"
   },
   {
-    "name": "grill-me",
+    "name": "guardian-grill-me",
     "group": "productivity",
     "provider": "mattpocock",
-    "userOnly": true
+    "userOnly": true,
+    "sourceName": "grill-me"
   },
   {
-    "name": "grilling",
+    "name": "guardian-grilling",
     "group": "productivity",
     "provider": "mattpocock",
-    "userOnly": false
+    "userOnly": false,
+    "sourceName": "grilling"
   },
   {
-    "name": "handoff",
+    "name": "guardian-handoff",
     "group": "productivity",
     "provider": "mattpocock",
-    "userOnly": true
+    "userOnly": true,
+    "sourceName": "handoff"
   },
   {
-    "name": "teach",
+    "name": "guardian-teach",
     "group": "productivity",
     "provider": "mattpocock",
-    "userOnly": true
+    "userOnly": true,
+    "sourceName": "teach"
   },
   {
-    "name": "to-questionnaire",
+    "name": "guardian-to-questionnaire",
     "group": "productivity",
     "provider": "mattpocock",
-    "userOnly": true
+    "userOnly": true,
+    "sourceName": "to-questionnaire"
   },
   {
-    "name": "wait-what",
+    "name": "guardian-wait-what",
     "group": "productivity",
     "provider": "mattpocock",
-    "userOnly": true
+    "userOnly": true,
+    "sourceName": "wait-what"
   },
   {
-    "name": "writing-for-agents",
+    "name": "guardian-writing-for-agents",
     "group": "productivity",
     "provider": "mattpocock",
-    "userOnly": false
+    "userOnly": false,
+    "sourceName": "writing-for-agents"
   },
   {
-    "name": "git-guardrails-claude-code",
+    "name": "guardian-git-guardrails-claude-code",
     "group": "misc",
     "provider": "mattpocock",
-    "userOnly": false
+    "userOnly": false,
+    "sourceName": "git-guardrails-claude-code"
   },
   {
-    "name": "migrate-to-shoehorn",
+    "name": "guardian-migrate-to-shoehorn",
     "group": "misc",
     "provider": "mattpocock",
-    "userOnly": false
+    "userOnly": false,
+    "sourceName": "migrate-to-shoehorn"
   },
   {
-    "name": "scaffold-exercises",
+    "name": "guardian-scaffold-exercises",
     "group": "misc",
     "provider": "mattpocock",
-    "userOnly": false
+    "userOnly": false,
+    "sourceName": "scaffold-exercises"
   },
   {
-    "name": "setup-pre-commit",
+    "name": "guardian-setup-pre-commit",
     "group": "misc",
     "provider": "mattpocock",
-    "userOnly": false
+    "userOnly": false,
+    "sourceName": "setup-pre-commit"
   },
   {
-    "name": "claude-handoff",
+    "name": "guardian-claude-handoff",
     "group": "in-progress",
     "provider": "mattpocock",
-    "userOnly": true
+    "userOnly": true,
+    "sourceName": "claude-handoff"
   },
   {
-    "name": "loop-me",
+    "name": "guardian-loop-me",
     "group": "in-progress",
     "provider": "mattpocock",
-    "userOnly": true
+    "userOnly": true,
+    "sourceName": "loop-me"
   },
   {
-    "name": "setup-ts-deep-modules",
+    "name": "guardian-setup-ts-deep-modules",
     "group": "in-progress",
     "provider": "mattpocock",
-    "userOnly": true
+    "userOnly": true,
+    "sourceName": "setup-ts-deep-modules"
   },
   {
-    "name": "writing-beats",
+    "name": "guardian-writing-beats",
     "group": "in-progress",
     "provider": "mattpocock",
-    "userOnly": true
+    "userOnly": true,
+    "sourceName": "writing-beats"
   },
   {
-    "name": "writing-fragments",
+    "name": "guardian-writing-fragments",
     "group": "in-progress",
     "provider": "mattpocock",
-    "userOnly": true
+    "userOnly": true,
+    "sourceName": "writing-fragments"
   },
   {
-    "name": "writing-shape",
+    "name": "guardian-writing-shape",
     "group": "in-progress",
     "provider": "mattpocock",
-    "userOnly": true
+    "userOnly": true,
+    "sourceName": "writing-shape"
   },
   {
-    "name": "guardian",
+    "name": "guardian-main",
     "group": "core",
     "provider": "guardian",
-    "userOnly": false
+    "userOnly": false,
+    "sourceName": "guardian"
   },
   {
-    "name": "icm-architect",
+    "name": "guardian-icm-architect",
     "group": "core",
     "provider": "icm-architect",
-    "userOnly": false
+    "userOnly": false,
+    "sourceName": "icm-architect"
   },
   {
-    "name": "i-have-adhd",
+    "name": "guardian-i-have-adhd",
     "group": "core",
     "provider": "i-have-adhd",
-    "userOnly": true
+    "userOnly": true,
+    "sourceName": "i-have-adhd"
   },
   {
-    "name": "karpathy-guidelines",
+    "name": "guardian-karpathy-guidelines",
     "group": "core",
     "provider": "multica-ai",
-    "userOnly": false
+    "userOnly": false,
+    "sourceName": "karpathy-guidelines"
+  },
+  {
+    "name": "guardian-audit",
+    "group": "misc",
+    "provider": "ponytail",
+    "userOnly": false,
+    "sourceName": "ponytail-audit"
   }
 ]
