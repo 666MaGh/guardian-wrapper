@@ -1,4 +1,7 @@
 import { spawn } from 'node:child_process';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { assetsRoot } from './bundle.js';
 import { createInterface } from 'node:readline/promises';
 import { readOptional } from './files.js';
 import { toolAvailable } from './graft.js';
@@ -76,6 +79,8 @@ export async function prepareOnboarding(args: string[], interactive: boolean, cl
   if (!dryRun && !interactive) throw new Error('Onboarding needs an interactive terminal. Use --dry-run to preview or migrate to prepare a brief without launching an agent.');
   if (host === null) host = await discoverHost(interactive);
   if (!dryRun && !toolAvailable(host)) throw new Error(`${host} is unavailable; install and sign in to its CLI first`);
+  const plain = migrationArgs.filter(arg => arg !== '--dry-run');
+  if (!resume && !findChats && plain.length <= 1 && !plain.some(arg => arg.startsWith('--')) && readOptional(projectRoot(plain[0] ?? '.'), '.guardian/migration.md') !== null) resume = true;
   let root: string;
   let selectedChat: ChatContext | undefined;
   if (resume) {
@@ -85,7 +90,7 @@ export async function prepareOnboarding(args: string[], interactive: boolean, cl
     if (readOptional(root, '.guardian/migration.md') === null) throw new Error('No migration brief to resume; run onboard without --resume first');
   } else {
     let searchArgs = [...chatArgs];
-    if (interactive && !dryRun && !skipChats && !findChats && !migrationArgs.includes('--from-chat')) {
+    if (interactive && !dryRun && !skipChats && findChats && chatArgs.length === 0 && !migrationArgs.includes('--from-chat')) {
       const choice = await ask('Find earlier chats as project evidence? 1) Local Claude/Codex  2) ChatGPT/Claude exports  3) Both  n) Skip [n]: ');
       if (['1', '2', '3'].includes(choice)) {
         findChats = true;
@@ -124,7 +129,8 @@ export async function prepareOnboarding(args: string[], interactive: boolean, cl
   }
   const command = JSON.stringify([process.execPath, cli]);
   const prompt = `Start Guardian onboarding for this project in ${host}. When discussing the setup profile, recommend this client for a new installation and ask whether the other client should also be supported; preserve existing profiles until reviewed. Read .guardian/migration.md and follow its Agent workflow. Inspect the listed project instructions and evidence, then ask the unresolved onboarding questions in small rounds and wait for my answers. Preserve decisions already recorded in the brief; resolve material conflicts explicitly. Show concrete proposed file/content changes and the setup dry run before asking me to approve applying them. Read source projects only; apply approved changes in the target only. This session is onboarding, not automatic implementation or publication. The wrapper CLI is available through this executable/argument prefix: ${command}. Use it for init/update/config/doctor as agreed. The embedded workflow works before skills are installed; verify the actual skill provider after installation. Use brief, actionable communication by default, and honor my request to disable ADHD mode.`;
-  return { host, root, prompt, dryRun };
+  const workflow = readFileSync(join(assetsRoot, 'skills/guardian-main/references/onboarding.md'), 'utf8');
+  return { host, root, prompt: prompt + '\n\nFollow this current guided setup workflow, including the optional Honcho questions even when resuming an older brief. Ask chat-source questions here in agent chat; use chats/migrate commands only after explicit selection.\n\n' + workflow, dryRun };
 }
 
 export async function runOnboarding(args: string[], cli: string): Promise<number> {

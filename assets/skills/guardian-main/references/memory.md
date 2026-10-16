@@ -1,5 +1,7 @@
 # Project memory
 
+For guided setup, adding local Honcho or changing automatic capture, read [onboarding](onboarding.md). The optional service supplies cross-session evidence; the approved files below remain authoritative. Do not add a second competing memory service by default.
+
 Prefer the smallest useful structure and map existing paths instead of renaming everything.
 
 | Record | Purpose |

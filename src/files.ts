@@ -74,7 +74,7 @@ function writeChange(root: string, change: Change, directories: string[]): void 
   else {
     const temporary = `${full}.${randomUUID()}.tmp`;
     try {
-      writeFileSync(temporary, change.after, { flag: 'wx' });
+      writeFileSync(temporary, change.after, { flag: 'wx', mode: lstatSync(full).mode & 0o777 });
       if (!same(readOptional(root, change.path), change.before)) throw new Error(`Concurrent edit: ${change.path}`);
       renameSync(temporary, full);
     } finally {

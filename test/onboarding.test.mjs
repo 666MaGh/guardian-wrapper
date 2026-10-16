@@ -95,7 +95,9 @@ test('onboarding prepares one brief and explicit resume preserves reviewed decis
     assert.ok(existsSync(brief));
     assert.equal(readFileSync(join(target, 'README.md'), 'utf8'), '# Existing product\n');
     assert.ok(!existsSync(join(target, '.guardian/installation.json')));
-    await assert.rejects(prepareOnboarding([target, '--host', 'codex', '--no-chats'], true, cli), /already exists/);
+    const repeated = await prepareOnboarding([target, '--host', 'codex', '--no-chats'], true, cli);
+    assert.equal(repeated.root, target);
+    assert.match(repeated.prompt, /optional Honcho questions/);
     writeFileSync(brief, '# Reviewed decisions\nKeep CONTEXT.md\n');
     const resumed = await prepareOnboarding([target, '--host', 'codex', '--resume'], true, cli);
     assert.equal(resumed.root, target);

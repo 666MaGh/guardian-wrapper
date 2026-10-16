@@ -1,6 +1,6 @@
 ---
 name: guardian-main
-description: Coordinate app changes, bug fixes, project memory, adoption and guided context migration using bundled ICM Architect and Matt Pocock skills. Use when the user asks Guardian to adopt, migrate context, build, fix, verify, coordinate agents, maintain dependencies, audit, or report on a coding project. Supports Claude Code and Codex project installations or namespaced plugins.
+description: Guide Guardian project setup with optional local memory, then coordinate changes, bug fixes, adoption and context migration using ICM Architect and Matt Pocock skills. Use when the user asks Guardian to set up, get started, adopt, migrate context, build, fix, verify, coordinate agents, maintain dependencies, audit, or report on a coding project. Supports Claude Code and Codex project installations or namespaced plugins.
 ---
 
 # Guardian
@@ -14,7 +14,7 @@ Be the user's single entry into a maintainable app project. Speak Swedish unless
 Interpret the request as one of:
 - `migrate` / "för över kontext" / "migrera setup": import chat knowledge, transfer selected context from another project, or reconcile an existing setup. Read [migration](references/migration.md) and a prepared .guardian/migration.md when present.
 - `adopt` / "strukturera befintligt bygge": inspect and adopt a repository. Read [adoption](references/adoption.md).
-- `setup`: establish only the memory and checks needed by a new project. Read [memory](references/memory.md).
+- `setup` / "kom igång" / "sätt upp Guardian" / "lägg till projektminne": guide setup in this chat, including optional local Honcho, through [onboarding](references/onboarding.md). Preserve recorded choices on repeat setup.
 - `change` / "bygg": implement an authorized change. Read [change](references/change.md).
 - `fix`: reproduce and repair a bug. Read [change](references/change.md).
 - `verify`: collect actual verification evidence for the current change. Read [verification](references/verification.md).
