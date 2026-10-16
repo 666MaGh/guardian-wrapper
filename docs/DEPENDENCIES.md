@@ -160,3 +160,9 @@ The additional core skill is Markdown only: no new runtime dependency, hook, ser
 ## Optional guardian-audit
 
 Ponytail's audit is packaged as `guardian-audit` in misc (also included by all), outside the default 31-skill profile. Add it with `update --add-skills guardian-audit` to retain existing choices. It is Markdown only; no Ponytail npm package, lifecycle hook, service or credential is installed. The optional CLI command opens your existing authenticated Claude/Codex session. Source and MIT license are pinned in sources.lock.json. All 42 bundled skill names now use guardian-; upstream names are mapped rather than silently claimed as Guardian authorship.
+
+## Optional guided Honcho memory
+
+No memory is required by core Guardian. `memory setup --provider none` records that choice without Docker or downloads. Honcho setup downloads only pinned, SHA-512-verified official hook bundles through HTTPS and extracts fixed file members with `tar` (macOS/Linux). MCP runs on Node; no Bun, global plugin or external model API key is required. Client hook support/trust still must be checked in a fresh session; read-only MCP use works with capture disabled. Client configuration and cache are project-local.
+
+Fresh `memory service start` additionally requires local Docker/Compose, at least 6 GiB assigned (8 GiB recommended), disk space for images and approximately 3.1 GB of model downloads. Honcho, pgvector/PostgreSQL, Ollama and OpenConcho images are digest-pinned. An existing healthy server at 127.0.0.1:8008 is reused without altering its setup. Portable all-Docker model processing uses CPU on macOS and can be slow. The service retains its volumes on stop; no automatic data deletion or cloud fallback is configured. Large histories and fresh model-session behavior need separate acceptance checks.

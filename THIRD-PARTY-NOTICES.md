@@ -50,3 +50,11 @@ The scoped js-yaml 3.15.2 → argparse override pins argparse 2.0.1 to remove th
 No LLM request occurs during the default structural build. Deep summaries are explicit and use the caller's provider settings. Wrapper invocations set DO_NOT_TRACK=1 for graft; graft may still check npm for updates using its existing version-check behavior. Global agent settings, hooks, skills and statuslines are not written by the wrapper. fswatch is an optional external program, not redistributed here; its own license applies to its installation.
 
 sources.lock.json records all shipped asset hashes and adaptations. Ordinary project commands do not refresh upstream skills; maintainers update a reviewed release explicitly.
+
+## Optional local Honcho integration
+
+Guardian's project-memory installer and runtime adapter are wrapper-authored. Explicit memory setup downloads MIT-licensed `@honcho-ai/codex-honcho` 0.1.1 and `@honcho-ai/claude-honcho` 0.3.3 from npm, verifies the SHA-512 values in `assets/honcho/integrations.json`, and retains their licenses. Sources: https://github.com/plastic-labs/codex-honcho and https://github.com/plastic-labs/claude-honcho. The runtime adapts hardcoded Honcho home paths to project-local `HONCHO_CONFIG_DIR`, registers project hooks/MCP without upstream global installers, blocks MCP configuration mutation, and replaces cloud GUI links. Original slash skills and version polling are not installed.
+
+The optional Docker service runs separately licensed Honcho (AGPL-3.0; https://github.com/plastic-labs/honcho at ed1704265e609364da6bf291bb3369bc9654f8dc), PostgreSQL/pgvector, Ollama (MIT) and OpenConcho 0.16.2 (MIT; https://github.com/offendingcommit/openconcho at b5e25646d3f91e54c4aacf111c0f8ff734cead87). Container digests are fixed in `assets/honcho/compose.yaml`. No Honcho server source is relicensed or embedded in the wrapper's MIT code. Local text and embedding models are optional downloads with their own model licenses; they are not distributed in the wrapper archive. Model tags are recorded in the service config; unlike container images, upstream model tags may be repointed.
+
+Qwen model license evidence: [text model](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507/tree/main), [embedding model](https://huggingface.co/Qwen/Qwen3-Embedding-0.6B/tree/main). Both upstream model cards declare Apache-2.0.

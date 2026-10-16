@@ -1,0 +1,25 @@
+{
+  "codex": {
+    "version": "0.1.1",
+    "url": "https://registry.npmjs.org/@honcho-ai/codex-honcho/-/codex-honcho-0.1.1.tgz",
+    "integrity": "sha512-8KwavVnN5d1zbeItHEcai5in4ejrWUPXFZJBpn4gbZ3UbYC/ixef0hNT4KK66f5W5HyOF6lBUt0gOnR9WzlY1Q==",
+    "files": [
+      "dist/codex-honcho.mjs"
+    ]
+  },
+  "claude": {
+    "version": "0.3.3",
+    "url": "https://registry.npmjs.org/@honcho-ai/claude-honcho/-/claude-honcho-0.3.3.tgz",
+    "integrity": "sha512-/nIPQHKXrtmfA2lByTixNe6HOxdnVw+GUhcSxhe7HWnaUMPg1W2dP5oK/K54r+Tuq3ef7ku1RprOkA5FdUEzlA==",
+    "files": [
+      "dist/mcp-server.js",
+      "dist/hooks/session-start.js",
+      "dist/hooks/user-prompt.js",
+      "dist/hooks/save-user-message.js",
+      "dist/hooks/post-tool-use.js",
+      "dist/hooks/pre-compact.js",
+      "dist/hooks/stop.js",
+      "dist/hooks/session-end.js"
+    ]
+  }
+}

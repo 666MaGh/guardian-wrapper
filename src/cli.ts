@@ -13,6 +13,9 @@ import { prepareMigration } from './migration.js';
 import { runOnboarding } from './onboarding.js';
 import { runWorkflow } from './workflows.js';
 import { runChats } from './chats.js';
+import { memoryHealth, memoryProblems, readMemory, removeMemory, setupMemory } from './memory.js';
+import type { MemoryOptions } from './memory.js';
+import { runMemoryService } from './memory-service.js';
 import type { InitOptions, Plan, Profile } from './types.js';
 
 const help: string = `Guardian Wrapper ${version}
@@ -22,6 +25,12 @@ guardian-wrapper init [project] [--groups engineering,productivity|all|core]
   [--graft on|off] [--orchestration on|off] [--watch] [--dry-run]
 guardian-wrapper update [project] [same options]
 guardian-wrapper doctor [project]
+guardian-wrapper memory inspect [project]
+guardian-wrapper memory setup [project] --provider none|honcho [--name <project-name>]
+  [--capture on|off] [--workspace <id>] [--peer <id>] [--url http://127.0.0.1:8008]
+  [--adopt-existing] [--rebind] [--dry-run]
+guardian-wrapper memory remove [project] [--dry-run]
+guardian-wrapper memory service start|stop|status [--dry-run]
 guardian-wrapper migrate [project] [--from-project <path>] [--from-chat <file>] [--dry-run]
 guardian-wrapper onboard [project] [--host claude|codex]
   [--from-project <path>] [--from-chat <file>] [--chats|--no-chats] [--query <text>]
@@ -93,13 +102,21 @@ function shadows(profile: Profile): string[] {
   return results;
 }
 
-function doctor(root: string): number {
+async function doctor(root: string): Promise<number> {
   const errors = installationProblems(root);
+  errors.push(...memoryProblems(root));
   for (const error of errors) console.error(`ERROR ${error}`);
   const installation = readInstallation(root);
   if (installation === null) return 1;
   console.log(`Guardian ${installation.version}; ${installation.profile.skills.length} skills; ADHD ${installation.profile.adhd ? 'on' : 'off'}`);
   console.log(`Orchestration: ${installation.profile.orchestration ? 'enabled on explicit request' : 'off'}`);
+  const memory = readMemory(root);
+  let missingMemory = false;
+  console.log(`Project memory: ${memory?.provider ?? 'not chosen; onboarding will ask'}`);
+  if (memory?.provider === 'honcho') {
+    missingMemory = !await memoryHealth(memory.url);
+    console.log(`Honcho ${missingMemory ? 'unavailable' : 'reachable'}; workspace ${memory.workspace}; automatic capture ${memory.capture ? 'configured (client trust still required)' : 'off'}; dashboard ${memory.dashboard}`);
+  }
   if (errors.length === 0) console.log('Owned files and instruction blocks: integrity OK');
   for (const notice of shadows(installation.profile)) console.log(`NOTICE ${notice}`);
   for (const host of installation.profile.hosts) console.log(`${host} executable: ${toolAvailable(host) ? 'available' : 'unavailable'}; skill discovery is not certified by this check`);
@@ -127,7 +144,7 @@ function doctor(root: string): number {
     console.log(`${capability.tools.map(tool => `${tool}=${toolAvailable(tool) ? 'available' : 'missing'}`).join(', ')}. ${capability.note}`);
   }
   console.log('Subagent access, app tests, typecheck/lint setup and CI gates must be verified in the host/project; installation alone does not certify them.');
-  return errors.length > 0 || missingRequired ? 1 : 0;
+  return errors.length > 0 || missingRequired || missingMemory ? 1 : 0;
 }
 
 async function install(root: string, options: InitOptions, dryRun: boolean): Promise<number> {
@@ -151,6 +168,7 @@ export async function main(args: string[]): Promise<number> {
     if (['help', '--help', '-h'].includes(command)) { console.log(help); return 0; }
     if (command === '--version') { console.log(version); return 0; }
     verifyBundle();
+    if (command === 'memory') { await memoryCommand(args.slice(1)); return 0; }
     if (command === 'migrate') { prepareMigration(args.slice(1)); return 0; }
     if (command === 'chats') { runChats(args.slice(1)); return 0; }
     if (command === 'onboard') return await runOnboarding(args.slice(1), realpathSync(process.argv[1] ?? 'dist/cli.js'));
@@ -208,6 +226,7 @@ export async function main(args: string[]): Promise<number> {
       return await install(root, parsed.positionals[configOffset] === 'adhd' ? { adhd: enabled } : { orchestration: enabled }, parsed.dryRun);
     }
     if (command === 'uninstall') {
+      if (readMemory(root) !== null) throw new Error('Run memory remove for this project first. Saved server data will be retained.');
       const plan = planUninstall(root);
       printPlan(plan, parsed.dryRun);
       if (!parsed.dryRun) applyPlan(plan);
@@ -219,6 +238,44 @@ export async function main(args: string[]): Promise<number> {
     console.error(error instanceof Error ? error.message : String(error));
     return 1;
   }
+}
+
+async function memoryCommand(args: string[]): Promise<void> {
+  const action = args[0];
+  if (action === 'service') {
+    if (args.slice(2).some(arg => arg !== '--dry-run')) throw new Error('Use memory service start|stop|status [--dry-run]');
+    await runMemoryService(args[1] ?? '', args.includes('--dry-run'));
+    return;
+  }
+  if (!['inspect', 'setup', 'remove'].includes(action ?? '')) throw new Error('Use memory inspect|setup|remove [project], or memory service start|stop|status.');
+  let target: string | undefined;
+  let dryRun = false;
+  const options: MemoryOptions = {};
+  for (let index = 1; index < args.length; index++) {
+    const arg = args[index];
+    if (arg === undefined) continue;
+    if (arg === '--dry-run') { dryRun = true; continue; }
+    if (action === 'setup' && arg === '--rebind') { options.rebind = true; continue; }
+    if (action === 'setup' && arg === '--adopt-existing') { options.adoptExisting = true; continue; }
+    if (!arg.startsWith('--')) { if (target !== undefined) throw new Error('Expected one project folder'); target = arg; continue; }
+    if (action !== 'setup') throw new Error(`Unknown memory option: ${arg}`);
+    const value = args[++index];
+    if (value === undefined || value.startsWith('--')) throw new Error(`Missing value for ${arg}`);
+    if (arg === '--provider' && (value === 'none' || value === 'honcho')) options.provider = value;
+    else if (arg === '--capture' && (value === 'on' || value === 'off')) options.capture = value === 'on';
+    else if (arg === '--name') options.name = value;
+    else if (arg === '--workspace') options.workspace = value;
+    else if (arg === '--peer') options.peer = value;
+    else if (arg === '--url') options.url = value;
+    else throw new Error(`Invalid memory option/value: ${arg}`);
+  }
+  const root = projectRoot(target ?? '.');
+  if (action === 'inspect') {
+    const profile = readMemory(root);
+    console.log(JSON.stringify({ project: root, memory: profile, healthy: dryRun ? null : await memoryHealth(profile?.url ?? 'http://127.0.0.1:8008'), legacyConnection: profile === null && (existsSync(join(root, '.mcp.json')) || existsSync(join(root, '.codex/config.toml'))) }, null, 2));
+    console.log('Inspect is read-only. Existing connections need a reviewed --adopt-existing; no profile means no memory choice has been recorded.');
+  } else if (action === 'remove') removeMemory(root, dryRun);
+  else await setupMemory(root, options, dryRun);
 }
 
 if (process.argv[1] !== undefined && import.meta.url === pathToFileURL(realpathSync(process.argv[1])).href) process.exitCode = await main(process.argv.slice(2));

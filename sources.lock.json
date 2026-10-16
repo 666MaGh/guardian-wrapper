@@ -3,7 +3,7 @@
   "sources": {
     "guardian": {
       "origin": "User-provided Claude/Codex chat output, attribution supplied by user",
-      "version": "0.3.0 adapted for wrapper 0.2.0",
+      "version": "0.3.0 adapted for wrapper 0.3.0",
       "license": "MIT"
     },
     "mattpocock": {
@@ -89,6 +89,39 @@
       ],
       "upstreamPath": "skills/ponytail-audit/SKILL.md"
     },
+    "honcho": {
+      "url": "https://github.com/plastic-labs/honcho",
+      "revision": "ed1704265e609364da6bf291bb3369bc9654f8dc",
+      "image": "ghcr.io/plastic-labs/honcho@sha256:8bde09251e628db6a2cc17dcdf8f07f233ba5faa7782df5a3b2412d95453e253",
+      "license": "AGPL-3.0",
+      "installed": "Optional isolated Docker service, not vendored into the MIT wrapper"
+    },
+    "honchoHooks": {
+      "manifest": "assets/honcho/integrations.json",
+      "sources": [
+        "https://github.com/plastic-labs/codex-honcho",
+        "https://github.com/plastic-labs/claude-honcho"
+      ],
+      "license": "MIT",
+      "adaptations": "Downloaded with SHA-512 verification on explicit setup; HONCHO_CONFIG_DIR adaptation isolates config/cache; Guardian handles scope, MCP configuration guard and client registration"
+    },
+    "openconcho": {
+      "url": "https://github.com/offendingcommit/openconcho",
+      "revision": "b5e25646d3f91e54c4aacf111c0f8ff734cead87",
+      "version": "0.16.2",
+      "image": "ghcr.io/offendingcommit/openconcho-web@sha256:9d131061a4d45a6b9a850d85cffe74b56e5135f4710c00c5485ccd7e8f8c6120",
+      "license": "MIT"
+    },
+    "ollama": {
+      "url": "https://github.com/ollama/ollama",
+      "image": "ollama/ollama@sha256:8262851b2846b87c649eddf3e76beb270c52f4d1bc94559f47efde16b0841551",
+      "license": "MIT",
+      "models": [
+        "qwen3:4b-instruct",
+        "qwen3-embedding:0.6b"
+      ],
+      "modelLicense": "Apache-2.0 (upstream Qwen model cards); downloaded models are separate optional assets"
+    },
     "graft": {
       "package": "@nanonets/graft",
       "version": "0.21.1",
@@ -151,11 +184,18 @@
     "Karpathy behavioral body retained with Guardian naming; wrapper adds a license declaration record and project/Guardian pointers without copying upstream CLAUDE.md or Cursor settings",
     "All bundled skill names, host invocation examples and cross-skill calls use guardian-; original upstream names are retained in the catalog/source mapping, with explicit-only policies unchanged",
     "Ponytail decision ladder adapted into Guardian change reference; ponytail-audit renamed guardian-audit with project context and user-language adaptation; no modes, hooks or remaining Ponytail skills imported",
+    "Guardian question-led onboarding, optional project-local Honcho profiles/hooks/MCP and local Docker provisioning; no global client settings or global Honcho config modifications",
     "Optional Guardian orchestration adapts Matt research, code-review and TDD; coordination and dependency maintenance are wrapper-authored workflows"
   ],
   "files": {
     "catalog.json": "e4ffa360e536eda07ba2eb253e68202125467312c4a27823ea9ce2a4b239ee08",
     "communication/adhd.md": "854f54763e858a780eb17fa4dca2d1a9e59dc89174c5e3dd15ff555674c52e2d",
+    "honcho/claude-LICENSE": "48d21507f418474043b504780e7f094cb55687393600b3bfaae093055d354364",
+    "honcho/codex-LICENSE": "48d21507f418474043b504780e7f094cb55687393600b3bfaae093055d354364",
+    "honcho/compose.yaml": "ffe94e5ad17d1f04b21466f869db2647c3edfc31e2e4e0568a633d45925208c4",
+    "honcho/config.toml": "fe6fc670efe3c426a7dd452155988dbcb6b39cd0d38a0483d36c5d768a8bdc19",
+    "honcho/integrations.json": "eb8a0d879fe8e79bc157508c600870ba176fc606f62391fc52971f3157e918ef",
+    "honcho/runtime.mjs": "f62a1b7e942e44aecb96e243c4714001c38a0db48a6ac926d831825f3e08a26b",
     "licenses/i-have-adhd.txt": "8acbb618089b738404f76ac60fca1aaa995d9a87995eddf95f0b777acd7f7d2c",
     "licenses/icm-architect.txt": "e13cd56a64956720629206c84499871594585bb3e17b6ef01ccca570cf38ce1d",
     "licenses/karpathy-guidelines.txt": "385620a91280d645088ba56a200322613239485ff796eafe25fc71620f3f8043",
@@ -251,11 +291,12 @@
     "skills/guardian-main/references/change.md": "69be1d131c4c66946600dd3f3c1b6266c1127e5425ed3ee19e9c6f41186b955c",
     "skills/guardian-main/references/integration.md": "400604ebc162895acb508e0d8dffb6c2e292959c8c716cea936e877a919af564",
     "skills/guardian-main/references/maintenance.md": "d0c01202d1d10d1571bdeeba9e22f7f5cb88776f40176519ae2bd909b4b94dc8",
-    "skills/guardian-main/references/memory.md": "82a85f982106811a2eb67088a682853f00ef282586f932f713d03f474e8989e6",
-    "skills/guardian-main/references/migration.md": "36b8b4fef35bba11a4bc51867dbfe464366c7c9150932939f73f942951edaa46",
+    "skills/guardian-main/references/memory.md": "eea8671ee4aada494a99b523b1bee918527a951bf5a0fbe9577461c953aa35d4",
+    "skills/guardian-main/references/migration.md": "9855fd9cc72d2c6ef152ad7ea19d4364716508c76eb5ed731e2ba74eea038a41",
+    "skills/guardian-main/references/onboarding.md": "0a27c5c1bba276fb31af0d9929694d1908568d3a91429965783ecc55c6f3393d",
     "skills/guardian-main/references/orchestration.md": "68d2654e3e91f1bb00be663da938859dfbc5642cfe8240868c7afeb4b179fbf1",
     "skills/guardian-main/references/verification.md": "9f79779d1efae216be3e5e04efebf410d204c0cc3bb6339135536925027628a1",
-    "skills/guardian-main/SKILL.md": "35f3c253d77722b59432a71dfcf1ebe5030f32b1aa9a3eeb2f4ffa3d592971f2",
+    "skills/guardian-main/SKILL.md": "4057b771446868aaf854c61dac6e5226e6ad32bbb2e26a145c5e3b572533e4c9",
     "skills/guardian-migrate-to-shoehorn/agents/openai.yaml": "395c2db852e66a199f1cd07f7ed92d66cb6f0787460c5475926f1a5e778b699d",
     "skills/guardian-migrate-to-shoehorn/LICENSE": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
     "skills/guardian-migrate-to-shoehorn/SKILL.md": "859b9d353fd97cbeee3fbb60b6ffe15b28941bfad1c74e3defa340f2b74f9a84",

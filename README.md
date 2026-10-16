@@ -10,6 +10,7 @@ It is a setup package and skill collection. Installing it does not understand yo
 
 ## Documentation
 
+- [Start by answering questions](docs/ONBOARDING.md): guided chat, optional local Honcho, project connections and client trust steps.
 - [Architecture and sources](docs/ARCHITECTURE.md): what is inside and how the parts cooperate.
 - [Requirements and full skill catalog](docs/DEPENDENCIES.md): mandatory, optional and workflow-specific tools.
 - [Earlier chats as project evidence](docs/CHAT-IMPORT.md): local sessions, ChatGPT/Claude exports and selected review.
@@ -26,12 +27,12 @@ git clone https://github.com/666MaGh/guardian-wrapper.git
 cd guardian-wrapper
 npm ci
 npm run build
-node dist/cli.js init /path/to/project --groups all
+node dist/cli.js onboard /path/to/project
 ```
 
 Alternatively download the npm tarball from [GitHub Releases](https://github.com/666MaGh/guardian-wrapper/releases). Versions 0.1.0 and 0.2.0 are prereleases: project installation is tested, while fresh model-session behavior remains pending.
 
-After building, **the last line is the single project setup command**. It works in ordinary directories and Git worktrees; it does not create a Git repository or adopt the product domain.
+After building, the last line starts the guided interview in your installed coding client. It asks about the project, profile and optional local Honcho, then shows proposed changes. For setup in an existing agent chat, follow [the chat-first workflow](docs/ONBOARDING.md). Experienced users can still use `init` directly; it installs files without conducting the interview.
 
 To install the CLI itself from a local tarball produced by `npm pack`:
 
@@ -96,7 +97,7 @@ The brief embeds the workflow, so it also works before Guardian is installed. Th
 
 For the current chat, ask Guardian to create a reviewed handoff using [this template](assets/skills/guardian-main/assets/templates/context-handoff.md). For a different chat, supply a pasted summary/export file. `migrate` does not contact a provider. `onboard` launches your installed Claude Code/Codex CLI; semantic synthesis and questions happen in that agent conversation, using its existing authentication and account limits. File inventory is not a conflict-resolution engine. Sources outside the target may need host file-access approval.
 
-`.guardian/migration.md` is user-editable, never overwritten, and not claimed by the installation manifest. Move a completed brief before preparing a new one. It contains machine-local paths: keep it local; init adds its gitignore entry. Dry-run is fully read-only. Discovery skips symlinks and common generated/vendor directories and is bounded to 12 levels, 10,000 entries and 200 context files; each input is limited to 1 MiB. Use focused summaries/subprojects for larger sources. The 0.1.0 package predates onboarding, migration and chat discovery. Use the 0.2.0 source checkout or its GitHub release assets when available.
+`.guardian/migration.md` is user-editable, never overwritten, and not claimed by the installation manifest. Repeating onboard without new sources resumes the existing brief; move it only when preparing a new source transfer. It contains machine-local paths: keep it local; init adds its gitignore entry. Dry-run is fully read-only. Discovery skips symlinks and common generated/vendor directories and is bounded to 12 levels, 10,000 entries and 200 context files; each input is limited to 1 MiB. Use focused summaries/subprojects for larger sources. The 0.1.0 package predates onboarding, migration and chat discovery. Use the 0.2.0 source checkout or its GitHub release assets when available.
 
 ## Guardian names and optional audit
 
@@ -255,5 +256,8 @@ Tests cover installation, preservation, conflicts, symlinks/case collisions, rol
 Vendored source snapshots and exact hashes are in sources.lock.json; wrapper build resolution is in package-lock.json and the synchronized root npm-shrinkwrap.json. Graft has a separate runtime/package.json and runtime/npm-shrinkwrap.json; postinstall runs npm ci in that isolated directory so consumers receive the reviewed security override. Both runtime manifests and the installer are included in the release. Maintainers change assets deliberately, regenerate the communication reference when its skill changes, run `node scripts/lock-assets.mjs`, then verify. No upstream refresh happens during feature work. See THIRD-PARTY-NOTICES.md for sources and adaptations.
 
 ## Optional project memory
+
+Guided onboarding now asks whether to use local Honcho, whether new conversations may be saved automatically, and whether to reuse an existing connection. Each project gets a saved profile and its own workspace shared by its selected clients. A healthy local service is reused; fresh provisioning is opt-in. See [question-led setup and memory commands](docs/ONBOARDING.md). This is available in current source, not the older v0.2.0 release tarball.
+
 
 Hindsight is a possible future addon for remembering reviewed decisions and session summaries across Claude/Codex sessions. It is not installed or required by this wrapper. See the [source review and proposed integration](docs/HINDSIGHT.md) for the available mechanisms, added dependencies and project-scoped design.

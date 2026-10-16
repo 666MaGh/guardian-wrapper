@@ -26,6 +26,7 @@ Ask small rounds of questions with a recommended choice. Explain each material c
 - **Authority:** keep existing target rules and merge approved additions into AGENTS.md, with CLAUDE.md importing `@AGENTS.md`? Which legacy/global/namespaced providers and nested rules need reconciliation?
 - **Glossary:** retain an existing CONTEXT.md convention through an explicit compatibility pointer, or move reviewed domain terms to GLOSSARY.md and update its consumers? Avoid competing authoritative glossaries.
 - **Setup:** which hosts and skill groups, ADHD default, graft/watch, tracker and project verification commands should be used? Existing package managers and approved test scopes remain project-specific.
+- **Project memory:** follow the guided setup workflow included below (or the installed onboarding reference). Ask whether to use local Honcho and separately whether new conversations may be saved automatically. Preserve existing workspace/identity. Record declined memory too; selecting a server is not consent to automatic capture.
 
 Ask only unresolved questions; a prepared brief is not the user's answers. Preserve decision provenance. Questions may be answered in ordinary chat; no provider API or special connector is required.
 

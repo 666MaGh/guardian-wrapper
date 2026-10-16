@@ -31,5 +31,10 @@ jobs:
       - run: npm test
       - run: npm run typecheck
       - run: npm run check:assets
+      - name: Validate optional local memory Compose
+        if: runner.os == 'Linux'
+        env:
+          GUARDIAN_HONCHO_DB_PASSWORD: validation-only
+        run: docker compose -f assets/honcho/compose.yaml config --quiet
       - run: bash -n assets/scripts/watch-graft.sh
       - run: npm pack --dry-run

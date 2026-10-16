@@ -1,0 +1,126 @@
+[auth]
+USE_AUTH = false
+
+[sentry]
+ENABLED = false
+
+[telemetry]
+ENABLED = false
+
+[cache]
+ENABLED = false
+
+[embedding]
+VECTOR_DIMENSIONS = 1024
+MAX_INPUT_TOKENS = 2048
+MAX_TOKENS_PER_REQUEST = 2048
+
+[embedding.model_config]
+transport = "openai"
+model = "qwen3-embedding:0.6b"
+dimensions_mode = "never"
+encoding_format_mode = "float"
+max_batch_size = 1
+timeout = 180.0
+
+[embedding.model_config.overrides]
+base_url = "http://ollama:11434/v1"
+
+[deriver]
+WORKERS = 1
+MAX_INPUT_TOKENS = 6000
+REPRESENTATION_BATCH_TARGET_INPUT_TOKENS = 512
+FLUSH_ENABLED = true
+
+[summary]
+MAX_TOKENS_SHORT = 500
+MAX_TOKENS_LONG = 1500
+
+[dialectic]
+MAX_INPUT_TOKENS = 6000
+MAX_OUTPUT_TOKENS = 1500
+SESSION_HISTORY_MAX_TOKENS = 2000
+
+[dream]
+ENABLED = false
+
+[deriver.model_config]
+transport = "openai"
+model = "qwen3:4b-instruct"
+max_output_tokens = 1500
+timeout = 180.0
+
+[deriver.model_config.overrides]
+base_url = "http://ollama:11434/v1"
+
+[summary.model_config]
+transport = "openai"
+model = "qwen3:4b-instruct"
+max_output_tokens = 1500
+timeout = 180.0
+
+[summary.model_config.overrides]
+base_url = "http://ollama:11434/v1"
+
+[dream.deduction_model_config]
+transport = "openai"
+model = "qwen3:4b-instruct"
+max_output_tokens = 1500
+timeout = 180.0
+
+[dream.deduction_model_config.overrides]
+base_url = "http://ollama:11434/v1"
+
+[dream.induction_model_config]
+transport = "openai"
+model = "qwen3:4b-instruct"
+max_output_tokens = 1500
+timeout = 180.0
+
+[dream.induction_model_config.overrides]
+base_url = "http://ollama:11434/v1"
+
+[dialectic.levels.minimal.model_config]
+transport = "openai"
+model = "qwen3:4b-instruct"
+max_output_tokens = 1500
+timeout = 180.0
+
+[dialectic.levels.minimal.model_config.overrides]
+base_url = "http://ollama:11434/v1"
+
+[dialectic.levels.low.model_config]
+transport = "openai"
+model = "qwen3:4b-instruct"
+max_output_tokens = 1500
+timeout = 180.0
+
+[dialectic.levels.low.model_config.overrides]
+base_url = "http://ollama:11434/v1"
+
+[dialectic.levels.medium.model_config]
+transport = "openai"
+model = "qwen3:4b-instruct"
+max_output_tokens = 1500
+timeout = 180.0
+
+[dialectic.levels.medium.model_config.overrides]
+base_url = "http://ollama:11434/v1"
+
+[dialectic.levels.high.model_config]
+transport = "openai"
+model = "qwen3:4b-instruct"
+max_output_tokens = 1500
+timeout = 180.0
+
+[dialectic.levels.high.model_config.overrides]
+base_url = "http://ollama:11434/v1"
+
+[dialectic.levels.max.model_config]
+transport = "openai"
+model = "qwen3:4b-instruct"
+max_output_tokens = 1500
+timeout = 180.0
+
+[dialectic.levels.max.model_config.overrides]
+base_url = "http://ollama:11434/v1"

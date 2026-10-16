@@ -1,0 +1,79 @@
+name: guardian-memory
+x-honcho: &honcho
+  image: ghcr.io/plastic-labs/honcho@sha256:8bde09251e628db6a2cc17dcdf8f07f233ba5faa7782df5a3b2412d95453e253
+  restart: unless-stopped
+  volumes:
+    - ./config.toml:/app/config.toml:ro
+  environment:
+    DB_CONNECTION_URI: postgresql+psycopg://honcho:${GUARDIAN_HONCHO_DB_PASSWORD}@database:5432/honcho
+    LLM_OPENAI_API_KEY: local-only-placeholder
+    SENTRY_ENABLED: "false"
+    TELEMETRY_ENABLED: "false"
+    CACHE_ENABLED: "false"
+  mem_limit: 768m
+services:
+  database:
+    image: pgvector/pgvector@sha256:7b822b0aac60967beb1ea5e576b8602c94c300a157d187f385ae3e0da199b90a
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: honcho
+      POSTGRES_USER: honcho
+      POSTGRES_PASSWORD: ${GUARDIAN_HONCHO_DB_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U honcho -d honcho"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+    mem_limit: 256m
+  ollama:
+    image: ollama/ollama@sha256:8262851b2846b87c649eddf3e76beb270c52f4d1bc94559f47efde16b0841551
+    restart: unless-stopped
+    environment:
+      OLLAMA_NO_CLOUD: "1"
+      OLLAMA_CONTEXT_LENGTH: "8192"
+      OLLAMA_NUM_PARALLEL: "1"
+      OLLAMA_MAX_LOADED_MODELS: "1"
+    volumes:
+      - models:/root/.ollama
+    mem_limit: 5g
+    healthcheck:
+      test: [CMD, ollama, list]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+  api:
+    <<: *honcho
+    entrypoint: [sh, -c, "/app/.venv/bin/python scripts/provision_db.py && /app/.venv/bin/python scripts/configure_embeddings.py --yes && exec /app/.venv/bin/fastapi run --host 0.0.0.0 src/main.py"]
+    ports: ["127.0.0.1:8008:8000"]
+    depends_on:
+      database:
+        condition: service_healthy
+    healthcheck:
+      test: [CMD, /app/.venv/bin/python, -c, "import urllib.request; urllib.request.urlopen('http://localhost:8000/health', timeout=3)"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
+  deriver:
+    <<: *honcho
+    entrypoint: [/app/.venv/bin/python, -m, src.deriver]
+    depends_on:
+      api:
+        condition: service_healthy
+  dashboard:
+    image: ghcr.io/offendingcommit/openconcho-web@sha256:9d131061a4d45a6b9a850d85cffe74b56e5135f4710c00c5485ccd7e8f8c6120
+    restart: unless-stopped
+    environment:
+      OPENCONCHO_DEFAULT_HONCHO_URL: http://api:8000
+      OPENCONCHO_UPSTREAM_ALLOWLIST: api
+    ports: ["127.0.0.1:8088:8080"]
+    depends_on:
+      api:
+        condition: service_healthy
+    mem_limit: 128m
+volumes:
+  pgdata:
+  models:
