@@ -9,16 +9,16 @@
       "version": "0.2.0",
       "license": "MIT",
       "dependencies": {
-        "@nanonets/graft": "0.21.1"
+        "@nanonets/graft": "0.28.0"
       },
       "engines": {
         "node": ">=22.12.0"
       }
     },
     "node_modules/@anthropic-ai/sdk": {
-      "version": "0.117.1",
-      "resolved": "https://registry.npmjs.org/@anthropic-ai/sdk/-/sdk-0.117.1.tgz",
-      "integrity": "sha512-Yn2QlXfyCiKJ5YGCOOay7ZE78ISvII2XY621WMCiflmG8IYgwx59IBwPExxki3Xk9jKUtnD/Sj6UvplWr0rZxg==",
+      "version": "0.133.0",
+      "resolved": "https://registry.npmjs.org/@anthropic-ai/sdk/-/sdk-0.133.0.tgz",
+      "integrity": "sha512-jlqUN8p8ESTJj+GJnA4KjzbEfF1waEoGzRT8jwytlYGFFgv+/DUQOxlYGvYw10UzhD1kwLqYzxvA3FrTB2YWuQ==",
       "license": "MIT",
       "dependencies": {
         "json-schema-to-ts": "^3.1.1",
@@ -37,26 +37,26 @@
       }
     },
     "node_modules/@babel/runtime": {
-      "version": "7.29.7",
-      "resolved": "https://registry.npmjs.org/@babel/runtime/-/runtime-7.29.7.tgz",
-      "integrity": "sha512-Nq8OhGWiZIZGV6hLHoyAKLLcJihP/xFeBMGJoUrxTX2psI8dCifzLhZISFb+VWS3wFMRDmCGw5R+dOySCqPLhw==",
+      "version": "7.29.10",
+      "resolved": "https://registry.npmjs.org/@babel/runtime/-/runtime-7.29.10.tgz",
+      "integrity": "sha512-NpugTzbKgGrNe45Ui32cN8vCFFMxVtP/9rtfwv0nP5FRDAjvYBxJcLVpYA9mr1jxP6cnIT7x9LUzuDTbWYYNRA==",
       "license": "MIT",
       "engines": {
         "node": ">=6.9.0"
       }
     },
     "node_modules/@nanonets/graft": {
-      "version": "0.21.1",
-      "resolved": "https://registry.npmjs.org/@nanonets/graft/-/graft-0.21.1.tgz",
-      "integrity": "sha512-0CSgoGx+FyzgCkFDhM94pvPnYaTU9jL19BixqMmZ0eyQK618GINPHhQ5Xtto7LcHdNiBGl5RFQcwJob6Mxq4nA==",
+      "version": "0.28.0",
+      "resolved": "https://registry.npmjs.org/@nanonets/graft/-/graft-0.28.0.tgz",
+      "integrity": "sha512-zto3AJeK5qMdjhZrsrIr0Bq7agySU/aPIgBgokpPXleabiY9l83iHUETec9oeMiiBZM7YRxh4OSDMHlP4sSwBA==",
       "hasInstallScript": true,
       "license": "MIT",
       "dependencies": {
-        "@anthropic-ai/sdk": "^0.117.1",
+        "@anthropic-ai/sdk": "^0.133.0",
         "commander": "^15.0.0",
-        "dotenv": "^17.4.2",
+        "dotenv": "^18.0.7",
         "gray-matter": "^4.0.3",
-        "openai": "^6.45.0",
+        "openai": "^7.8.0",
         "tree-sitter": "^0.21.1",
         "tree-sitter-go": "^0.23.4",
         "tree-sitter-java": "^0.23.5",
@@ -64,15 +64,14 @@
         "tree-sitter-php": "^0.23.4",
         "tree-sitter-python": "^0.21.0",
         "tree-sitter-r": "npm:@davisvaughan/tree-sitter-r@^1.3.0",
-        "tree-sitter-swift": "^0.7.1",
         "tree-sitter-typescript": "^0.23.2",
-        "tree-sitter-wasm": "^1.1.6",
+        "tree-sitter-wasm": "^2.0.4",
         "vscode-jsonrpc": "^8.2.1",
         "vscode-languageserver-protocol": "^3.18.2",
-        "web-tree-sitter": "^0.26.13"
+        "web-tree-sitter": "^0.27.1"
       },
       "bin": {
-        "graft": "dist/cli.js"
+        "graft": "dist/bin/graft.js"
       },
       "engines": {
         "node": ">=20"
@@ -277,10 +276,13 @@
       }
     },
     "node_modules/dotenv": {
-      "version": "17.4.2",
-      "resolved": "https://registry.npmjs.org/dotenv/-/dotenv-17.4.2.tgz",
-      "integrity": "sha512-nI4U3TottKAcAD9LLud4Cb7b2QztQMUEfHbvhTH09bqXTxnSie8WnjPALV/WMCrJZ6UV/qHJ6L03OqO3LcdYZw==",
+      "version": "18.0.9",
+      "resolved": "https://registry.npmjs.org/dotenv/-/dotenv-18.0.9.tgz",
+      "integrity": "sha512-3fVOW4cB02R066PUSwn8O4TJyz9NckQl7F81blIbaq9jKBm2tSmOKky7ZHIXzGvkVPXCSn6jkpziBPZdGFs8Tw==",
       "license": "BSD-2-Clause",
+      "bin": {
+        "dotenv": "dist/index.cjs"
+      },
       "engines": {
         "node": ">=12"
       },
@@ -343,12 +345,6 @@
         "node": ">=0.10.0"
       }
     },
-    "node_modules/isexe": {
-      "version": "2.0.0",
-      "resolved": "https://registry.npmjs.org/isexe/-/isexe-2.0.0.tgz",
-      "integrity": "sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==",
-      "license": "ISC"
-    },
     "node_modules/js-yaml": {
       "version": "3.15.2",
       "resolved": "https://registry.npmjs.org/js-yaml/-/js-yaml-3.15.2.tgz",
@@ -405,15 +401,20 @@
       }
     },
     "node_modules/openai": {
-      "version": "6.49.0",
-      "resolved": "https://registry.npmjs.org/openai/-/openai-6.49.0.tgz",
-      "integrity": "sha512-aYCc0C6L864eR6WSYIwQGyXriw/nIyZx0ObvhzOEVuk0zoBDpynjSbrionWI7q65B5H8jJX0DXR9snEzM6bfPg==",
+      "version": "7.45.1",
+      "resolved": "https://registry.npmjs.org/openai/-/openai-7.45.1.tgz",
+      "integrity": "sha512-mutrJXwhJIMZ24Lab2COFtNp44OcpZSnV4O2O7q38wAHUa2m2fQqUO5pj1XS3PqLfOTeODBUS9YoadqDnnGk5A==",
       "license": "Apache-2.0",
+      "engines": {
+        "node": ">=22.0.0"
+      },
       "peerDependencies": {
         "@aws-sdk/credential-provider-node": ">=3.972.0 <4",
         "@smithy/hash-node": ">=4.3.0 <5",
         "@smithy/signature-v4": ">=5.4.0 <6",
-        "ws": "^8.18.0",
+        "google-auth-library": ">=9.15.1 <12",
+        "undici": ">=5 <9",
+        "ws": "^8.21.0",
         "zod": "^3.25 || ^4.0"
       },
       "peerDependenciesMeta": {
@@ -424,6 +425,12 @@
           "optional": true
         },
         "@smithy/signature-v4": {
+          "optional": true
+        },
+        "google-auth-library": {
+          "optional": true
+        },
+        "undici": {
           "optional": true
         },
         "ws": {
@@ -466,56 +473,10 @@
         "node": ">=0.10.0"
       }
     },
-    "node_modules/tree-sitter": {
-      "version": "0.22.4",
-      "resolved": "https://registry.npmjs.org/tree-sitter/-/tree-sitter-0.22.4.tgz",
-      "integrity": "sha512-usbHZP9/oxNsUY65MQUsduGRqDHQOou1cagUSwjhoSYAmSahjQDAVsh9s+SlZkn8X8+O1FULRGwHu7AFP3kjzg==",
-      "hasInstallScript": true,
-      "license": "MIT",
-      "peer": true,
-      "dependencies": {
-        "node-addon-api": "^8.3.0",
-        "node-gyp-build": "^4.8.4"
-      }
-    },
-    "node_modules/tree-sitter-cli": {
-      "version": "0.23.2",
-      "resolved": "https://registry.npmjs.org/tree-sitter-cli/-/tree-sitter-cli-0.23.2.tgz",
-      "integrity": "sha512-kPPXprOqREX+C/FgUp2Qpt9jd0vSwn+hOgjzVv/7hapdoWpa+VeWId53rf4oNNd29ikheF12BYtGD/W90feMbA==",
-      "hasInstallScript": true,
-      "license": "MIT",
-      "bin": {
-        "tree-sitter": "cli.js"
-      },
-      "engines": {
-        "node": ">=12.0.0"
-      }
-    },
-    "node_modules/tree-sitter-swift": {
-      "version": "0.7.1",
-      "resolved": "https://registry.npmjs.org/tree-sitter-swift/-/tree-sitter-swift-0.7.1.tgz",
-      "integrity": "sha512-pneKVTuGamaBsqqqfB9BvNQjktzh/0IVPR54jLB5Fq/JTDQwYHd0Wo6pVyZ5jAYpbztzq+rJ/rpL9ruxTmSoKw==",
-      "hasInstallScript": true,
-      "license": "MIT",
-      "dependencies": {
-        "node-addon-api": "^8.0.0",
-        "node-gyp-build": "^4.8.0",
-        "tree-sitter-cli": "^0.23",
-        "which": "2.0.2"
-      },
-      "peerDependencies": {
-        "tree-sitter": "^0.22.1"
-      },
-      "peerDependenciesMeta": {
-        "tree_sitter": {
-          "optional": true
-        }
-      }
-    },
     "node_modules/tree-sitter-wasm": {
-      "version": "1.1.8",
-      "resolved": "https://registry.npmjs.org/tree-sitter-wasm/-/tree-sitter-wasm-1.1.8.tgz",
-      "integrity": "sha512-TZ6rZ+8L+cnsc0hXtc+AfzNd7b1CDroBKSgSIF29sJdl/Odaxmx+mZEj2pW0rswKIyWHrA/ioNqZ9RixTSCGwA==",
+      "version": "2.0.4",
+      "resolved": "https://registry.npmjs.org/tree-sitter-wasm/-/tree-sitter-wasm-2.0.4.tgz",
+      "integrity": "sha512-U83TRmp3oC3DtFA7bMka+o9jtOjZDZpW5/Y5oLzVtSzkcBllQWaYwtQIeTh14aRzZ7feTweBMSFk8NAqwQWmkg==",
       "license": "MIT"
     },
     "node_modules/ts-algebra": {
@@ -559,25 +520,10 @@
       "license": "MIT"
     },
     "node_modules/web-tree-sitter": {
-      "version": "0.26.13",
-      "resolved": "https://registry.npmjs.org/web-tree-sitter/-/web-tree-sitter-0.26.13.tgz",
-      "integrity": "sha512-5bUZ7vbQ1kcondet96wzP974+JfCZDeQ7bTpacICm2nnvHpa5cO0ByRsoMcAhUP+743vpkb4m0BFlVSm+Ye9VA==",
+      "version": "0.27.1",
+      "resolved": "https://registry.npmjs.org/web-tree-sitter/-/web-tree-sitter-0.27.1.tgz",
+      "integrity": "sha512-qtx0VyUyNRHtL3ze7+v0hCKB/sLcAmY7ZAVp/ZK/bCj0yED8ptvNrr7Vd7DwDyKDWN9baqcUx4uaD2r2ql+6IA==",
       "license": "MIT"
-    },
-    "node_modules/which": {
-      "version": "2.0.2",
-      "resolved": "https://registry.npmjs.org/which/-/which-2.0.2.tgz",
-      "integrity": "sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==",
-      "license": "ISC",
-      "dependencies": {
-        "isexe": "^2.0.0"
-      },
-      "bin": {
-        "node-which": "bin/node-which"
-      },
-      "engines": {
-        "node": ">= 8"
-      }
     }
   }
 }
